@@ -1,4 +1,4 @@
-using API.Models;
+﻿using API.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +14,10 @@ namespace WebAPI.Models
 {
     public class KhoiTaoDuLieu
     {
-        const string defaultAdminUserName = "DefaultAdminUserName";
-        const string defaultAdminPassword = "DefaultAdminPassword";
+        const string taikhoancuaadmin = "taikhoancuaadmin";
+        const string matkhaucuaadmin = "matkhaucuaadmin";
 
-        public static async Task InitializeLaptopStoreDatabaseAsync (IServiceProvider serviceProvider, bool createUser = true)
+        public static async Task KhoiTaoDuLieuBanDau (IServiceProvider serviceProvider, bool createUser = true)
         {
             using (var serviceScope = serviceProvider.CreateScope())
             {
@@ -30,62 +30,36 @@ namespace WebAPI.Models
 
                     if (createUser == true)
                     {
-                        await CreateAdminUser(scopeServiceProvider);
+                        await TaoTaiKhoanAdmin(scopeServiceProvider);
                     }
                 }
                 
             }
         }
 
-        private static async Task AddOrUpdateAsync<TEntity>(
-            IServiceProvider serviceProvider,
-            Func<TEntity, object> propertyToMatch, IEnumerable<TEntity> entities)
-            where TEntity : class
+        private static async Task TaoTaiKhoanAdmin(IServiceProvider serviceProvider)
         {
-            // Query in a separate context so that we can attach existing entities as modified
-            List<TEntity> existingData;
-            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                var db = serviceScope.ServiceProvider.GetService<LapTopStoreContext>();
-                existingData = db.Set<TEntity>().ToList();
-            }
-
-            using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                var db = serviceScope.ServiceProvider.GetService<LapTopStoreContext>();
-                foreach (var item in entities)
-                {
-                    db.Entry(item).State = existingData.Any(g => propertyToMatch(g).Equals(propertyToMatch(item)))
-                        ? EntityState.Modified
-                        : EntityState.Added;
-                }
-
-                await db.SaveChangesAsync();
-            }
-        }
-
-        private static async Task CreateAdminUser(IServiceProvider serviceProvider)
-        {
+            //Lấy đối tượng môi trường đang chạy App
             var env = serviceProvider.GetService<IHostingEnvironment>();
-
-            var builder = new ConfigurationBuilder()
+            
+            var cauhinhmoitruong = new ConfigurationBuilder()
                               .SetBasePath(env.ContentRootPath)
                               .AddJsonFile("appsettings.json")
                               .AddEnvironmentVariables();
-            var configuration = builder.Build();
-
-            var userManager = serviceProvider.GetService<UserManager<NguoiDungEntity>>();
-
-            var user = await userManager.FindByNameAsync(configuration[defaultAdminUserName]);
+            var cauhinh = cauhinhmoitruong.Build();
+            //Khởi tạo lớp hỗ trợ tạo tài khoãn
+            var quanlynguoidung = serviceProvider.GetService<UserManager<NguoiDungEntity>>();
+            //Kiểm tra có tài khoản admin chưa
+            var user = await quanlynguoidung.FindByNameAsync(cauhinh[taikhoancuaadmin]);
 
             if (user == null)
             {
-                var createUser = new NguoiDungEntity() {
-                    UserName = configuration[defaultAdminUserName],
-                    Email = configuration[defaultAdminUserName]  
+                var taikhoanadmin = new NguoiDungEntity() {
+                    UserName = cauhinh[taikhoancuaadmin],
+                    Email = cauhinh[taikhoancuaadmin]  
                 };
-                await userManager.CreateAsync(createUser, configuration[defaultAdminPassword]);
-                await userManager.AddClaimAsync(createUser, new Claim("Admin", "Allowed"));
+                await quanlynguoidung.CreateAsync(taikhoanadmin, cauhinh[matkhaucuaadmin]);
+                await quanlynguoidung.AddClaimAsync(taikhoanadmin, new Claim("Admin", "Allowed"));
             }
         }
     }

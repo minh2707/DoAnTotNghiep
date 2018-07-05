@@ -130,7 +130,7 @@ namespace API
             //Thêm chức năng xác thực người dùng
             app.UseAuthentication();
 
-            KhoiTaoDuLieu.InitializeLaptopStoreDatabaseAsync(app.ApplicationServices).Wait();
+            KhoiTaoDuLieu.KhoiTaoDuLieuBanDau(app.ApplicationServices).Wait();
 
             app.UseMvc();
         }
