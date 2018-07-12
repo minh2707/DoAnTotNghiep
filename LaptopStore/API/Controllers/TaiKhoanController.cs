@@ -44,7 +44,7 @@ namespace API.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("DangKy")]
-        public async Task<IActionResult> Register([FromBody] ModelDangKyMau registerModel)
+        public async Task<IActionResult> DangKy([FromBody] ModelDangKyMau registerModel)
         {
             if (!ModelState.IsValid)
             {
