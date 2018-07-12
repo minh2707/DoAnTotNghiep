@@ -13,21 +13,20 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 namespace WebAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/DonHang")]
     public class OrdersController : Controller
     {
-        private readonly LapTopStoreContext _context;
+        private readonly LapTopStoreContext ketnoidatabase;
 
-        public OrdersController(LapTopStoreContext context)
+        public OrdersController(LapTopStoreContext ketnoi)
         {
-            _context = context;
+            ketnoidatabase = ketnoi;
         }
 
         // GET: api/LayHetDonHang lay het tat don hang
         [HttpGet("api/LayHetDonHang")]
         public IEnumerable<DonHang> LayTatCaDonHang()
         {
-            return _context.DonHang;
+            return ketnoidatabase.DonHang;
         }
 
         // GET: api/LayMotDonHang/5
@@ -39,7 +38,7 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var order = await _context.DonHang.SingleOrDefaultAsync(m => m.Id== id);
+            var order = await ketnoidatabase.DonHang.SingleOrDefaultAsync(m => m.Id== id);
 
             if (order == null)
             {
@@ -64,11 +63,11 @@ namespace WebAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(donhang).State = EntityState.Modified;
+            ketnoidatabase.Entry(donhang).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await ketnoidatabase.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -94,8 +93,8 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.DonHang.Add(donhang);
-            var kq = await _context.SaveChangesAsync();
+            ketnoidatabase.DonHang.Add(donhang);
+            var kq = await ketnoidatabase.SaveChangesAsync();
 
             return CreatedAtAction("LayMotDonHang", new { id = donhang.Id}, donhang);
 
@@ -111,14 +110,14 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var donhang = await _context.DonHang.SingleOrDefaultAsync(m => m.Id == id);
+            var donhang = await ketnoidatabase.DonHang.SingleOrDefaultAsync(m => m.Id == id);
             if (donhang == null)
             {
                 return NotFound();
             }
 
-            _context.DonHang.Remove(donhang);
-            await _context.SaveChangesAsync();
+            ketnoidatabase.DonHang.Remove(donhang);
+            await ketnoidatabase.SaveChangesAsync();
 
             return RedirectToAction("XoaChiTietDonHang", "ChiTietDonHang", new { id = id});
         }
@@ -133,14 +132,14 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var chitietdonhang = await _context.ChiTietDonHang.Where(p => p.Id== id).ToListAsync();
+            var chitietdonhang = await ketnoidatabase.ChiTietDonHang.Where(p => p.Id== id).ToListAsync();
 
             return Ok(chitietdonhang);
         }
 
         private bool Kiemtrasutontaicuadonhang(int id)
         {
-            return _context.DonHang.Any(e => e.Id == id);
+            return ketnoidatabase.DonHang.Any(e => e.Id == id);
         }
 
     }
