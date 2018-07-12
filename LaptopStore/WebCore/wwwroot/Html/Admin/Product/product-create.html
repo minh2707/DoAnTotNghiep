@@ -1,0 +1,64 @@
+﻿<div class="col-lg-12 container well" style="margin-top: 50px" name="formCreateProduct">
+    <div class="col-lg-6 col-md-6 col-sm-12 row">
+        <img style="width:340px;" ng-show="formCreateProduct.file.$valid" ngf-thumbnail="createProduct.image">
+        <!-- Progress bar when upload -->
+        <!--<span class="progress" ng-show="createProduct.image.progress && createProduct.image.progress >= 0">
+            <div style="width:{{createProduct.image.progress}}%"
+                 ng-bind="createProduct.image.progress + '%'"></div>
+        </span>-->
+        <uib-progressbar animate="createProduct.image.animate" ng-show="createProduct.image.progress > 0" class="progress-striped active" value="createProduct.image.progress" type="success">{{createProduct.image.progress}}%</uib-progressbar>
+        <!-- End -->
+
+        <input class="img-thumbnail"  type="file" ngf-select ng-model="createProduct.image" name="file"
+               accept="image/*" ngf-max-size="2MB" required
+               ngf-model-invalid="errorFile">
+        <i ng-show="formCreateProduct.file.$error.required">*required</i><br>
+        <i ng-show="formCreateProduct.file.$error.maxSize">
+            File too large
+            {{errorFile.size / 1000000|number:1}}MB: max 2M
+        </i>
+    </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 row">
+            <div class="input-group col-lg-12">
+                <label class="col-md-5">Product Name:</label>
+                <input class="col-sm-12 col-md-7 input-sm" type="text" value="" ng-model="createProduct.name" />
+
+            </div>
+            <div class="input-group col-lg-12">
+                <label class="col-md-5">Category Id:</label>
+                <select ng-options="category.cateId for category in categories" ng-model="createProduct.cateId"></select>
+            </div>
+            <div class="input-group col-lg-12">
+                <label class="col-md-5">Price:</label>
+                <input class="col-sm-12 col-md-7 input-sm" type="number" value="" ng-model="createProduct.price" />
+            </div>
+            <div class="input-group col-lg-12">
+                <label class="col-md-5">Discount:</label>
+                <input class="col-sm-12 col-md-7 input-sm" type="number" value="" ng-model="createProduct.discount" />
+            </div>
+            <div class="input-group col-lg-12">
+                <label class="col-md-5">Quantity:</label>
+                <input class="col-sm-12 col-md-7 input-sm" type="number" min="1" value="" ng-model="createProduct.quantity" />
+            </div>
+            <div class="input-group col-lg-12">
+                <label class="col-md-5">Description:</label>
+                <textarea class="col-sm-12 col-md-7 input-sm" ng-model="createProduct.description">
+                    
+                </textarea>
+            </div>
+            <div class="input-group col-lg-12">
+                <label class="col-md-5">Status:</label>
+                <div class="col-sm-12 col-lg-7 input-group">
+                    <input  type="radio" name="status" value="true" ng-model="createProduct.status" /> True
+                    <input type="radio" name="status" value="false" ng-model="createProduct.status" />False
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="input-group-btn">
+                    <a class="btn btn-default" href="/Admin/#!/products">Cancel</a>
+                    <button class="btn btn-primary" ng-click="doCreateProduct(createProduct)" >Create</button>
+                </div>
+            </div>
+        </div>
+</div>

@@ -1,0 +1,38 @@
+﻿<!-- BEGIN CONTENT -->
+<div class="col-md-9 col-sm-7">
+    <div class="product-page">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="product-main-image">
+                    <img ng-src="/img/sanpham/{{sanphamchitiet.hinh}}" alt="" class="img-responsive">
+                </div>
+                <div class="product-other-images">
+                    
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <h1>{{sanphamchitiet.ten}}</h1>
+                <div class="price-availability-block clearfix">
+                    <div class="price">
+                        <strong style="font-size: 160%" class="input-sm">{{sanphamchitiet.gia | currency:"VND" : 0}}</strong>
+                    </div>
+                    <div class="availability">
+                        Trạng Thái: <strong>{{sanphamchitiet.trangthai}}</strong>
+                    </div>
+                </div>
+                <div class="description">
+                    <p>
+                        {{sanphamchitiet.mota}}
+                    </p>
+                </div>
+                
+                <div class="product-page-cart">
+                    <div class="product-quantity">
+                        <input id="product-quantity" type="number"  min="0" class="form-control input-sm" data-ng-model="sanphamchitiet.soluong">
+                    </div>
+                    <button class="btn btn-primary" type="submit" data-ng-click="addCart(sanphamchitiet)">Thêm Giỏ Hàng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

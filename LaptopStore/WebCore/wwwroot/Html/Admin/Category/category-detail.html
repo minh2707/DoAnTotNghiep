@@ -1,0 +1,32 @@
+﻿﻿<div class="col-lg-12 container" style="margin-top: 50px">
+    <div class="col-md-12 col-lg-12 ">
+        <button class="btn btn-default pull-right" ng-click="enableEditModel()" data-ng-show="!isEditModel">Edit</button>
+    </div>
+    <div class="">
+        <div class="col-lg-6 col-md-6 col-sm-12 row">
+            <div class="input-group col-lg-12">
+                <label class="col-md-5 col-sm-12">Cate Id:</label>
+                <p class="col-md-7 col-sm-12" data-ng-show="!isEditModel">{{category.cateId}}</p>
+                <input class="col-sm-12 col-md-7 input-sm" type="text" value="{{category.cateId}}" readonly ng-model="editCategoty.cateId" data-ng-show="isEditModel" />
+            </div>
+            <div class="input-group col-lg-12">
+                <label class="col-md-5">Name:</label>
+                <p class="col-md-7 col-sm-12" data-ng-show="!isEditModel">{{category.name}}</p>
+                <input class="col-sm-12 col-md-7 input-sm" type="text" value="{{category.name}}" ng-model="editCategoty.name" data-ng-show="isEditModel" />
+            </div>
+            <div class="input-group col-lg-12">
+                <label class="col-md-5">Alias:</label>
+                <p class="col-md-7" data-ng-show="!isEditModel">{{category.alias}}</p>
+                <input class="col-sm-12 col-md-7 input-sm" type="text" value="{{category.alias}}" ng-model="editCategoty.alias" data-ng-show="isEditModel" />
+            </div>
+
+            <div class="col-lg-12" data-ng-show="isEditModel">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" data-ng-click="isEditModel = !isEditModel">Cancel</button>
+                    <button class="btn btn-primary" data-ng-click="updateProduct(editCategoty)">Save</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

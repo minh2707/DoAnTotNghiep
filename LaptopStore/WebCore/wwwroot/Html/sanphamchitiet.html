@@ -1,0 +1,55 @@
+﻿<!-- BEGIN CONTENT -->
+<div class="col-md-12 col-sm-12">
+    <div class="product-page">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="product-main-image">
+                    <img src="../img/products/{{productDetail.image}}" alt="{{productDetail.name}}-img" class="img-responsive">
+                </div>
+                <div class="product-other-images">
+                    <!--<a href="assets/pages/img/products/model3.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="assets/pages/img/products/model3.jpg"></a>
+                    <a href="assets/pages/img/products/model4.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="assets/pages/img/products/model4.jpg"></a>
+                    <a href="assets/pages/img/products/model5.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="assets/pages/img/products/model5.jpg"></a>-->
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <h1>{{productDetail.name}}</h1>
+                <div class="price-availability-block clearfix">
+                    <div class="price">
+                        <strong style="font-size: 160%" class="input-sm">{{productDetail.price | currency:"VND" : 0}}</strong>
+                        <em><span>{{(productDetail.price + (productDetail.price * productDetail.discount)) | currency:"VND" : 0}}</span></em>
+                    </div>
+                    <div class="availability">
+                        Availability: <strong>{{productDetail.status}}</strong>
+                    </div>
+                </div>
+                <div class="description" ng-bind-html="productDetail.description">
+                    
+                </div>
+                <div class="product-page-cart">
+                    <div class="product-quantity">
+                        <input id="product-quantity" type="number" value="{{productDetail.quantity}}" min="1" class="form-control input-sm" ng-model="productDetail.quantity">
+                    </div>
+                    <button class="btn btn-primary" type="submit" ng-click="addCart(productDetail)">Add to cart</button>
+                </div>
+                
+                <ul class="social-icons">
+                    <li><a class="facebook" data-original-title="facebook" href="javascript:;"></a></li>
+                    <li><a class="twitter" data-original-title="twitter" href="javascript:;"></a></li>
+                    <li><a class="googleplus" data-original-title="googleplus" href="javascript:;"></a></li>
+                    <li><a class="evernote" data-original-title="evernote" href="javascript:;"></a></li>
+                    <li><a class="tumblr" data-original-title="tumblr" href="javascript:;"></a></li>
+                </ul>
+            </div>
+            <div>
+                <uib-tabset active="active" class="product-page-content">
+                    <uib-tab index="0" heading="Description">
+                        <div ng-bind-html="productDetail.description"></div>
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+            <div class="sticker sticker-sale" ng-show="productDetail.discount != 0"></div>
+        </div>
+    </div>
+</div>
+<!-- END CONTENT -->
