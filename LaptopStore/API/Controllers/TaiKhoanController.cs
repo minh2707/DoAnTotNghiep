@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 namespace API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/TaiKhoan")]
+    [Route("api/")]
     public class TaiKhoanController : Controller
     {
         private readonly UserManager<NguoiDungEntity> _quanlyTaiKhoan;
@@ -44,41 +44,41 @@ namespace API.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("DangKy")]
-        public async Task<IActionResult> DangKy([FromBody] ModelDangKyMau registerModel)
+        public async Task<IActionResult> DangKy([FromBody] ModelDangKyMau taikhoandungdedangky)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = new NguoiDungEntity()
+            var taikhoan = new NguoiDungEntity()
             {
-                UserName = registerModel.Email,
-                Email = registerModel.Email,
-                Ho = registerModel.Ho,
-                Ten = registerModel.Ten
+                UserName = taikhoandungdedangky.Email,
+                Email = taikhoandungdedangky.Email,
+                Ho = taikhoandungdedangky.Ho,
+                Ten = taikhoandungdedangky.Ten
             };
             //Tao tai khoan user bang CreateAsync
-            var result = await _quanlyTaiKhoan.CreateAsync(user, registerModel.MatKhau);
+            var kq = await _quanlyTaiKhoan.CreateAsync(taikhoan, taikhoandungdedangky.MatKhau);
 
-            if (result.Succeeded)
+            if (kq.Succeeded)
             {
-                return Ok(result);
+                return Ok(kq);
             }
 
-            foreach (var err in result.Errors)
+            foreach (var err in kq.Errors)
             {
                 ModelState.AddModelError("error", err.Description);
 
             }
 
-            return BadRequest(result.Errors);
+            return BadRequest(kq.Errors);
         }
 
         [HttpPost]
         [AllowAnonymous]
-        [Route("Login")]
-        public async Task<IActionResult> Login([FromBody] ModelDangNhapMau model)
+        [Route("DangNhap")]
+        public async Task<IActionResult> DangNhap([FromBody] ModelDangNhapMau dulieu)
         {
 
             if (!ModelState.IsValid)
@@ -90,25 +90,25 @@ namespace API.Controllers
                 try
                 {
                     //Tim tai khoan bang email
-                    var user = await _quanlyTaiKhoan.FindByNameAsync(model.Email);
+                    var tk = await _quanlyTaiKhoan.FindByNameAsync(dulieu.Email);
                     //neu tim khong co
-                    if (user == null)
+                    if (tk == null)
                     {
                         return BadRequest("Tai Khoan Khong Ton Tai");
                     }
                     //Nếu tìm thấy
                     //So sánh mật khẩu có bằng nhau ko
-                    if (_makhoaMatKhau.VerifyHashedPassword(user, user.PasswordHash, model.MatKhau) == PasswordVerificationResult.Success)
+                    if (_makhoaMatKhau.VerifyHashedPassword(tk, tk.PasswordHash, dulieu.MatKhau) == PasswordVerificationResult.Success)
                     {
-                        var userClaim = await _quanlyTaiKhoan.GetClaimsAsync(user);
-                        _logger.LogInformation(userClaim.ToString());
+                        var quyencuauser = await _quanlyTaiKhoan.GetClaimsAsync(tk);
+                        _logger.LogInformation(quyencuauser.ToString());
 
-                        var claims = new[]
+                        var quyenhan = new[]
                         {
-                           new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                           new Claim(JwtRegisteredClaimNames.Sub, tk.UserName),
                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                           new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                        }.Union(userClaim);
+                           new Claim(JwtRegisteredClaimNames.Email, tk.Email),
+                        }.Union(quyencuauser);
 
                         var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configurationRoot["JwtSecurityToken:Key"]));
                         var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -116,39 +116,39 @@ namespace API.Controllers
                         var jwt = new JwtSecurityToken(
                             issuer: _configurationRoot["JwtSecurityToken:Issuer"],
                             audience: _configurationRoot["JwtSecurityToken:Audience"],
-                            claims: claims,
+                            claims: quyenhan,
                             expires: DateTime.UtcNow.AddMinutes(30),
                             signingCredentials: signingCredentials
                             );
 
-                        var isAdmin = false;
+                        var laAdmin = false;
 
-                        if (userClaim.Count > 0)
+                        if (quyencuauser.Count > 0)
                         {
-                            for (int i = 0; i < userClaim.Count; i++)
+                            for (int i = 0; i < quyencuauser.Count; i++)
                             {
-                                if (userClaim[i].Type == "Admin")
+                                if (quyencuauser[i].Type == "Admin")
                                 {
-                                    isAdmin = true;
+                                    laAdmin = true;
                                 }
                                 else
                                 {
-                                    isAdmin = false;
+                                    laAdmin = false;
                                 }
                             }
                         }
                         else
                         {
-                            isAdmin = false;
+                            laAdmin = false;
                         }
 
 
 
                         return Ok(new
                         {
-                            email = user.Email,
-                            fullname = user.TenHienThi,
-                            isadmin = isAdmin,
+                            email = tk.Email,
+                            fullname = tk.TenHienThi,
+                            laAdmin = laAdmin,
                             token = new JwtSecurityTokenHandler().WriteToken(jwt),
                             expiration = jwt.ValidTo
                         });
@@ -160,8 +160,8 @@ namespace API.Controllers
                 }
                 catch (Exception e)
                 {
-                    _logger.LogError($"Error when creating token: { e }");
-                    return StatusCode((int)HttpStatusCode.InternalServerError, $"Error when creating token: {e}");
+                    _logger.LogError($"Lỗi: { e }");
+                    return StatusCode((int)HttpStatusCode.InternalServerError, $"Lỗi: {e}");
                 }
 
             }
@@ -169,8 +169,8 @@ namespace API.Controllers
 
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme + ", " + CookieAuthenticationDefaults.AuthenticationScheme)]
-        [Route("Logout")]
-        public async Task<IActionResult> Logout()
+        [Route("DangXuat")]
+        public async Task<IActionResult> DangXuat()
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -182,7 +182,7 @@ namespace API.Controllers
 
                 await _quanlyDangNhap.SignOutAsync();
 
-                return Ok("Logout successfully!");
+                return Ok("Đăng Xuất Thành Công!");
             }
         }
     }

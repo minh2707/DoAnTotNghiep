@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebCore.Controllers
 {
-    public class AccountController : Controller
+    public class TaiKhoanController : Controller
     {
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult DangNhap()
         {
             return View();
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult DangKy()
         {
             return View();
         }
