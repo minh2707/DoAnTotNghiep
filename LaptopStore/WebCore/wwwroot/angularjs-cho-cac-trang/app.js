@@ -42,51 +42,51 @@
     }]);
 
     app.run(['NgStorageService', '$rootScope', '$http', function (ngStorageService, $rootScope, $http) {
-        $rootScope.user = ngStorageService.getLocalStorage('user');
-        console.log($rootScope.user);
-        $rootScope.carts = {};
+        $rootScope.taikhoan = ngStorageService.getLocalStorage('taikhoan');
+        console.log($rootScope.taikhoan);
+        $rootScope.giohang = {};
 
-        $rootScope.removeProductFromCart = removeProductFromCart;
-        $rootScope.logout = logout;
+        $rootScope.xoasanphamtronggiohang = xoasanphamtronggiohang;
+        $rootScope.dangxuat = dangxuat;
 
-        if ($rootScope.user) {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $rootScope.user.token;
+        if ($rootScope.taikhoan) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $rootScope.taikhoan.token;
         }
 
-        $rootScope.$watchCollection('carts.products', function (newValue, oldValue) {
-            var total = 0;
+        $rootScope.$watchCollection('giohang.sanpham', function (giatrimoi, giatricu) {
+            var tongtien = 0;
 
-            if (!angular.isUndefined(newValue) || newValue.length !== 0 || newValue !== null) {
+            if (!angular.isUndefined(giatrimoi) || giatrimoi.length !== 0 || giatrimoi !== null) {
 
-                newValue.forEach(function (product) {
-                    total += (product.price * product.quantity);
+                giatrimoi.forEach(function (sanpham) {
+                    tongtien += (sanpham.gia * sanpham.soluong);
                 });
 
-                $rootScope.carts.total = total;
+                $rootScope.giohang.tongtien = tongtien;
             } else {
-                $rootScope.carts.total = total;
+                $rootScope.giohang.tongtien = tongtien;
             }
         }, true);
 
-        function removeProductFromCart(product) {
-            var productsInCart = ngStorageService.getSessionStorage('carts');
-            var index = null;
+        function xoasanphamtronggiohang(sanpham) {
+            var sanphamtronggiohang = ngStorageService.getSessionStorage('giohang');
+            var stt = null;
 
-            productsInCart.forEach(function (p, i) {
-                if (p.productId === product.productId) {
-                    index = i;
+            sanphamtronggiohang.forEach(function (p, i) {
+                if (p.id === sanpham.id) {
+                    stt = i;
                 }
             });
 
-            productsInCart.splice(index, 1);
-            $rootScope.carts.products.splice(index, 1);
-            ngStorageService.setSessionStorage('carts', productsInCart);
+            sanphamtronggiohang.splice(stt, 1);
+            $rootScope.giohang.sanpham.splice(stt, 1);
+            ngStorageService.setSessionStorage('giohang', sanphamtronggiohang);
         }
 
-        function logout() {
-            $http.get('http://localhost:49595/api/Account/Logout', { headers: { Authorization: 'Bearer ' + $rootScope.user.token } })
+        function dangxuat() {
+            $http.get('http://localhost:49595/api/DangXuat', { headers: { Authorization: 'Bearer ' + $rootScope.taikhoan.token } })
                 .then(function (res) {
-                    $rootScope.user = null;
+                    $rootScope.taikhoan = null;
 
                     ngStorageService.resetLocalStorage();
                 })
@@ -95,11 +95,11 @@
                 });
         };
 
-        var foundCarts = ngStorageService.getSessionStorage('carts');
-        if (!angular.isUndefined(foundCarts)) {
-            $rootScope.carts.products = foundCarts
+        var timgiohang = ngStorageService.getSessionStorage('giohang');
+        if (!angular.isUndefined(timgiohang)) {
+            $rootScope.giohang.sanpham = timgiohang
         } else {
-            $rootScope.carts.products = [];
+            $rootScope.giohang.sanpham = [];
         }
 
     }]);

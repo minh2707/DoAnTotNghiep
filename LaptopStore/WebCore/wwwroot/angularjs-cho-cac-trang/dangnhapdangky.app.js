@@ -1,12 +1,11 @@
 ﻿(function () {
     'use strict';
 
-    var app = angular.module('LoginApp', [
+    var app = angular.module('DangNhapDangKyApp', [
         // Angular modules 
         'ngRoute',
         'toastr',
         'ngStorage',
-        'laptopStoreApp'
 
         // Custom modules 
 

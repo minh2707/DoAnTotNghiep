@@ -2,23 +2,23 @@
     'use strict';
 
     angular
-        .module('LoginApp')
-        .factory('AccountService', AccountService);
+        .module('DangNhapDangKyApp')
+        .factory('TaiKhoanService', TaiKhoanService);
 
-    AccountService.$inject = ['$http', '$q'];
+    TaiKhoanService.$inject = ['$http', '$q'];
 
-    function AccountService($http, $q) {
+    function TaiKhoanService($http, $q) {
         var service = {
-            registerAccount: registerAccount,
-            loginAccount: loginAccount
+            dangkytaikhoan: dangkytaikhoan,
+            dangnhaptaikhoan: dangnhaptaikhoan
         };
 
         return service;
 
-        function registerAccount(account) {
+        function dangkytaikhoan(taikhoan) {
             var deferred = $q.defer();
 
-            $http.post('http://localhost:49595/api/Account/Register', account)
+            $http.post('http://localhost:49595/api/DangKy', taikhoan)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -30,10 +30,10 @@
 
         }
 
-        function loginAccount(account) {
+        function dangnhaptaikhoan(taikhoan) {
             var deferred = $q.defer();
 
-            $http.post('http://localhost:49595/api/Account/Login', account)
+            $http.post('http://localhost:49595/api/DangNhap', taikhoan)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })

@@ -15,8 +15,6 @@
     <meta property="og:image" content="-CUSTOMER VALUE-"><!-- link to image for socio -->
     <meta property="og:url" content="-CUSTOMER VALUE-">
      
-    <base href="~" />
-
     <link rel="shortcut icon" href="favicon.ico">
 
     <!-- Fonts START -->
@@ -68,16 +66,16 @@
                 <!-- BEGIN TOP BAR MENU -->
                 <div class="col-md-6 col-sm-6 additional-nav">
                     <ul class="list-unstyled list-inline pull-right">
-                        <li data-ng-if="!user"><a href="/Account/Register">Register</a></li>
-                        <li data-ng-if="!user"><a href="/Account/Login">Log In</a></li>
-                        <li class="dropdown" data-ng-if="user">
+                        <li data-ng-if="!taikhoan.email"><a href="/TaiKhoan/DangKy">Đăng Ký</a></li>
+                        <li data-ng-if="!taikhoan.email"><a href="/TaiKhoan/DangNhap">Đăng Nhập</a></li>
+                        <li class="dropdown" data-ng-if="taikhoan.email">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-                                <i class="fa fa-user fa-fw"></i>{{user.email}} <i class="fa fa-caret-down"></i>
+                                <i class="fa fa-user fa-fw"></i>{{taikhoan.email}} <i class="fa fa-caret-down"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-user">
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="javascript:;" data-ng-click="logout()"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                    <a href="javascript:;" data-ng-click="dangxuat()"><i class="fa fa-sign-out fa-fw"></i> Đăng Xuất</a>
                                 </li>
                             </ul>
                             <!-- /.dropdown-user -->
@@ -92,69 +90,65 @@
     <!-- BEGIN HEADER -->
     <div class="header">
         <div class="container">
-            <a class="site-logo" href="shop-index.html"><img src="~/assets/corporate/img/logos/logo-shop-red.png" alt="Metronic Shop UI"></a>
+            <a class="site-logo" href="/"><img style="width:51px;height:57px" src="~/img/sanpham/shop_laptop_web-256.png" alt="vidu"></a>
             <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
             <!-- BEGIN CART -->
             <div class="top-cart-block">
                 <div class="top-cart-info">
-                    <a href="/#!/cart" class="top-cart-info-count" data-ng-bind="(carts.products.length) + ' items'"></a>
-                    <a href="/#!/cart" class="top-cart-info-value" data-ng-bind="(carts.total | currency:'VND' : 0)"></a>
+                    <a href="/#!/giohang" class="top-cart-info-count" data-ng-bind="(giohang.sanpham.length) + ' items'"></a>
+                    <a href="/#!/giohang" class="top-cart-info-value" data-ng-bind="(giohang.tongtien | currency:'VND' : 0)"></a>
                 </div>
                 <i class="fa fa-shopping-cart"></i>
 
                 <div class="top-cart-content-wrapper">
                     <div class="top-cart-content">
                         <ul class="scroller" style="height: 250px;">
-                            <li ng-repeat="productInCart in carts.products track by $index">
-                                <a class="" href="/#!/products/{{productInCart.productId}}"><img src="~/img/products/{{productInCart.image}}" alt="Rolex Classic Watch" width="37" height="34"></a>
-                                <span class="cart-content-count">x {{productInCart.quantity}}</span>
-                                <strong><a href="/#!/products/{{productInCart.productId}}">{{productInCart.name}}</a></strong>
-                                <a data-ng-click="removeProductFromCart(productInCart)" class="del-goods">&nbsp;</a>
-                                <em style="width:37%">{{(productInCart.quantity * productInCart.price) | currency:"VND" : 0}}</em>
+                            <li ng-repeat="sanphamtronggiohang in giohang.sanpham track by $index">
+                                <a class="" href="/#!/sanpham/{{sanphamtronggiohang.id}}"><img ng-src="/img/sanpham/{{sanphamtronggiohang.hinh}}" alt="{{sanphamtronggiohang.ten}}" width="37" height="34"></a>
+                                <span class="cart-content-count">x {{sanphamtronggiohang.soluong}}</span>
+                                <strong><a href="/#!/sanpham/{{sanphamtronggiohang.id}}">{{sanphamtronggiohang.ten}}</a></strong>
+                                <a data-ng-click="xoasanphamtronggiohang(sanphamtronggiohang)" class="del-goods">&nbsp;</a>
+                                <em style="width:37%">{{(sanphamtronggiohang.soluong * sanphamtronggiohang.gia) | currency:"VND" : 0}}</em>
                             </li>
                         </ul>
                         <div class="text-right">
-                            <a href="/#!/cart" class="btn btn-default">View Cart</a>
-                            <a href="/#!/checkout" class="btn btn-primary">Checkout</a>
+                            <a href="/#!/giohang" class="btn btn-default">Xem Giỏ Hàng</a>
+                            <a href="/#!/thanhtoan" class="btn btn-primary">Thanh Toán</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--END CART -->
-            <!-- BEGIN NAVIGATION -->
+
             <div class="header-navigation">
                 <ul>
                     
-                    <li><a href="/">Home Page</a></li>
-                    <li><a href="/#!/cart">Cart Page</a></li>
+                    <li><a href="/">Trang Chủ</a></li>
+                    <li><a href="/#!/giohang">Trang Giỏ Hàng</a></li>
                     
                     
-                    <!-- BEGIN TOP SEARCH -->
                     <li class="menu-search">
                         <span class="sep"></span>
                         <i class="fa fa-search search-btn"></i>
                         <div class="search-box">
                             <form action="#">
                                 <div class="input-group">
-                                    <input type="text" placeholder="Search" class="form-control">
+                                    <input type="text" placeholder="Tìm Kiếm" class="form-control">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="submit">Search</button>
+                                        <button class="btn btn-primary" type="submit">Tìm Kiếm</button>
                                     </span>
                                 </div>
                             </form>
                         </div>
                     </li>
-                    <!-- END TOP SEARCH -->
                 </ul>
             </div>
             <!-- END NAVIGATION -->
         </div>
     </div>
-    <!-- Header END -->
-    <!-- BEGIN SLIDER -->
+
     <div class="page-slider margin-bottom-35 container">
         <div id="carousel-example-generic" class="carousel slide carousel-slider">
-            <!-- Indicators -->
+
             <ol class="carousel-indicators">
                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                 <li data-target="#carousel-example-generic" data-slide-to="1"></li>
@@ -162,9 +156,8 @@
                 <li data-target="#carousel-example-generic" data-slide-to="3"></li>
             </ol>
 
-            <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
-                <!-- First slide -->
+
                 <div class="item carousel-item-four active">
                     <div class="container">
                     </div>
@@ -232,42 +225,38 @@
                     <div class="col-md-4 steps-block-col">
                         <i class="fa fa-truck"></i>
                         <div>
-                            <h2>Free shipping</h2>
-                            <em>Express delivery withing 3 days</em>
+                            <h2>Giao Hàng Miễn Phí</h2>
+                            <em>Trong Vòng 3 Ngày</em>
                         </div>
                         <span>&nbsp;</span>
                     </div>
                     <div class="col-md-4 steps-block-col">
                         <i class="fa fa-gift"></i>
                         <div>
-                            <h2>Daily Gifts</h2>
-                            <em>3 Gifts daily for lucky customers</em>
+                            <h2>Quà Tặng</h2>
+                            <em>Cho Tất Cả Khách Hàng</em>
                         </div>
                         <span>&nbsp;</span>
                     </div>
                     <div class="col-md-4 steps-block-col">
                         <i class="fa fa-phone"></i>
                         <div>
-                            <h2>(+84)28 3123 4910</h2>
-                            <em>24/7 customer care available</em>
+                            <h2>0120 716 9605</h2>
+                            <em>Hỗ Trợ 1/7</em>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- END STEPS -->
-        <!-- BEGIN PRE-FOOTER -->
         <div class="pre-footer">
             <div class="container">
 
             </div>
         </div>
-        <!-- END PRE-FOOTER -->
-        <!-- BEGIN FOOTER -->
-        <div class="footer">
+               <div class="footer">
             <div class="container">
                 <div class="row">
-                    <!-- BEGIN COPYRIGHT -->
+                    
                     <div class="col-md-4 col-sm-4 padding-top-10">
                         2017 © LaptopStore. <br />
                         ALL Rights Reserved.
@@ -276,23 +265,20 @@
                     <!-- BEGIN PAYMENTS -->
                     <div class="col-md-4 col-sm-4">
                         <ul class="list-unstyled list-inline pull-right">
-                            <li><img src="~/assets/corporate/img/payments/western-union.jpg" alt="We accept Western Union" title="We accept Western Union"></li>
-                            <li><img src="~/assets/corporate/img/payments/american-express.jpg" alt="We accept American Express" title="We accept American Express"></li>
-                            <li><img src="~/assets/corporate/img/payments/MasterCard.jpg" alt="We accept MasterCard" title="We accept MasterCard"></li>
-                            <li><img src="~/assets/corporate/img/payments/PayPal.jpg" alt="We accept PayPal" title="We accept PayPal"></li>
-                            <li><img src="~/assets/corporate/img/payments/visa.jpg" alt="We accept Visa" title="We accept Visa"></li>
+                            <li><img src="~/assets/corporate/img/payments/western-union.jpg" alt="vidu" title="vidu"></li>
+                            <li><img src="~/assets/corporate/img/payments/american-express.jpg" alt="vidu" title="vidu"></li>
+                            <li><img src="~/assets/corporate/img/payments/MasterCard.jpg" alt="vidu" title="vidu"></li>
+                            <li><img src="~/assets/corporate/img/payments/PayPal.jpg" alt="vidu" title="vidu"></li>
+                            <li><img src="~/assets/corporate/img/payments/visa.jpg" alt="vidu" title="vidu"></li>
                         </ul>
                     </div>
-                    <!-- END PAYMENTS -->
                     <!-- BEGIN POWERED -->
                     <div class="col-md-4 col-sm-4 text-right">
-                        <p class="powered">Powered by: <a href="http://www.google.com/">Team K&T</a></p>
+                        <p class="powered">Powered by: <a href="http://www.google.com/">Ngọc Minh</a></p>
                     </div>
-                    <!-- END POWERED -->
                 </div>
             </div>
         </div>
-        <!-- END FOOTER -->
         
         <!-- Load javascripts at bottom, this will reduce page load time -->
         <!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
