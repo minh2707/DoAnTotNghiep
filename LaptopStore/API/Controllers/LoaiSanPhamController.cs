@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
         }
 
         [AllowAnonymous]
-        [Route("api/LayHetLoaiSanPham/{id}")]
+        [Route("api/LayMotLoaiSanPham/{id}")]
         [HttpGet]
         public async Task<IActionResult> LayMotLoaiSanPham(int id)
         {
@@ -89,7 +89,7 @@ namespace WebAPI.Controllers
         }
 
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme + ", " + CookieAuthenticationDefaults.AuthenticationScheme, Policy = "Administrations")]
-        [HttpDelete]
+        [HttpDelete("api/XoaLoaiSanPham/{id}")]
         public async Task<IActionResult> XoaLoai([FromRoute] int id)
         {
             if (!ModelState.IsValid)

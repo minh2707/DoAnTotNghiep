@@ -122,10 +122,9 @@ namespace WebAPI.Controllers
             return RedirectToAction("XoaChiTietDonHang", "ChiTietDonHang", new { id = id});
         }
 
-        // GET: api/Orders/5/OrderDetails
         [HttpGet]
-        [Route("{id}/OrderDetails")]
-        public async Task<IActionResult> GetDetailOfOrder([FromRoute] int id)
+        [Route("LayChiTietDonHangCuaDonHang/{id}")]
+        public async Task<IActionResult> LayChiTietDonHangCuaDonHang([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {

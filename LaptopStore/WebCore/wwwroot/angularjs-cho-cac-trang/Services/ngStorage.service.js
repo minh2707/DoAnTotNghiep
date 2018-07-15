@@ -10,48 +10,48 @@
     function NgStorageService($http, $localStorage,
         $sessionStorage) {
         var service = {
-            setSessionStorage: setSessionStorage,
-            setLocalStorage: setLocalStorage,
-            getSessionStorage: getSessionStorage,
-            getLocalStorage: getLocalStorage,
-            resetLocalStorage: resetLocalStorage
+            ganSession: ganSession,
+            ganLocal: ganLocal,
+            laySession: laySession,
+            laySession: layLocal,
+            xoaHetSession: xoaHetSession
         };
 
         return service;
 
-        function setSessionStorage(key, value) {
-            if (angular.isObject(value)) {
-                $sessionStorage[key] = JSON.stringify(value);
+        function ganSession(tukhoa, giatri) {
+            if (angular.isObject(giatri)) {
+                $sessionStorage[tukhoa] = JSON.stringify(giatri);
             } else {
-                $sessionStorage[key] = value
+                $sessionStorage[tukhoa] = giatri
             }
         }
 
-        function setLocalStorage(key, value) {
-            if (angular.isObject(value)) {
-                $localStorage[key] = JSON.stringify(value);
+        function ganLocal(tukhoa, giatri) {
+            if (angular.isObject(giatri)) {
+                $localStorage[tukhoa] = JSON.stringify(giatri);
             } else {
-                $localStorage[key] = value;
+                $localStorage[tukhoa] = giatri;
             }
         }
 
-        function getSessionStorage(key) {
+        function laySession(tukhoa) {
             try {
-                return JSON.parse($sessionStorage[key])
+                return JSON.parse($sessionStorage[tukhoa])
             } catch (err) {
-                return $sessionStorage[key];
+                return $sessionStorage[tukhoa];
             }
         }
 
-        function getLocalStorage(key) {
+        function layLocal(tukhoa) {
             try {
-                return JSON.parse($localStorage[key]);
+                return JSON.parse($localStorage[tukhoa]);
             } catch(err) {
-                return $localStorage[key];
+                return $localStorage[tukhoa];
             }
         }
 
-        function resetLocalStorage() {
+        function xoaHetSession() {
             $localStorage.$reset();
         }
     }

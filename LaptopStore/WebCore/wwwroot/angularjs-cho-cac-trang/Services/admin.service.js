@@ -3,40 +3,40 @@
 
     angular
         .module('AdminApp')
-        .factory('AdminService', HomeService);
+        .factory('AdminService', AdminService);
 
-    HomeService.$inject = ['$http', '$q'];
+    AdminService.$inject = ['$http', '$q'];
 
-    function HomeService($http, $q) {
+    function AdminService($http, $q) {
         var service = {
-            getAllProducts: getAllProducts,
-            deleteProduct: deleteProduct,
-            getAllCategories: getAllCategories,
-            updateProduct: updateProduct,
-            getProductDetail: getProductDetail,
-            createProduct: createProduct,
-            deleteCategory: deleteCategory,
-            createCustomer: createCustomer,
-            createOrder: createOrder,
-            createOrderDetail: createOrderDetail,
-            getCategoryDetail: getCategoryDetail,
-            updateCategory: updateCategory,
-            createCategory: createCategory,
-            getAllOrders: getAllOrders,
-            deleteOrder: deleteOrder,
-            getDetailOfOrder: getDetailOfOrder,
-            deleteOrderDetail: deleteOrderDetail
+            layhetsanpham: layhetsanpham,
+            xoasanpham: xoasanpham,
+            layhetloaisanpham: layhetloaisanpham,
+            capnhatsanpham: capnhatsanpham,
+            laymotsanpham: laymotsanpham,
+            taosanpham: taosanpham,
+            xoaloaisanpham: xoaloaisanpham,
+            taokhachhang: taokhachhang,
+            taodonhang: taodonhang,
+            taochitietdonhang: taochitietdonhang,
+            laymotloaisanpham: laymotloaisanpham,
+            capnhatloaisanpham: capnhatloaisanpham,
+            taoloaisanpham: taoloaisanpham,
+            layhetdonhang: layhetdonhang,
+            xoadonhang: xoadonhang,
+            laychitietdonhang: laychitietdonhang,
+            xoachitietdonhang: xoachitietdonhang
         };
 
         return service;
 
-        function getAllProducts() {
+        function layhetsanpham() {
             var deferred = $q.defer();
-            var api = 'http://localhost:49595/api/Products/'
+            var api = 'http://localhost:49595/api/LayVaTimSanPham'
 
             $http.get(api)
-                .then(function (foundProducts) {
-                    deferred.resolve(foundProducts.data);
+                .then(function (sptimdc) {
+                    deferred.resolve(sptimdc.data);
                 })
                 .catch(function (err) {
                     deferred.reject(err);
@@ -45,10 +45,10 @@
             return deferred.promise;
         }
 
-        function deleteProduct(id) {
+        function xoasanpham(id) {
             var deferred = $q.defer();
 
-            $http.delete('http://localhost:49595/api/Products/' + id)
+            $http.delete('http://localhost:49595/api/XoaSanPham/' + id)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -59,10 +59,10 @@
             return deferred.promise;
         }
 
-        function getAllCategories() {
+        function layhetloaisanpham() {
             var deferred = $q.defer();
 
-            $http.get('http://localhost:49595/api/Categories')
+            $http.get('http://localhost:49595/api/LayHetLoaiSanPham')
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -73,10 +73,10 @@
             return deferred.promise;
         }
 
-        function updateProduct(product) {
+        function capnhatsanpham(sanpham) {
             var deferred = $q.defer();
 
-            $http.put('http://localhost:49595/api/Products/' + product.productId, product)
+            $http.put('http://localhost:49595/api/CapNhatSanPham/' + sanpham.id, sanpham)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -87,10 +87,10 @@
             return deferred.promise;
         }
 
-        function getProductDetail(productId) {
+        function laymotsanpham(id) {
             var deferred = $q.defer();
 
-            $http.get('http://localhost:49595/api/Products/' + productId)
+            $http.get('http://localhost:49595/api/LayMotSanPham/' + id)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -102,10 +102,10 @@
 
         }
 
-        function createProduct(product) {
+        function taosanpham(sp) {
             var deferred = $q.defer();
 
-            $http.post('http://localhost:49595/api/Products/Create', product, { header: { 'Content-Type': 'application/json' } })
+            $http.post('http://localhost:49595/api/TaoSanPham', sp, { header: { 'Content-Type': 'application/json' } })
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -116,10 +116,10 @@
             return deferred.promise;
         }
 
-        function deleteCategory(id) {
+        function xoaloaisanpham(id) {
             var deferred = $q.defer();
 
-            $http.delete('http://localhost:49595/api/Categories/' + id)
+            $http.delete('http://localhost:49595/api/XoaLoaiSanPham/' + id)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -130,10 +130,10 @@
             return deferred.promise;
         }
 
-        function createCustomer(customer) {
+        function taokhachhang(kh) {
             var deferred = $q.defer();
 
-            $http.post('http://localhost:49595/api/Customers/Create', customer)
+            $http.post('http://localhost:49595/api/TaoKhachHang', kh)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -144,10 +144,10 @@
             return deferred.promise;
         }
 
-        function createOrder(order) {
+        function taodonhang(hd) {
             var deferred = $q.defer();
 
-            $http.post('http://localhost:49595/api/Orders', order)
+            $http.post('http://localhost:49595/api/TaoDonHang', hd)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -158,10 +158,10 @@
             return deferred.promise;
         }
 
-        function createOrderDetail(orderDetail) {
+        function taochitietdonhang(cthd) {
             var deferred = $q.defer();
 
-            $http.post('http://localhost:49595/api/OrderDetails', orderDetail)
+            $http.post('http://localhost:49595/api/TaoChiTietDonHang', cthd)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -172,10 +172,10 @@
             return deferred.promise;
         }
 
-        function getCategoryDetail(id) {
+        function laymotloaisanpham(id) {
             var deferred = $q.defer();
 
-            $http.get('http://localhost:49595/api/Categories/' + id)
+            $http.get('http://localhost:49595/api/LayMotLoaiSanPham/' + id)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -186,10 +186,10 @@
             return deferred.promise;
         }
 
-        function updateCategory(category) {
+        function capnhatloaisanpham(category) {
             var deferred = $q.defer();
 
-            $http.put('http://localhost:49595/api/Categories/Update', category)
+            $http.put('http://localhost:49595/api/CapNhatLoaiSanPham', category)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -200,10 +200,10 @@
             return deferred.promise;
         }
 
-        function createCategory(category) {
+        function taoloaisanpham(loai) {
             var deferred = $q.defer();
 
-            $http.post('http://localhost:49595/api/Categories/Create', category)
+            $http.post('http://localhost:49595/api/TaoLoaiSanPham', loai)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -214,10 +214,10 @@
             return deferred.promise;
         }
 
-        function getAllOrders() {
+        function layhetdonhang() {
             var deferred = $q.defer();
 
-            $http.get('http://localhost:49595/api/Orders')
+            $http.get('http://localhost:49595/api/LayHetDonHang')
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -228,10 +228,10 @@
             return deferred.promise;
         }
 
-        function deleteOrder(id) {
+        function xoadonhang(id) {
             var deferred = $q.defer();
 
-            $http.delete('http://localhost:49595/api/Orders/' + id)
+            $http.delete('http://localhost:49595/api/XoaDonHang/' + id)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -242,10 +242,10 @@
             return deferred.promise;
         }
 
-        function getDetailOfOrder(id) {
+        function laychitietdonhang(id) {
             var deferred = $q.defer();
 
-            $http.get('http://localhost:49595/api/Orders/' + id + '/OrderDetails')
+            $http.get('http://localhost:49595/api/LayChiTietDonHangCuaDonHang/' + id )
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
@@ -256,10 +256,10 @@
             return deferred.promise;
         }
 
-        function deleteOrderDetail(id) {
+        function xoachitietdonhang(id) {
             var deferred = $q.defer();
 
-            $http.delete('http://localhost:49595/api/OrderDetails/' + id)
+            $http.delete('http://localhost:49595/api/XoaChiTietDonHang/' + id)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })
