@@ -35,7 +35,7 @@
                         var tk = res;
                         $localStorage['taikhoan'] = JSON.stringify(res);
                         if (tk.laAdmin) {
-                            $window.location.href = '/Admin/Home';
+                            $window.location.href = 'TrangChu/Admin';
 
                         } else {
                             $window.location.href = '/';

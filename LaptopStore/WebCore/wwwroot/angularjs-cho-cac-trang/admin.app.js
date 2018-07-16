@@ -29,17 +29,17 @@
                 templateUrl: '/Html/Admin/Product/product-create.html',
                 controller: 'AdminProductCreate'
             })
-            .when('/categories', {
-                templateUrl: '/Html/Admin/Category/category.html',
-                controller: 'AdminCategoryController'
+            .when('/laytatcaloaisp', {
+                templateUrl: '/Html/Admin/LoaiSanPham/tatcaloaisp.html',
+                controller: 'LoaiSanPhamAdminController'
             })
-            .when('/categories/:id', {
-                templateUrl: '/Html/Admin/Category/category-detail.html',
-                controller: 'AdminCategoryDetail'
+            .when('/laymotloaisanpham/:id', {
+                templateUrl: '/Html/Admin/LoaiSanPham/chitietloaisp.html',
+                controller: 'LoaiSanPhamAdminController'
             })
-            .when('/create/category', {
-                templateUrl: '/Html/Admin/Category/category-create.html',
-                controller: 'AdminCategoryCreate'
+            .when('/taoloaisp', {
+                templateUrl: '/Html/Admin/LoaiSanPham/taoloaisp.html',
+                controller: 'LoaiSanPhamAdminController'
             })
             .when('/orders', {
                 templateUrl: '/Html/Admin/Order/order.html',

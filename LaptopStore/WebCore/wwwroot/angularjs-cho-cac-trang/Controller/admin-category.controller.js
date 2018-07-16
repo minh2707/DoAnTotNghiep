@@ -3,61 +3,120 @@
 
     angular
         .module('AdminApp')
-        .controller('AdminCategoryController', AdminProductController);
+        .controller('LoaiSanPhamAdminController', LoaiSanPhamAdminController);
 
-    AdminProductController.$inject = ['$location', 'AdminService', 'toastr', '$scope', '$uibModal'];
+    LoaiSanPhamAdminController.$inject = ['$location', 'AdminService', 'toastr', '$scope', '$uibModal'];
 
-    function AdminProductController($location, AdminService, toastr, $scope, $uibModal) {
+    function LoaiSanPhamAdminController($location, AdminService, toastr, $scope, $uibModal) {
         /* jshint validthis:true */
         var vm = $scope;
 
-        vm.deleteCategory = deleteCategory;
-        vm.openModal = openModal;
-        vm.close = close;
+        vm.xoaLoaiSP = xoaLoaiSP;
+        vm.moCuaSoLoaiSP = moCuaSoLoaiSP;
+        vm.dongCuaSo = dongCuaSo;
+        vm.loaiSP = {};
+        vm.taoLoaiSP = taoLoaiSP;
 
-        activate();
+        vm.laCapNhatSP = false;
+        var idLoaiSP = $routeParams.id;
+        vm.spPhaiCapNhat = {};
+        vm.moChucNangSuaLoaiSP = moChucNangSuaLoaiSP;
+        vm.capnhatSP = capnhatSP;
+        vm.loaiPhaiCapNhat = {}
 
-        function activate() {
-            getAllCategory();
+        khoitao();
+
+        function khoitao() {
+            if (idLoaiSP && idLoaiSP != null) {
+                laymotloaisp();
+            } else {
+                laytatcaloaisp();
+            }
         }
 
-        function getAllCategory() {
-            AdminService.getAllCategories()
-                .then(function (category) {
-                    vm.categories = category;
+        function laytatcaloaisp() {
+            AdminService.layhetloaisanpham()
+                .then(function (kq) {
+                    vm.cacloaisanpham = kq;
                 })
                 .catch(function (err) {
-                    toastr.error('Error:' + JSON.stringify(err));
+                    toastr.error('Lỗi:' + JSON.stringify(err));
                 });
         }
 
-        function deleteCategory(id) {
-            AdminService.deleteCategory(id)
-                .then(function (products) {
-                    toastr.success("Category " + id + " is deleted!");
-                    vm.modalInstance.close('deleted');
+        function xoaLoaiSP(id) {
+            AdminService.xoaloaisanpham(id)
+                .then(function (kq) {
+                    toastr.success("Loại " + id + " được xóa!");
+                    vm.modalInstance.close('xoa');
                 })
                 .catch(function (err) {
-                    toastr.error('Error:' + JSON.stringify(err));
+                    toastr.error('Lỗi:' + JSON.stringify(err));
                 });
         }
 
-        function openModal(category) {
-            vm.categoryPopup = category;
+        function moCuaSoLoaiSP(loai) {
+            vm.loaiSPDaChon = loai;
 
             vm.modalInstance = $uibModal.open({
-                templateUrl: 'myModalContent.html',
-                controller: 'AdminCategoryController',
+                templateUrl: 'cuasoloaisp.html',
+                controller: 'LoaiSanPhamAdminController',
                 scope: vm
             });
 
             vm.modalInstance.result.then(function (result) {
-                activate();
+                khoitao();
             });
         }
 
-        function close() {
-            vm.modalInstance.close('close');
+        function dongCuaSo() {
+            vm.modalInstance.close('xoa');
+        }
+
+        function taoLoaiSP(loai) {
+
+            AdminService.taoloaisanpham(loai)
+                .then(function (res) {
+                    toastr.success("Tạo thành công!");
+                    $location.path('/laytatcaloaisp');
+                    $location.replace();
+                })
+                .catch(function (err) {
+                    toastr.error("Lỗi:" + JSON.stringify(err));
+                });
+        }
+
+        function laymotloaisp() {
+            AdminService.getCategoryDetail(idLoaiSP)
+                .then(function (res) {
+                    vm.loaiSP = res;
+                })
+                .catch(function (err) {
+                    toastr.error("Lỗi:" + JSON.stringify(err));
+                })
+        }
+
+        function moChucNangSuaLoaiSP() {
+            vm.laCapNhatSP = !vm.laCapNhatSP;
+            vm.loaiPhaiCapNhat = angular.copy(vm.loaiSP);
+        }
+
+        function capnhatSP(loai) {
+            var obj = {
+                Id: loai.id,
+                Ten: loai.ten,
+                MoTa: loai.mota
+            };
+
+            AdminService.capnhatloaisanpham(obj)
+                .then(function (res) {
+                    toastr.success("Cập Nhật Thành Công");
+                    vm.loaiSP = angular.copy(loai);
+                    vm.laCapNhatSP = false;
+                })
+                .catch(function (err) {
+                    toastr.error("Lỗi:" + JSON.stringify(err));
+                })
         }
     }
 })();
