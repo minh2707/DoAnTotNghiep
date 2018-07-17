@@ -43,11 +43,11 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="sp in tatcasanpham">
-                                <td><a ng-href="/TrangChu/Admin/#!/products/{{sp.id}}">{{sp.id}}</a></td>
-                                <td><img ng-src="../img/sanpham/{{sp.hinh}}" alt="{{sp.ten}}" style="width:50px;"/></td>
-                                <td>{{sp.idLoai}}</td>
-                                <td><a ng-href="/TrangChu/Admin/#!/sanpham/{{sp.id}}">{{sp.ten}}</a></td>
-                                <td>{{sp.gia}}</td>
+                                <td><a ng-href="/TrangChu/Admin/#!/laymotsanpham/{{sp.id}}">{{sp.id}}</a></td>
+                                <td><img ng-src="../../img/sanpham/{{sp.hinh}}" alt="{{sp.ten}}" style="width:50px;"/></td>
+                                <td>{{sp.idloai}}</td>
+                                <td><a ng-href="/TrangChu/Admin/#!/laymotsanpham/{{sp.id}}">{{sp.ten}}</a></td>
+                                <td>{{sp.gia | currency: "VND":0}}</td>
                                 <td>{{sp.giamGia}}</td>
                                 <td>{{sp.soLuong}}</td>
                                 <td>{{sp.moTa}}</td>

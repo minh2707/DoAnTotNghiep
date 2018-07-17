@@ -3,58 +3,59 @@
 
     angular
         .module('laptopStoreApp')
-        .controller('CheckOutController', CheckOutController);
+        .controller('ThanhToanController', ThanhToanController);
 
-    CheckOutController.$inject = ['$location', 'HomeService', '$scope', '$rootScope', '$q', 'NgStorageService', '$sessionStorage'];
+    ThanhToanController.$inject = ['$location', 'TrangChuService', '$scope', '$rootScope', '$q', 'NgStorageService', '$sessionStorage'];
 
-    function CheckOutController($location, HomeService, $scope, $rootScope, $q, NgStorageService, $sessionStorage) {
+    function ThanhToanController($location, TrangChuService, $scope, $rootScope, $q, NgStorageService, $sessionStorage) {
         /* jshint validthis:true */
         var vm = $scope;
 
-        vm.customer = {};
+        vm.kh = $rootScope.taikhoan;
 
-        vm.checkOut = checkOut;
+        vm.thanhtoan = thanhtoan;
 
-        function checkOut(products, customer) {
-            var doCreateCustomer = function () {
-                var createCustomer = {
-                    Fullname: customer.fullName,
-                    Email: customer.email,
-                    Address: customer.address
+        function thanhtoan(sp, khachhang) {
+            var taoKhachHang = function () {
+                var khachhangdetao = {
+                    Id: Math.floor((Math.random() * 9999999999) + 1),
+                    HoTen: khachhang.tenHienThi,
+                    Email: khachhang.email,
+                    DiaChi: khachhang.diachi
                 };
 
-                HomeService.createCustomer(createCustomer)
-                    .then(function (createdCustomer) {
-                        var order = {
-                            CustomerId: createdCustomer.customerId,
-                            Address: createdCustomer.address,
-                            Amount: $rootScope.carts.products.length,
-                            OrderDate: new Date(),
-                            RequireDate: new Date(),
+                TrangChuService.taokhachhang(khachhangdetao)
+                    .then(function (kq) {
+                        var hoadon = {
+                            IdkhachHang: kq.id,
+                            DiaChi: kq.diaChi,
+                            SoLuong: $rootScope.giohang.sanpham.length,
+                            NgayGiao: new Date(),
+                            NgayDat: new Date(),
                         };
 
-                        HomeService.createOrder(order)
-                            .then(function (createdOrder) {
-                                var tasks = [];
-                                for (var i = 0; i < products.length; i++) {
-                                    var orderDetail = {
-                                        OrderID: createdOrder.orderId,
-                                        Discount: products[i].discount,
-                                        ProductID: products[i].productId,
-                                        Quantity: products[i].quantity,
-                                        UnitPrice: products[i].price,
+                        TrangChuService.taodonhang(hoadon)
+                            .then(function (kq) {
+                                var mangCacViecCanHoanThanh = [];
+                                for (var i = 0; i < sp.length; i++) {
+                                    var ctdh = {
+                                        IddonHang: kq.id,
+                                        GiamGia: sp[i].giamGia,
+                                        IdsanPham: sp[i].idSanPham,
+                                        SoLuong: sp[i].soLuong,
+                                        DonGia: sp[i].donGia,
                                         Id: null
                                     }
 
-                                    tasks.push(HomeService.createOrderDetail(orderDetail));
+                                    mangCacViecCanHoanThanh.push(TrangChuService.taochitietdonhang(ctdh));
                                 }
 
-                                if (tasks.length > 0) {
-                                    $q.all(tasks)
+                                if (mangCacViecCanHoanThanh.length > 0) {
+                                    $q.all(mangCacViecCanHoanThanh)
                                         .then(function (data) {
-                                            delete $sessionStorage['carts']
-                                            $rootScope.carts = {
-                                                products: []
+                                            delete $sessionStorage['giohang']
+                                            $rootScope.giohang = {
+                                                sanpham: []
                                             };
 
                                             $location.path('/');
@@ -75,7 +76,7 @@
                     });
             };
 
-            doCreateCustomer();
+            taoKhachHang();
         }
     }
 })();

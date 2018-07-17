@@ -119,11 +119,11 @@ namespace WebAPI.Controllers
             ketnoidatabase.DonHang.Remove(donhang);
             await ketnoidatabase.SaveChangesAsync();
 
-            return RedirectToAction("XoaChiTietDonHang", "ChiTietDonHang", new { id = id});
+            return RedirectToAction("XoaChiTietDonHangBangIdDonHang", "ChiTietDonHang", new { iddonhang = id});
         }
 
         [HttpGet]
-        [Route("LayChiTietDonHangCuaDonHang/{id}")]
+        [Route("api/LayChiTietDonHangCuaDonHang/{id}")]
         public async Task<IActionResult> LayChiTietDonHangCuaDonHang([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -131,7 +131,7 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var chitietdonhang = await ketnoidatabase.ChiTietDonHang.Where(p => p.Id== id).ToListAsync();
+            var chitietdonhang = await ketnoidatabase.ChiTietDonHang.Where(p => p.IddonHang== id).ToListAsync();
 
             return Ok(chitietdonhang);
         }

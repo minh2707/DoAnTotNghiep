@@ -160,10 +160,10 @@
             return deferred.promise;
         }
 
-        function taohoadon(order) {
+        function taohoadon(hoadon) {
             var deferred = $q.defer();
 
-            $http.post('http://localhost:49595/api/Orders', order)
+            $http.post('http://localhost:49595/api/TaoDonHang', hoadon)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })

@@ -1,4 +1,4 @@
-﻿CREATE DATABASE [LapTopStore]
+CREATE DATABASE [LapTopStore]
 GO
 
 USE [LapTopStore]
@@ -29,11 +29,8 @@ GO
 
 CREATE TABLE [KhachHang] (
 	[ID] nvarchar(100) NOT NULL,
-	[Email] nvarchar(50) NOT NULL,
-	[MatKhau] nvarchar(20) NOT NULL,
-	[HoTen] nvarchar(max) NOT NULL,
+	[HoTen] nvarchar(max) NULL,
 	[DiaChi] nvarchar(1000) NULL,
-	[TrangThai] bit NOT NULL,
 	CONSTRAINT [PK_KhachHang] PRIMARY KEY ([ID])
 );
 GO
@@ -84,12 +81,12 @@ VALUES ('2', 'Asus Vivobook 14 X405UA-BV327T','15000000', 'asus1.jpg', 'Laptop A
 		('1', 'Dell Inspiron 5379-JYN0N1','15670000', 'dell4.jpg', 'Laptop DELL-4', '18', '0.05', '1')
 GO
 
-INSERT INTO [KhachHang] (ID, Email, MatKhau, HoTen, DiaChi, TrangThai)
-VALUES ('CUS001', 'Xuan123@gmail.com', 'abc123','Le Thi Xuan', '119/34A Tran Hoan Street District 3 HCMC', '1'),
-		('CUS002', 'Toan123@yahoo.com', 'abc456','Tran Hung Toan', '34Bis Nguyen Van Loi Street District HCMC', '0'),
-		('CUS003', 'Huy123@gmail.com', 'abc789','Le Huy', '18/8H Tran Ke Xuong Street Phu Nhuan District HCMC', '1'),
-		('CUS004', 'Nhan123@gmail.com', 'def123','Dang Hoang Nhan', '45/9 Le Loi Street District 1 HCMC', '0'),
-		('CUS005', 'Khanh123@yahoo.com', 'def45', 'Le Viet Khanh', '23B Nguyen Van Nghi Street Go Vap District HCMC', '1')
+INSERT INTO [KhachHang] (ID, HoTen, DiaChi)
+VALUES ('CUS001','Le Thi Xuan', '119/34A Tran Hoan Street District 3 HCMC'),
+		('CUS002','Tran Hung Toan', '34Bis Nguyen Van Loi Street District HCMC'),
+		('CUS003','Le Huy', '18/8H Tran Ke Xuong Street Phu Nhuan District HCMC'),
+		('CUS004', 'Dang Hoang Nhan', '45/9 Le Loi Street District 1 HCMC'),
+		('CUS005',  'Le Viet Khanh', '23B Nguyen Van Nghi Street Go Vap District HCMC')
 GO
 
 INSERT INTO DonHang(IDKhachHang, DiaChi, SoLuong, NgayGiao, NgayDat, MoTa, TrangThai)

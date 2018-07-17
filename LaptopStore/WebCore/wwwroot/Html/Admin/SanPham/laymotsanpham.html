@@ -20,8 +20,8 @@
             </div>
             <div class="input-group col-lg-12">
                 <label class="col-md-5">Id Loại:</label>
-                <p class="col-md-7" data-ng-show="!laCheDoCapNhat">{{sanpham.idLoai}}</p>
-                <select data-ng-show="laCheDoCapNhat" ng-options="category.idLoai for category in categories" ng-model="sanPhamCanPhaiSua.idLoai">
+                <p class="col-md-7" data-ng-show="!laCheDoCapNhat">{{sanpham.idloai}}</p>
+                <select data-ng-show="laCheDoCapNhat" ng-options="loai.id for loai in tatCaLoaiSP" ng-model="sanPhamCanPhaiSua.idLoai">
 
                 </select>
             </div>

@@ -18,15 +18,15 @@
     app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/tatcasanpham', {
-                templateUrl: '/Html/Admin/Product/products.html',
+                templateUrl: '/Html/Admin/SanPham/tatcasanpham.html',
                 controller: 'SanPhamAdminController'
             })
             .when('/laymotsanpham/:id', {
-                templateUrl: '/Html/Admin/Product/product-detail.html',
+                templateUrl: '/Html/Admin/SanPham/laymotsanpham.html',
                 controller: 'SanPhamAdminController'
             })
             .when('/taosanpham', {
-                templateUrl: '/Html/Admin/Product/product-create.html',
+                templateUrl: '/Html/Admin/SanPham/taomotsanpham.html',
                 controller: 'SanPhamAdminController'
             })
             .when('/laytatcaloaisp', {
@@ -43,15 +43,15 @@
             })
             .when('/laytatcadonhang', {
                 templateUrl: '/Html/Admin/Order/order.html',
-                controller: 'AdminOrderController'
+                controller: 'DonHangAdminController'
             })
             .when('/laymotdonhang/:id', {
                 templateUrl: '/Html/Admin/Order/order-detail.html',
-                controller: 'AdminOrderController'
+                controller: 'DonHangAdminController'
             })
             .when('/taodonhang', {
                 templateUrl: '/Html/Admin/Order/order-create.html',
-                controller: 'AdminOrderController'
+                controller: 'DonHangAdminController'
             })
             .otherwise({
                 redirectTo: '/'

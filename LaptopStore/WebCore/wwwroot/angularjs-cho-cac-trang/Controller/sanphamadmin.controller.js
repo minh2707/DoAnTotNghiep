@@ -5,9 +5,9 @@
         .module('AdminApp')
         .controller('SanPhamAdminController', SanPhamAdminController);
 
-    SanPhamAdminController.$inject = ['$location', 'AdminService', 'toastr', '$scope', '$uibModal'];
+    SanPhamAdminController.$inject = ['$location', 'AdminService', 'toastr', '$scope', '$uibModal', '$routeParams', '$q', 'Upload', '$timeout'];
 
-    function SanPhamAdminController($location, AdminService, toastr, $scope, $uibModal) {
+    function SanPhamAdminController($location, AdminService, toastr, $scope, $uibModal, $routeParams, $q, Upload, $timeout) {
         /* jshint validthis:true */
         var vm = $scope;
 
@@ -110,7 +110,7 @@
 
         function capNhatSP(sp) {
             if (sp.idLoai && angular.isObject(sp.idLoai)) {
-                sp.idLoai = sp.idLoai.idLoai;
+                sp.idLoai = sp.idLoai.id;
             }
 
             AdminService.capnhatsanpham(sp)
@@ -129,10 +129,10 @@
                 .then(function (res) {
 
                     var obj = {
-                        Idloai: sp.idLoai.idLoai,
+                        Idloai: sp.idloai.id,
                         Ten: sp.ten,
                         Gia: sp.gia,
-                        Hinh: res.file.fileName,
+                        Hinh: res.taptin.fileName,
                         MoTa: sp.mota,
                         SoLuong: sp.soluong,
                         GiamGia: sp.giamgia,
@@ -164,22 +164,22 @@
 
         }
 
-        function taiHinhLenServer(file) {
+        function taiHinhLenServer(taptin) {
             var deferred = $q.defer();
 
             Upload.upload({
                 url: 'http://localhost:49595/api/CapNhatAnh',
-                data: { file: file },
+                data: { taptin: taptin },
                 method: 'POST'
             }).then(function (res) {
                 $timeout(function () {
-                    vm.sanphamcantao.image.animate = false;
+                    vm.sanphamcantao.hinh.animate = false;
                     deferred.resolve(res.data);
                 });
                 }, function (err) {
                     deferred.reject(err);
                 }, function (evt) {
-                    file.tiendo = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                    taptin.tiendo = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                 });
 
             return deferred.promise;

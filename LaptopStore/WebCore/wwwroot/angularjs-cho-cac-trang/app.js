@@ -49,6 +49,7 @@
         $rootScope.giohang.tongtien = 0;
 
         $rootScope.xoasanphamtronggiohang = xoasanphamtronggiohang;
+        $rootScope.dangxuat = dangxuat;
 
         if ($rootScope.taikhoan) {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $rootScope.taikhoan.token;
@@ -93,6 +94,7 @@
                     $rootScope.taikhoan = null;
 
                     ngStorageService.xoaHetSession();
+                    $window.location.href = '/TaiKhoan/DangNhap';
                 })
                 .catch(function (err) {
                     console.log(err);

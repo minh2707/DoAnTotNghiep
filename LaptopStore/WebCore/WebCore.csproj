@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\data\" />
-    <Folder Include="wwwroot\Html\Admin\Product\" />
   </ItemGroup>
 
   <ItemGroup>

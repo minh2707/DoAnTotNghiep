@@ -147,8 +147,9 @@ namespace API.Controllers
                         return Ok(new
                         {
                             email = tk.Email,
-                            fullname = tk.TenHienThi,
+                            tenHienThi = tk.TenHienThi,
                             laAdmin = laAdmin,
+                            id = tk.Id,
                             token = new JwtSecurityTokenHandler().WriteToken(jwt),
                             expiration = jwt.ValidTo
                         });

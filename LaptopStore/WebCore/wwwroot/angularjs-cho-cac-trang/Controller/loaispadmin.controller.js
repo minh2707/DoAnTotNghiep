@@ -5,9 +5,9 @@
         .module('AdminApp')
         .controller('LoaiSanPhamAdminController', LoaiSanPhamAdminController);
 
-    LoaiSanPhamAdminController.$inject = ['$location', 'AdminService', 'toastr', '$scope', '$uibModal'];
+    LoaiSanPhamAdminController.$inject = ['$location', 'AdminService', 'toastr', '$scope', '$uibModal', '$routeParams'];
 
-    function LoaiSanPhamAdminController($location, AdminService, toastr, $scope, $uibModal) {
+    function LoaiSanPhamAdminController($location, AdminService, toastr, $scope, $uibModal, $routeParams) {
         /* jshint validthis:true */
         var vm = $scope;
 
@@ -87,7 +87,7 @@
         }
 
         function laymotloaisp() {
-            AdminService.getCategoryDetail(idLoaiSP)
+            AdminService.laymotloaisanpham(idLoaiSP)
                 .then(function (res) {
                     vm.loaiSP = res;
                 })

@@ -1,6 +1,6 @@
 ﻿<div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Order</h1>
+        <h1 class="page-header">Đơn Hàng</h1>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -9,7 +9,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Order Table
+                Đơn Hàng
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -18,36 +18,36 @@
                         <thead>
                             <tr>
                                 
-                                <th>Order Id</th>
+                                <th>Id</th>
                                 <th>
-                                    Address
+                                    Địa Chỉ
                                 </th>
-                                <th>Amount Of Products In Order</th>
-                                <th>Customer Id</th>
-                                <th>Description</th>
+                                <th>Số Lượng Sản Phẩm Trong Hóa Đơn</th>
+                                <th>Id Khách Hàng</th>
+                                <th>Mô Tả</th>
                                 <th>
-                                    Order Date
-                                </th>
-                                <th>
-                                    Require Date
+                                    Ngày Đặt
                                 </th>
                                 <th>
-                                    Status
+                                    Ngày Giao
                                 </th>
-                                <th>Actions</th>
+                                <th>
+                                    Trạng Thái
+                                </th>
+                                <th>Nút</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="order in orders">
-                                <td><a ng-href="/Admin/#!/orders/{{order.orderId}}">{{order.orderId}}</a></td>
-                                <td>{{order.address}}</td>
-                                <td>{{order.amount}}</td>
-                                <td>{{order.customerId}}</td>
-                                <td>{{order.description}}</td>
-                                <td>{{order.orderDate}}</td>
-                                <td>{{order.requireDate}}</td>
-                                <td>{{order.status}}</td>
-                                <td><button class="btn btn-danger" ng-click="moCuaSo(order)">Delete</button></td>
+                            <tr ng-repeat="hd in tatcahoadon">
+                                <td><a ng-href="/TrangChu/Admin/#!/laymotdonhang/{{hd.id}}">{{hd.id}}</a></td>
+                                <td>{{hd.diaChi}}</td>
+                                <td>{{hd.soLuong}}</td>
+                                <td>{{hd.idKhachHang}}</td>
+                                <td>{{hd.moTa}}</td>
+                                <td>{{hd.ngayDat}}</td>
+                                <td>{{hd.ngayGiao}}</td>
+                                <td>{{hd.trangThai}}</td>
+                                <td><button class="btn btn-danger" ng-click="moCuaSo(hd)">Xóa</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -60,17 +60,16 @@
     </div>
     <!-- /.col-lg-12 -->
 
-    <script type="text/ng-template" id="myModalContent.html">
+    <script type="text/ng-template" id="cuaso.html">
         <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">Confirm Delete</h3>
+            <h3 class="modal-title" id="modal-title">Xác Nhận Xóa</h3>
         </div>
         <div class="modal-body" id="modal-body">
-            <p>Do you sure delete order {{orderPopup.orderId}} ?</p>
-            <p>This will delete permanently in database</p>
+            <p>Bạn Có Chắc Chắn Muốn Xóa {{hoadontrongcuaso.id}} ?</p>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="deleteOrder(orderPopup.orderId)">OK</button>
-            <button class="btn btn-warning" type="button" ng-click="close()">Cancel</button>
+            <button class="btn btn-primary" type="button" ng-click="xoamotdonhang(hoadontrongcuaso.id)">Đồng Ý</button>
+            <button class="btn btn-warning" type="button" ng-click="dongcuaso()">Hủy Bỏ</button>
         </div>
     </script>
 </div>

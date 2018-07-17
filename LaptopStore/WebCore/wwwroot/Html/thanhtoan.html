@@ -1,30 +1,30 @@
 ﻿<div class="container">
     <ul class="breadcrumb">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="">Store</a></li>
-        <li class="active">Checkout</li>
+        <li><a href="/">Trang Chủ</a></li>
+        <li><a href="/">Cửa Hàng</a></li>
+        <li class="active">Thanh Toán</li>
     </ul>
     <!-- BEGIN SIDEBAR & CONTENT -->
     <div class="row margin-bottom-40">
         <!-- BEGIN CONTENT -->
         <div class="col-md-12 col-sm-12">
-            <h1>Checkout</h1>
+            <h1>Thanh Toán</h1>
             <!-- BEGIN CHECKOUT PAGE -->
             <div id="checkout-content">
                 <div class="panel-body row">
                     <div class="col-md-6 col-sm-6">
-                        <h3>Your Personal Details</h3>
+                        <h3>Thông Tin Của Bạn</h3>
                         <div class="form-group">
-                            <label for="firstname">Full Name <span class="require">*</span></label>
-                            <input type="text" id="firstname" class="form-control" ng-model="customer.fullName" required>
+                            <label for="firstname">Họ Và Tên <span class="require">*</span></label>
+                            <input type="text" id="firstname" class="form-control" ng-model="kh.tenHienThi" required>
                         </div>
                         <div class="form-group">
                             <label for="email">E-Mail <span class="require">*</span></label>
-                            <input type="email" id="email" class="form-control" ng-model="customer.email" required>
+                            <input type="email" id="email" class="form-control" ng-model="kh.email" required>
                         </div>
                         <div class="form-group">
-                            <label for="address1">Address 1</label>
-                            <input type="text" id="address1" class="form-control" ng-model="customer.address" required>
+                            <label for="address1">Địa Chỉ</label>
+                            <input type="text" id="address1" class="form-control" ng-model="kh.diachi" required>
                         </div>
                     </div>
                     <hr>
@@ -37,30 +37,30 @@
                         <div class="table-wrapper-responsive">
                             <table style="width:100%">
                                 <tr>
-                                    <th class="goods-page-image">Image</th>
-                                    <th class="goods-page-description">Description</th>
-                                    <th class="goods-page-quantity">Quantity</th>
-                                    <th class="goods-page-price">Unit price</th>
-                                    <th class="goods-page-total" colspan="2">Total</th>
+                                    <th class="goods-page-image">Hình</th>
+                                    <th class="goods-page-description">Mô Tả</th>
+                                    <th class="goods-page-quantity">Số Lượng</th>
+                                    <th class="goods-page-price">Đơn Giá</th>
+                                    <th class="goods-page-total" colspan="2">Tổng Tiền</th>
                                 </tr>
-                                <tr ng-repeat="product in carts.products track by $index">
+                                <tr ng-repeat="sp in giohang.sanpham track by $index">
                                     <td class="goods-page-image">
-                                        <a href="javascript:;"><img src="/img/products/{{product.image}}" alt="{{product.name}}-img"></a>
+                                        <a href="javascript:;"><img ng-src="/img/sanpham/{{sp.hinh}}" alt="{{sp.ten}}-img"></a>
                                     </td>
                                     <td class="goods-page-description">
-                                        <h3><a href="javascript:;">{{product.name}}</a></h3>
-                                        <a href="/#!/products/{{product.productId}}"><em>More info is here</em></a>
+                                        <h3><a href="javascript:;">{{sp.ten}}</a></h3>
+                                        <a href="/#!/sanphamchitiet/{{sp.id}}"><em>Biết Thêm Chi Tiết Tại Đây</em></a>
                                     </td>
                                     <td class="goods-page-quantity">
                                         <div class="product-quantity">
-                                            <input id="product-quantity" type="number" min="1" readonly value="{{product.quantity}}" class="form-control input-sm" ng-model="product.quantity" ng-change="updateQuantityOfProduct($index, product.quantity)" ng-model-options='{ debounce: 200 }'>
+                                            <input id="product-quantity" type="number" min="1" readonly data-ng-value="{{sp.soLuong}}" class="form-control input-sm" ng-model="sp.soLuong" ng-change="updateQuantityOfProduct($index, sp.soLuong)" ng-model-options='{ debounce: 200 }'>
                                         </div>
                                     </td>
                                     <td class="goods-page-price">
-                                        <strong>{{product.price | currency:"VND" : 0}}</strong>
+                                        <strong>{{sp.gia | currency:"VND" : 0}}</strong>
                                     </td>
                                     <td class="goods-page-total">
-                                        <strong>{{(product.quantity * product.price) | currency:"VND" : 0}}</strong>
+                                        <strong>{{(sp.soLuong * sp.gia) | currency:"VND" : 0}}</strong>
                                     </td>
                                 </tr>
                             </table>
@@ -68,14 +68,14 @@
                         <div class="checkout-total-block" style="">
                             <ul>
                                 <li class="checkout-total-price">
-                                    <em>Total</em>
-                                    <strong class="price">{{carts.total | currency:"VND" : 0}}</strong>
+                                    <em>Tổng Tiền</em>
+                                    <strong class="price">{{giohang.tongtien | currency:"VND" : 0}}</strong>
                                 </li>
                             </ul>
                         </div>
                         <div class="clearfix"></div>
-                        <button class="btn btn-primary pull-right" type="submit" id="button-confirm" ng-click="checkOut(carts.products, customer)">Check Out</button>
-                        <a href="/#!/cart" class="btn btn-default pull-right margin-right-20">Cancel</a>
+                        <button class="btn btn-primary pull-right" type="submit" id="button-confirm" ng-click="thanhtoan(giohang.sanpham, kh)">Thanh Toán</button>
+                        <a href="/#!/cart" class="btn btn-default pull-right margin-right-20">Hủy Bỏ</a>
                     </div>
                 </div>
             </div>

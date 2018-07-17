@@ -35,7 +35,7 @@ namespace WebAPI.Controllers
             // process uploaded files
             // Don't rely on or trust the FileName property without validation.
 
-            return Ok(new { file = taptin, dolon, duongdantaptin });
+            return Ok(new { taptin = taptin, dolon, duongdantaptin });
         }
     }
 }

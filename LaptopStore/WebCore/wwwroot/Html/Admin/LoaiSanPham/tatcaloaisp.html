@@ -10,7 +10,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 Loại Sản Phẩm
-                <a class="pull-right btn btn-default btn-sm" href="TrangChu/Admin/#!/taoloaisp">Tạo</a>
+                <a class="pull-right btn btn-default btn-sm" href="/TrangChu/Admin/#!/taoloaisp">Tạo</a>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -31,9 +31,9 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="loaiSP in cacloaisanpham">
-                                <td><a ng-href="TrangChu/Admin/#!/laymotloaisanpham/{{loaiSP.id}}">{{loaiSP.id}}</a></td>
+                                <td><a ng-href="/TrangChu/Admin/#!/laymotloaisanpham/{{loaiSP.id}}">{{loaiSP.id}}</a></td>
                                 <td>{{loaiSP.mota}}</td>
-                                <td><a ng-href="TrangChu/Admin/#!/laymotloaisanpham/{{loaiSP.id}}">{{loaiSP.ten}}</a></td>
+                                <td><a ng-href="/TrangChu/Admin/#!/laymotloaisanpham/{{loaiSP.id}}">{{loaiSP.ten}}</a></td>
                                 <td><button class="btn btn-danger" ng-click="moCuaSoLoaiSP(loaiSP);">Xóa</button></td>
                                 </tr>
                         </tbody>
@@ -55,8 +55,8 @@
             <p>Bạn chắc chắn muốn xóa {{loaiSPDaChon.ten}} ?</p>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="deleteCategory(loaiSPDaChon.id)">Đồng Ý</button>
-            <button class="btn btn-warning" type="button" ng-click="close()">Hủy Bỏ</button>
+            <button class="btn btn-primary" type="button" ng-click="xoaLoaiSP(loaiSPDaChon.id)">Đồng Ý</button>
+            <button class="btn btn-warning" type="button" ng-click="dongCuaSo()">Hủy Bỏ</button>
         </div>
     </script>
 </div>

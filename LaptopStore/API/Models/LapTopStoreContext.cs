@@ -90,20 +90,13 @@ namespace API.Models
             {
                 entity.Property(e => e.Id)
                     .HasColumnName("ID")
-                    .HasMaxLength(100)
-                    .ValueGeneratedNever();
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.DiaChi).HasMaxLength(1000);
 
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(50);
 
                 entity.Property(e => e.HoTen).IsRequired();
 
-                entity.Property(e => e.MatKhau)
-                    .IsRequired()
-                    .HasMaxLength(20);
             });
 
             modelBuilder.Entity<LoaiSanPham>(entity =>
