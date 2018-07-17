@@ -186,8 +186,8 @@ namespace WebAPI.Controllers
         {
             if (!string.IsNullOrEmpty(tensanpham))
             {
-                var products = ketnoidatabase.SanPham.Where(p => p.Ten.Contains(tensanpham));
-                return Json(products);
+                var sp = ketnoidatabase.SanPham.Where(p => p.Ten.Contains(tensanpham));
+                return Json(sp);
             }
             return Json(new List<SanPham>());
         }

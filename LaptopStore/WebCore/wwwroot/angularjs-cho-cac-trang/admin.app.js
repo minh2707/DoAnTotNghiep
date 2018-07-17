@@ -17,17 +17,17 @@
 
     app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
-            .when('/products', {
+            .when('/tatcasanpham', {
                 templateUrl: '/Html/Admin/Product/products.html',
-                controller: 'AdminProductController'
+                controller: 'SanPhamAdminController'
             })
-            .when('/products/:id', {
+            .when('/laymotsanpham/:id', {
                 templateUrl: '/Html/Admin/Product/product-detail.html',
-                controller: 'AdminProductDetail'
+                controller: 'SanPhamAdminController'
             })
-            .when('/create/product', {
+            .when('/taosanpham', {
                 templateUrl: '/Html/Admin/Product/product-create.html',
-                controller: 'AdminProductCreate'
+                controller: 'SanPhamAdminController'
             })
             .when('/laytatcaloaisp', {
                 templateUrl: '/Html/Admin/LoaiSanPham/tatcaloaisp.html',
@@ -41,17 +41,17 @@
                 templateUrl: '/Html/Admin/LoaiSanPham/taoloaisp.html',
                 controller: 'LoaiSanPhamAdminController'
             })
-            .when('/orders', {
+            .when('/laytatcadonhang', {
                 templateUrl: '/Html/Admin/Order/order.html',
                 controller: 'AdminOrderController'
             })
-            .when('/orders/:id', {
+            .when('/laymotdonhang/:id', {
                 templateUrl: '/Html/Admin/Order/order-detail.html',
-                controller: 'AdminOrderDetail'
+                controller: 'AdminOrderController'
             })
-            .when('/create/order', {
+            .when('/taodonhang', {
                 templateUrl: '/Html/Admin/Order/order-create.html',
-                controller: 'AdminOrderCreate'
+                controller: 'AdminOrderController'
             })
             .otherwise({
                 redirectTo: '/'
@@ -60,34 +60,34 @@
 
     app.run(['$localStorage', '$rootScope', '$http', '$window', function ($localStorage, $rootScope, $http, $window) {
         var rvm = $rootScope;
-        rvm.logout = logout;
+        rvm.dangxuat = dangxuat;
 
         try {
-            rvm.user = JSON.parse($localStorage['user']);
+            rvm.taikhoan = JSON.parse($localStorage['taikhoan']);
         } catch (err) {
-            rvm.user = $localStorage['user'];
+            rvm.taikhoan = $localStorage['taikhoan'];
         }
-        console.log(rvm.user);
+        console.log(rvm.taikhoan);
 
-        if (rvm.user) {
+        if (rvm.taikhoan) {
 
-            if (rvm.user.isadmin === false) {
+            if (rvm.taikhoan.laAdmin === false) {
                 $window.location.href = '/';
             } else {
-                $http.defaults.headers.common.Authorization = 'Bearer ' + rvm.user.token;
+                $http.defaults.headers.common.Authorization = 'Bearer ' + rvm.taikhoan.token;
             }
         } else {
-            $window.location.href = '/Account/Login';
+            $window.location.href = '/TaiKhoan/DangNhap';
         }
 
-        function logout() {
-            $http.get('http://localhost:49595/api/Account/Logout', { headers: { Authorization: 'Bearer ' + rvm.user.token } })
+        function dangxuat() {
+            $http.get('http://localhost:49595/api/DangXuat', { headers: { Authorization: 'Bearer ' + rvm.taikhoan.token } })
                 .then(function (res) {
-                    rvm.user = null;
+                    rvm.taikhoan = null;
 
                     $localStorage.$reset();
 
-                    $window.location.href = '/Account/Login';
+                    $window.location.href = '/TaiKhoan/DangNhap';
                 })
                 .catch(function (err) {
                     console.log(err);

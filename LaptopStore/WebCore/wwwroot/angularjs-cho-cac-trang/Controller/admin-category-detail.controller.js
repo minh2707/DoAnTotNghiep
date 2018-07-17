@@ -32,7 +32,7 @@
                     vm.category = res;
                 })
                 .catch(function (err) {
-                    toastr.error("Error:" + JSON.stringify(err));
+                    toastr.error("Lỗi:" + JSON.stringify(err));
                 })
         }
 
@@ -55,7 +55,7 @@
                     vm.isEditModel = false;
                 })
                 .catch(function (err) {
-                    toastr.error("Error:" + JSON.stringify(err));
+                    toastr.error("Lỗi:" + JSON.stringify(err));
 
                 })
         }

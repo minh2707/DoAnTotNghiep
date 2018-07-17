@@ -3,11 +3,11 @@
 
     angular
         .module('AdminApp')
-        .controller('AdminProductDetail', AdminProductDetail);
+        .controller('SanPhamAdminController', SanPhamAdminController);
 
-    AdminProductDetail.$inject = ['$location', 'AdminService', 'toastr', '$scope', '$routeParams'];
+    SanPhamAdminController.$inject = ['$location', 'AdminService', 'toastr', '$scope', '$routeParams'];
 
-    function AdminProductDetail($location, AdminService, toastr, $scope, $routeParams) {
+    function SanPhamAdminController($location, AdminService, toastr, $scope, $routeParams) {
         /* jshint validthis:true */
         var vm = $scope;
 
@@ -33,7 +33,7 @@
                     vm.product = foundProduct;
                 })
                 .catch(function (err) {
-                    toastr.error("Error:" + JSON.stringify(err));
+                    toastr.error("Lỗi:" + JSON.stringify(err));
                 })
         }
 
@@ -48,7 +48,7 @@
                     vm.categories = foundCate;
                 })
                 .catch(function (err) {
-                    toastr.error("Error:" + JSON.stringify(err));
+                    toastr.error("Lỗi:" + JSON.stringify(err));
                 });
 
         }
@@ -65,7 +65,7 @@
                     vm.isEditModel = false;
                 })
                 .catch(function (err) {
-                    toastr.error("Error:" + JSON.stringify(err));
+                    toastr.error("Lỗi:" + JSON.stringify(err));
 
                 })
         }

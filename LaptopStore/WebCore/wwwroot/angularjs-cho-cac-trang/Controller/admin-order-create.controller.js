@@ -29,7 +29,7 @@
                     $location.replace();
                 })
                 .catch(function (err) {
-                    toastr.error("Error:" + JSON.stringify(err));
+                    toastr.error("Lỗi:" + JSON.stringify(err));
                 });
         }
     }

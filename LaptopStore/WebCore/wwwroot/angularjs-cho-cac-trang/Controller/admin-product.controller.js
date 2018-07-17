@@ -3,61 +3,187 @@
 
     angular
         .module('AdminApp')
-        .controller('AdminProductController', AdminProductController);
+        .controller('SanPhamAdminController', SanPhamAdminController);
 
-    AdminProductController.$inject = ['$location', 'AdminService', 'toastr', '$scope', '$uibModal'];
+    SanPhamAdminController.$inject = ['$location', 'AdminService', 'toastr', '$scope', '$uibModal'];
 
-    function AdminProductController($location, AdminService, toastr, $scope, $uibModal) {
+    function SanPhamAdminController($location, AdminService, toastr, $scope, $uibModal) {
         /* jshint validthis:true */
         var vm = $scope;
 
-        vm.deleteProduct = deleteProduct;
-        vm.openModal = openModal;
-        vm.close = close;
+        vm.xoasanpham = xoasanpham;
+        vm.moCuaSo = moCuaSo;
+        vm.dongCuaSo = dongCuaSo;
 
-        activate();
+        vm.laCheDoCapNhat = false;
+        var idCuaSanPham = $routeParams.id;
+        vm.sanPhamCanPhaiSua = {};
+        vm.sanpham = {};
+        vm.tatCaLoaiSP = [];
+        vm.moChucNangCapNhat = moChucNangCapNhat;
+        vm.capNhatSP = capNhatSP;
 
-        function activate() {
-            getAllProducts();
+        vm.sanphamcantao = {
+            hinh: {
+                animate: true,
+                tiendo: 0
+            }
+        };
+        vm.taoSP = taoSP;
+
+        khoitao();
+
+        function khoitao() {
+            if (idCuaSanPham && idCuaSanPham != null) {
+                layMotSanPham();
+            } else {
+                layTatCaSanPham();
+            }
+
+            laytatcaloaisp();
         }
 
-        function getAllProducts() {
-            AdminService.getAllProducts()
-                .then(function (products) {
-                    vm.products = products;
+        function layTatCaSanPham() {
+            AdminService.layhetsanpham()
+                .then(function (sp) {
+                    vm.tatcasanpham = sp;
                 })
                 .catch(function (err) {
-                    toastr.error('Error:' + JSON.stringify(err));
+                    toastr.error('Lỗi:' + JSON.stringify(err));
                 });
         }
 
-        function deleteProduct(id) {
-            AdminService.deleteProduct(id)
-                .then(function (products) {
-                    toastr.success("Product " + id + " is deleted!");
+        function xoasanpham(id) {
+            AdminService.xoasanpham(id)
+                .then(function (sanpham) {
+                    toastr.success("Sản Phẩm " + id + " được xóa!");
                     vm.modalInstance.close('deleted');
                 })
                 .catch(function (err) {
-                    toastr.error('Error:' + JSON.stringify(err));
+                    toastr.error('Lỗi:' + JSON.stringify(err));
                 });
         }
 
-        function openModal(product) {
-            vm.productPopup = product;
+        function moCuaSo(sanpham) {
+            vm.sanphamtrongcuaso = sanpham;
 
             vm.modalInstance = $uibModal.open({
-                templateUrl: 'myModalContent.html',
-                controller: 'AdminProductController',
+                templateUrl: 'cuaso.html',
+                controller: 'SanPhamAdminController',
                 scope: vm
             });
 
             vm.modalInstance.result.then(function (result) {
-                activate();
+                khoitao();
             });
         }
 
-        function close() {
+        function dongCuaSo() {
             vm.modalInstance.close('close');
+        }
+
+        function layMotSanPham() {
+            AdminService.laymotsanpham(idCuaSanPham)
+                .then(function (kq) {
+                    vm.sanpham = kq;
+                })
+                .catch(function (err) {
+                    toastr.error("Lỗi:" + JSON.stringify(err));
+                })
+        }
+
+        function moChucNangCapNhat() {
+            vm.laCheDoCapNhat = !vm.laCheDoCapNhat;
+            vm.sanPhamCanPhaiSua = angular.copy(vm.sanpham);
+        }
+
+        function laytatcaloaisp() {
+            AdminService.layhetloaisanpham()
+                .then(function (kq) {
+                    vm.tatCaLoaiSP = kq;
+                })
+                .catch(function (err) {
+                    toastr.error("Lỗi:" + JSON.stringify(err));
+                });
+
+        }
+
+        function capNhatSP(sp) {
+            if (sp.idLoai && angular.isObject(sp.idLoai)) {
+                sp.idLoai = sp.idLoai.idLoai;
+            }
+
+            AdminService.capnhatsanpham(sp)
+                .then(function (res) {
+                    toastr.success("Cập Nhật Thành Công");
+                    vm.sanpham = angular.copy(sp);
+                    vm.laCheDoCapNhat = false;
+                })
+                .catch(function (err) {
+                    toastr.error("Lỗi:" + JSON.stringify(err));
+                })
+        }
+
+        function taoSP(sp) {
+            taiHinhLenServer(sp.hinh)
+                .then(function (res) {
+
+                    var obj = {
+                        Idloai: sp.idLoai.idLoai,
+                        Ten: sp.ten,
+                        Gia: sp.gia,
+                        Hinh: res.file.fileName,
+                        MoTa: sp.mota,
+                        SoLuong: sp.soluong,
+                        GiamGia: sp.giamgia,
+                    };
+
+                    if (sp.trangthai === 'true') {
+                        obj.TrangThai = true;
+                    } else {
+                        obj.TrangThai = false;
+                    }
+
+                    AdminService.taosanpham(obj)
+                        .then(function (res) {
+                            toastr.success("Tạo Thành Công!");
+                            $location.path('/tatcasanpham');
+                            $location.replace();
+                        })
+                        .catch(function (err) {
+                            toastr.error("Lỗi:" + JSON.stringify(err));
+                            console.log(err);
+                        });
+                })
+                .catch(function (err) {
+                    if (err.status > 0) {
+                        toastr.error(err.status + ': ' + err.data);
+                        console.log(err);
+                    }
+                });
+
+        }
+
+        function taiHinhLenServer(file) {
+            var deferred = $q.defer();
+
+            Upload.upload({
+                url: 'http://localhost:49595/api/CapNhatAnh',
+                data: { file: file },
+                method: 'POST'
+            }).then(function (res) {
+                $timeout(function () {
+                    vm.sanphamcantao.image.animate = false;
+                    deferred.resolve(res.data);
+                });
+                }, function (err) {
+                    deferred.reject(err);
+                }, function (evt) {
+                    file.tiendo = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                });
+
+            return deferred.promise;
+
         }
     }
 })();

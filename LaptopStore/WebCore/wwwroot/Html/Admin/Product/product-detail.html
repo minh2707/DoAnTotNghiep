@@ -1,62 +1,62 @@
 ﻿<div class="col-lg-12 container well"  style="margin-top: 50px">
     <div class="col-md-12 col-lg-12">
-        <button class="btn btn-default pull-right" ng-click="enableEditModel()" data-ng-show="!isEditModel">Edit</button>
+        <button class="btn btn-default pull-right" ng-click="moChucNangCapNhat()" data-ng-show="!laCheDoCapNhat">Chỉnh Sửa</button>
     </div>
     <div class="">
         <div class="col-lg-6 col-md-6 col-sm-12">
-            <img src="../../../img/products/{{product.image}}" alt="{{product.name}}" />
+            <img src="../../../img/sanpham/{{sanpham.hinh}}" alt="{{sanpham.ten}}" />
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 row">
             <div class="input-group col-lg-12">
-                <label class="col-md-5 col-sm-12">Product Id:</label>
-                <p class="col-md-7 col-sm-12" data-ng-show="!isEditModel">{{product.productId}}</p>
-                <input  class="col-sm-12 col-md-7 input-sm" type="text" value="{{product.productId}}" readonly ng-model="editProduct.productId" data-ng-show="isEditModel"/>
+                <label class="col-md-5 col-sm-12">Id:</label>
+                <p class="col-md-7 col-sm-12" data-ng-show="!laCheDoCapNhat">{{sanpham.id}}</p>
+                <input  class="col-sm-12 col-md-7 input-sm" type="text" value="{{sanpham.id}}" readonly ng-model="sanPhamCanPhaiSua.id" data-ng-show="laCheDoCapNhat"/>
             </div>
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Product Name:</label>
-                <p class="col-md-7 col-sm-12" data-ng-show="!isEditModel">{{product.name}}</p>
-                <input class="col-sm-12 col-md-7 input-sm" type="text" value="{{product.name}}" ng-model="editProduct.name" data-ng-show="isEditModel" />
+                <label class="col-md-5"> Tên:</label>
+                <p class="col-md-7 col-sm-12" data-ng-show="!laCheDoCapNhat">{{sanpham.ten}}</p>
+                <input class="col-sm-12 col-md-7 input-sm" type="text" value="{{sanpham.ten}}" ng-model="sanPhamCanPhaiSua.ten" data-ng-show="laCheDoCapNhat" />
 
             </div>
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Category Id:</label>
-                <p class="col-md-7" data-ng-show="!isEditModel">{{product.cateId}}</p>
-                <select data-ng-show="isEditModel" ng-options="category.cateId for category in categories" ng-model="editProduct.cateId">
+                <label class="col-md-5">Id Loại:</label>
+                <p class="col-md-7" data-ng-show="!laCheDoCapNhat">{{sanpham.idLoai}}</p>
+                <select data-ng-show="laCheDoCapNhat" ng-options="category.idLoai for category in categories" ng-model="sanPhamCanPhaiSua.idLoai">
 
                 </select>
             </div>
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Price:</label>
-                <p class="col-md-7" data-ng-show="!isEditModel">{{product.price}}</p>
-                <input class="col-sm-12 col-md-7 input-sm" type="number" value="{{product.price}}" ng-model="editProduct.price" data-ng-show="isEditModel" />
+                <label class="col-md-5">Giá:</label>
+                <p class="col-md-7" data-ng-show="!laCheDoCapNhat">{{sanpham.gia}}</p>
+                <input class="col-sm-12 col-md-7 input-sm" type="number" value="{{sanpham.gia}}" ng-model="sanPhamCanPhaiSua.gia" data-ng-show="laCheDoCapNhat" />
             </div>
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Discount:</label>
-                <p class="col-md-7 col-sm-12 " data-ng-show="!isEditModel">{{product.discount}}</p>
-                <input class="col-sm-12 col-md-7 input-sm" type="number" value="{{product.discount}}" ng-model="editProduct.discount" data-ng-show="isEditModel" />
+                <label class="col-md-5">Giảm Giá:</label>
+                <p class="col-md-7 col-sm-12 " data-ng-show="!laCheDoCapNhat">{{sanpham.giamGia}}</p>
+                <input class="col-sm-12 col-md-7 input-sm" type="number" value="{{sanpham.giamGia}}" ng-model="sanPhamCanPhaiSua.giamGia" data-ng-show="laCheDoCapNhat" />
             </div>
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Quantity:</label>
-                <p class="col-md-7 col-sm-12 " data-ng-show="!isEditModel">{{product.quantity}}</p>
-                <input class="col-sm-12 col-md-7 input-sm" type="number" min="1" value="{{product.quantity}}" ng-model="editProduct.quantity" data-ng-show="isEditModel" />
+                <label class="col-md-5">Số Lượng:</label>
+                <p class="col-md-7 col-sm-12 " data-ng-show="!laCheDoCapNhat">{{sanpham.soLuong}}</p>
+                <input class="col-sm-12 col-md-7 input-sm" type="number" min="1" value="{{sanpham.soLuong}}" ng-model="sanPhamCanPhaiSua.soLuong" data-ng-show="laCheDoCapNhat" />
             </div>
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Description:</label>
-                <p class="col-md-7 col-sm-12 " data-ng-show="!isEditModel">{{product.description}}</p>
-                <textarea class="col-sm-12 col-md-7 input-sm" ng-model="editProduct.description" data-ng-show="isEditModel" data-ng-bind="product.description">
+                <label class="col-md-5">Mô Tả:</label>
+                <p class="col-md-7 col-sm-12 " data-ng-show="!laCheDoCapNhat">{{sanpham.moTa}}</p>
+                <textarea class="col-sm-12 col-md-7 input-sm" ng-model="sanPhamCanPhaiSua.moTa" data-ng-show="laCheDoCapNhat" data-ng-bind="sanpham.moTa">
                     
                 </textarea>
             </div>
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Status:</label>
-                <p class="col-md-7 col-sm-12 " data-ng-show="!isEditModel">{{product.status}}</p>
-                <input class="col-sm-12 col-md-7 input-sm" type="text" min="1" value="{{product.status}}" ng-model="editProduct.status" data-ng-show="isEditModel" />
+                <label class="col-md-5">Trạng Thái:</label>
+                <p class="col-md-7 col-sm-12 " data-ng-show="!laCheDoCapNhat">{{sanpham.trangThai}}</p>
+                <input class="col-sm-12 col-md-7 input-sm" type="text" min="1" value="{{sanpham.trangThai}}" ng-model="sanPhamCanPhaiSua.trangThai" data-ng-show="laCheDoCapNhat" />
             </div> 
 
-            <div class="col-lg-12" data-ng-show="isEditModel">
+            <div class="col-lg-12" data-ng-show="laCheDoCapNhat">
                 <div class="input-group-btn">
-                    <button class="btn btn-default" data-ng-click="isEditModel = !isEditModel">Cancel</button>
-                    <button class="btn btn-primary" data-ng-click="updateProduct(editProduct)">Save</button>
+                    <button class="btn btn-default" data-ng-click="laCheDoCapNhat = !laCheDoCapNhat">Hủy Bỏ</button>
+                    <button class="btn btn-primary" data-ng-click="capNhatSP(sanPhamCanPhaiSua)">Đồng Ý</button>
                 </div>
             </div>
         </div>

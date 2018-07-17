@@ -13,7 +13,7 @@
 
         vm.deleteOrder = deleteOrder;
 
-        vm.openModal = openModal;
+        vm.moCuaSo = moCuaSo;
         vm.close = close;
 
         activate();
@@ -28,22 +28,22 @@
                     vm.orders = orders;
                 })
                 .catch(function (err) {
-                    toastr.error('Error:' + JSON.stringify(err));
+                    toastr.error('Lỗi:' + JSON.stringify(err));
                 });
         }
 
         function deleteOrder(id) {
             AdminService.deleteOrder(id)
-                .then(function (products) {
+                .then(function (sanpham) {
                     toastr.success("Order " + id + " is deleted!");
                     vm.modalInstance.close('deleted');
                 })
                 .catch(function (err) {
-                    toastr.error('Error:' + JSON.stringify(err));
+                    toastr.error('Lỗi:' + JSON.stringify(err));
                 });
         }
 
-        function openModal(order) {
+        function moCuaSo(order) {
             vm.orderPopup = order;
 
             vm.modalInstance = $uibModal.open({

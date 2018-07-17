@@ -26,7 +26,7 @@
                     vm.orderDetails = orders;
                 })
                 .catch(function (err) {
-                    toastr.error('Error:' + JSON.stringify(err));
+                    toastr.error('Lỗi:' + JSON.stringify(err));
                 });
         }
 
@@ -41,14 +41,14 @@
                                 $location.replace();
                             })
                             .catch(function (err) {
-                                toastr.error('Error:' + JSON.stringify(err));
+                                toastr.error('Lỗi:' + JSON.stringify(err));
                             });
                     } else {
                         activate();
                     }
                 })
                 .catch(function (err) {
-                    toastr.error('Error:' + JSON.stringify(err));
+                    toastr.error('Lỗi:' + JSON.stringify(err));
                 });
         }
     }

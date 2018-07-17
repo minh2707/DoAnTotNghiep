@@ -32,7 +32,7 @@
                     vm.categories = foundCate;
                 })
                 .catch(function (err) {
-                    toastr.error("Error:" + JSON.stringify(err));
+                    toastr.error("Lỗi:" + JSON.stringify(err));
                     console.log(err);
                 });
 
@@ -65,7 +65,7 @@
                             $location.replace();
                         })
                         .catch(function (err) {
-                            toastr.error("Error:" + JSON.stringify(err));
+                            toastr.error("Lỗi:" + JSON.stringify(err));
                             console.log(err);
                         });
                 })

@@ -1,63 +1,63 @@
-﻿<div class="col-lg-12 container well" style="margin-top: 50px" name="formCreateProduct">
+﻿<div class="col-lg-12 container well" style="margin-top: 50px" name="frmTaoSanPham">
     <div class="col-lg-6 col-md-6 col-sm-12 row">
-        <img style="width:340px;" ng-show="formCreateProduct.file.$valid" ngf-thumbnail="createProduct.image">
+        <img style="width:340px;" ng-show="frmTaoSanPham.file.$valid" ngf-thumbnail="sanphamcantao.hinh">
         <!-- Progress bar when upload -->
-        <!--<span class="progress" ng-show="createProduct.image.progress && createProduct.image.progress >= 0">
-            <div style="width:{{createProduct.image.progress}}%"
-                 ng-bind="createProduct.image.progress + '%'"></div>
+        <!--<span class="progress" ng-show="sanphamcantao.image.progress && sanphamcantao.image.progress >= 0">
+            <div style="width:{{sanphamcantao.image.progress}}%"
+                 ng-bind="sanphamcantao.image.progress + '%'"></div>
         </span>-->
-        <uib-progressbar animate="createProduct.image.animate" ng-show="createProduct.image.progress > 0" class="progress-striped active" value="createProduct.image.progress" type="success">{{createProduct.image.progress}}%</uib-progressbar>
+        <uib-progressbar animate="sanphamcantao.hinh.animate" ng-show="sanphamcantao.hinh.tiendo > 0" class="progress-striped active" value="sanphamcantao.hinh.tiendo" type="success">{{sanphamcantao.hinh.tiendo}}%</uib-progressbar>
         <!-- End -->
 
-        <input class="img-thumbnail"  type="file" ngf-select ng-model="createProduct.image" name="file"
+        <input class="img-thumbnail"  type="file" ngf-select ng-model="sanphamcantao.hinh" name="file"
                accept="image/*" ngf-max-size="2MB" required
                ngf-model-invalid="errorFile">
-        <i ng-show="formCreateProduct.file.$error.required">*required</i><br>
-        <i ng-show="formCreateProduct.file.$error.maxSize">
-            File too large
+        <i ng-show="frmTaoSanPham.file.$error.required">*Bắt Buộc</i><br>
+        <i ng-show="frmTaoSanPham.file.$error.maxSize">
+            Tập Tin Quá Lơn
             {{errorFile.size / 1000000|number:1}}MB: max 2M
         </i>
     </div>
         <div class="col-lg-6 col-md-6 col-sm-12 row">
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Product Name:</label>
-                <input class="col-sm-12 col-md-7 input-sm" type="text" value="" ng-model="createProduct.name" />
+                <label class="col-md-5">Tên:</label>
+                <input class="col-sm-12 col-md-7 input-sm" type="text" value="" ng-model="sanphamcantao.ten" />
 
             </div>
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Category Id:</label>
-                <select ng-options="category.cateId for category in categories" ng-model="createProduct.cateId"></select>
+                <label class="col-md-5">Id Loại:</label>
+                <select ng-options="loai.id for loai in tatCaLoaiSP" ng-model="sanphamcantao.idloai"></select>
             </div>
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Price:</label>
-                <input class="col-sm-12 col-md-7 input-sm" type="number" value="" ng-model="createProduct.price" />
+                <label class="col-md-5">Giá:</label>
+                <input class="col-sm-12 col-md-7 input-sm" type="number" value="" ng-model="sanphamcantao.gia" />
             </div>
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Discount:</label>
-                <input class="col-sm-12 col-md-7 input-sm" type="number" value="" ng-model="createProduct.discount" />
+                <label class="col-md-5">Giảm Giá:</label>
+                <input class="col-sm-12 col-md-7 input-sm" type="number" value="" ng-model="sanphamcantao.giamgia" />
             </div>
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Quantity:</label>
-                <input class="col-sm-12 col-md-7 input-sm" type="number" min="1" value="" ng-model="createProduct.quantity" />
+                <label class="col-md-5">Số Lượng:</label>
+                <input class="col-sm-12 col-md-7 input-sm" type="number" min="1" value="" ng-model="sanphamcantao.soluong" />
             </div>
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Description:</label>
-                <textarea class="col-sm-12 col-md-7 input-sm" ng-model="createProduct.description">
+                <label class="col-md-5">Mô Tả:</label>
+                <textarea class="col-sm-12 col-md-7 input-sm" ng-model="sanphamcantao.mota">
                     
                 </textarea>
             </div>
             <div class="input-group col-lg-12">
-                <label class="col-md-5">Status:</label>
+                <label class="col-md-5">Trạng Thái:</label>
                 <div class="col-sm-12 col-lg-7 input-group">
-                    <input  type="radio" name="status" value="true" ng-model="createProduct.status" /> True
-                    <input type="radio" name="status" value="false" ng-model="createProduct.status" />False
+                    <input  type="radio" name="status" value="true" ng-model="sanphamcantao.trangthai" /> True
+                    <input type="radio" name="status" value="false" ng-model="sanphamcantao.trangthai" />False
                 </div>
             </div>
 
             <div class="col-lg-12">
                 <div class="input-group-btn">
-                    <a class="btn btn-default" href="/Admin/#!/products">Cancel</a>
-                    <button class="btn btn-primary" ng-click="doCreateProduct(createProduct)" >Create</button>
+                    <a class="btn btn-default" href="TrangChu/Admin/#!/tatcasanpham">Cancel</a>
+                    <button class="btn btn-primary" ng-click="taoSP(sanphamcantao)" >Create</button>
                 </div>
             </div>
         </div>
