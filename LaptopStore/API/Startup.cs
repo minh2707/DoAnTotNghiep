@@ -21,7 +21,7 @@ namespace API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration conf, IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder();
 
@@ -30,7 +30,7 @@ namespace API
                 builder.AddUserSecrets<Startup>();
             }
 
-            Configuration = configuration;
+            Configuration = conf;
         }
 
         public IConfiguration Configuration { get; }
@@ -51,9 +51,9 @@ namespace API
                     .AllowAnyHeader();
             }));
             //Cấu hình đường dẫn kết nói DB
-            var connection = @"Data Source=MINH;Initial Catalog=LapTopStore;Integrated Security=True";
+            var connection = @"Data Source=K-PC;Initial Catalog=LapTopStore;Integrated Security=True";
             //Kết nối DB với đường dẫn
-            services.AddDbContext<LapTopStoreContext>(options => options.UseSqlServer(connection, sqlOptions => sqlOptions.MigrationsAssembly("WebAPI")));
+            services.AddDbContext<LapTopStoreContext>(tuychon => tuychon.UseSqlServer(connection, sqlOptions => sqlOptions.MigrationsAssembly("WebAPI")));
 
             /*Thêm các bảng user vào database được hỗ trợ bở ASP.Net*/
             services.AddIdentity<NguoiDungEntity, IdentityRole>()
@@ -61,9 +61,9 @@ namespace API
                     .AddDefaultTokenProviders();
 
             // Cấu hình phân quyền user
-            services.AddAuthorization(options =>
+            services.AddAuthorization(tuychon =>
             {
-                options.AddPolicy(
+                tuychon.AddPolicy(
                     "Administrations",
                     authBuilder =>
                     {
@@ -78,17 +78,17 @@ namespace API
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme + "," + CookieAuthenticationDefaults.AuthenticationScheme;
             })
             //Mở Cookie
-            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, tuychon =>
             {
-                options.SlidingExpiration = true;
+                tuychon.SlidingExpiration = true;
             })
             /*Cấu hình API sử dụng phương thức xác thực bằng JWT */
-            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, tuychon =>
             {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
+                tuychon.RequireHttpsMetadata = false;
+                tuychon.SaveToken = true;
 
-                options.TokenValidationParameters = new TokenValidationParameters()
+                tuychon.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
@@ -100,12 +100,12 @@ namespace API
                     ClockSkew = TimeSpan.FromMinutes(30)
                 };
 
-                options.Events = new JwtBearerEvents
+                tuychon.Events = new JwtBearerEvents
                 {
-                    OnAuthenticationFailed = context =>
+                    OnAuthenticationFailed = cauhinh =>
                     {
                         Console.WriteLine("OnAuthenticationFailed: " +
-                            context.Exception.Message);
+                            cauhinh.Exception.Message);
                         return Task.CompletedTask;
                     },
                     OnTokenValidated = context =>

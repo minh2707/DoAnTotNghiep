@@ -42,12 +42,13 @@
     }]);
 
     app.run(['NgStorageService', '$rootScope', '$http', function (ngStorageService, $rootScope, $http) {
-        $rootScope.taikhoan = ngStorageService.getLocalStorage('taikhoan');
+        $rootScope.taikhoan = ngStorageService.layLocal('taikhoan');
         console.log($rootScope.taikhoan);
         $rootScope.giohang = {};
+        $rootScope.giohang.sanpham = [];
+        $rootScope.giohang.tongtien = 0;
 
         $rootScope.xoasanphamtronggiohang = xoasanphamtronggiohang;
-        $rootScope.dangxuat = dangxuat;
 
         if ($rootScope.taikhoan) {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $rootScope.taikhoan.token;
@@ -66,10 +67,13 @@
             } else {
                 $rootScope.giohang.tongtien = tongtien;
             }
+
+            ngStorageService.ganSession('giohang', $rootScope.giohang);
+
         }, true);
 
         function xoasanphamtronggiohang(sanpham) {
-            var sanphamtronggiohang = ngStorageService.getSessionStorage('giohang');
+            var sanphamtronggiohang = ngStorageService.laySession('giohang');
             var stt = null;
 
             sanphamtronggiohang.forEach(function (p, i) {
@@ -80,7 +84,7 @@
 
             sanphamtronggiohang.splice(stt, 1);
             $rootScope.giohang.sanpham.splice(stt, 1);
-            ngStorageService.setSessionStorage('giohang', sanphamtronggiohang);
+            ngStorageService.ganSession('giohang', sanphamtronggiohang);
         }
 
         function dangxuat() {
@@ -88,19 +92,21 @@
                 .then(function (res) {
                     $rootScope.taikhoan = null;
 
-                    ngStorageService.resetLocalStorage();
+                    ngStorageService.xoaHetSession();
                 })
                 .catch(function (err) {
                     console.log(err);
                 });
         };
 
-        var timgiohang = ngStorageService.getSessionStorage('giohang');
-        if (!angular.isUndefined(timgiohang)) {
-            $rootScope.giohang.sanpham = timgiohang
+        var timgiohang = ngStorageService.laySession('giohang');
+        if (angular.isObject(timgiohang) && timgiohang.hasOwnProperty('sanpham') && timgiohang.hasOwnProperty('tongtien')) {
+            $rootScope.giohang = timgiohang
         } else {
-            $rootScope.giohang.sanpham = [];
+            $rootScope.giohang = $rootScope.giohang;
         }
+
+        ngStorageService.ganSession('giohang', $rootScope.giohang);
 
     }]);
 

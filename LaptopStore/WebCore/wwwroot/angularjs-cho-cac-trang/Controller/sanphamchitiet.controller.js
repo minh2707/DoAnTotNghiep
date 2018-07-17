@@ -12,61 +12,67 @@
         var vm = $scope;
         var rootScope = $rootScope;
 
-        var productId = $routeParams.id;
-        vm.quantityOfProductAddToCart = 1;
-        vm.addCart = addCart;
+        var idSanPham = $routeParams.id;
+        vm.soluongspthemvaogiohang = 1;
+        vm.themvaogiohang = themvaogiohang;
 
-        activate();
+        khoitao();
 
-        function activate() {
+        function khoitao() {
             
-            getProductDetail();
+            laySanPhamChiTiet();
         }
 
-        function getProductDetail() {
-            if (productId != null) {
-                TrangChuService.getProductDetail(productId)
-                    .then(function (product) {
-                        vm.productDetail = product;
-                        vm.productDetail.quantity = 1;
+        function laySanPhamChiTiet() {
+            if (idSanPham != null) {
+                TrangChuService.laysanphamchitiet(idSanPham)
+                    .then(function (sp) {
+                        vm.chitietsanpham = sp;
+                        vm.chitietsanpham.soluong = 1;
                     })
                     .catch(function (err) {
                         console.log(err);
                     });
             } else {
-                vm.productDetail = vm.product;
+                vm.chitietsanpham = vm.sanpham;
             }
             
         }
 
-        function addCart(product) {
-            var productInCart = ngStorageService.getSessionStorage('carts');
+        function themvaogiohang(sanpham) {
+            var sanphamtronggiohang = ngStorageService.laySession('giohang');
 
-            if (angular.isUndefined(productInCart)) {
-                productInCart = [product]
-                rootScope.carts.products.push(product);
+            if (angular.isUndefined(sanphamtronggiohang)) {
+                sanpham.soluong = 1;
+                sanphamtronggiohang = [sanpham]
+                rootScope.giohang.sanpham.push(sanpham);
+                rootScope.giohang.tongtien = sanpham.gia * sanpham.soluong;
             } else {
-                if (productInCart.length === 0) {
-                    productInCart.push(product);
-                    rootScope.carts.products.push(product);
+                if (sanphamtronggiohang.sanpham.length === 0) {
+                    sanpham.soluong = 1;
+                    sanphamtronggiohang.sanpham.push(sanpham);
+                    rootScope.giohang.sanpham.push(sanpham);
+                    rootScope.giohang.tongtien = sanpham.gia * sanpham.soluong;
                 } else {
-                    var filter = $filter('filter')(productInCart, { productId: product.productId });
-                    if (filter && filter.length !== 0) {
-                        productInCart.forEach(function (p) {
-                            if (p.productId === product.productId) {
-                                p.quantity += product.quantity;
-                                rootScope.carts.total += (product.price * product.quantity);
+                    var truyvan = $filter('filter')(sanphamtronggiohang.sanpham, { id: sanpham.id });
+                    if (truyvan && truyvan.length !== 0) {
+                        sanphamtronggiohang.sanpham.forEach(function (p) {
+                            if (p.id === sanpham.id) {
+                                p.soluong++;
+                                rootScope.giohang.tongtien += p.gia;
                             }
                         });
                     } else {
-                        productInCart.push(product);
-                        rootScope.carts.products.push(product);
+                        sanpham.soluong = 1;
+                        sanphamtronggiohang.sanpham.push(sanpham);
+                        rootScope.giohang.sanpham.push(sanpham);
+                        rootScope.giohang.tongtien = sanpham.gia * sanpham.soluong;
                     }
                 }
+
             }
-            ngStorageService.setSessionStorage('carts', productInCart);
+            ngStorageService.ganSession('giohang', sanphamtronggiohang);
         }
 
-        
     }
 })();

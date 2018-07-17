@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-6 col-sm-6">
                 <div class="product-main-image">
-                    <img src="../img/products/{{productDetail.image}}" alt="{{productDetail.name}}-img" class="img-responsive">
+                    <img src="../img/sanpham/{{chitietsanpham.hinh}}" alt="{{chitietsanpham.ten}}-img" class="img-responsive">
                 </div>
                 <div class="product-other-images">
                     <!--<a href="assets/pages/img/products/model3.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="assets/pages/img/products/model3.jpg"></a>
@@ -13,24 +13,24 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-6">
-                <h1>{{productDetail.name}}</h1>
+                <h1>{{chitietsanpham.ten}}</h1>
                 <div class="price-availability-block clearfix">
                     <div class="price">
-                        <strong style="font-size: 160%" class="input-sm">{{productDetail.price | currency:"VND" : 0}}</strong>
-                        <em><span>{{(productDetail.price + (productDetail.price * productDetail.discount)) | currency:"VND" : 0}}</span></em>
+                        <strong style="font-size: 160%" class="input-sm">{{chitietsanpham.gia | currency:"VND" : 0}}</strong>
+                        <em><span>{{(chitietsanpham.gia + (chitietsanpham.gia * chitietsanpham.giamgia)) | currency:"VND" : 0}}</span></em>
                     </div>
                     <div class="availability">
-                        Availability: <strong>{{productDetail.status}}</strong>
+                        Availability: <strong>{{chitietsanpham.trangThai}}</strong>
                     </div>
                 </div>
-                <div class="description" ng-bind-html="productDetail.description">
+                <div class="description" ng-bind-html="chitietsanpham.moTa">
                     
                 </div>
                 <div class="product-page-cart">
                     <div class="product-quantity">
-                        <input id="product-quantity" type="number" value="{{productDetail.quantity}}" min="1" class="form-control input-sm" ng-model="productDetail.quantity">
+                        <input id="product-quantity" type="number" value="{{chitietsanpham.soluong}}" min="1" class="form-control input-sm" ng-model="chitietsanpham.soluong">
                     </div>
-                    <button class="btn btn-primary" type="submit" ng-click="addCart(productDetail)">Add to cart</button>
+                    <button class="btn btn-primary" type="submit" ng-click="themvaogiohang(chitietsanpham)">Thêm Vào Giỏ Hàng</button>
                 </div>
                 
                 <ul class="social-icons">
@@ -44,11 +44,11 @@
             <div>
                 <uib-tabset active="active" class="product-page-content">
                     <uib-tab index="0" heading="Description">
-                        <div ng-bind-html="productDetail.description"></div>
+                        <div ng-bind-html="chitietsanpham.moTa"></div>
                     </uib-tab>
                 </uib-tabset>
             </div>
-            <div class="sticker sticker-sale" ng-show="productDetail.discount != 0"></div>
+            <div class="sticker sticker-sale" ng-show="chitietsanpham.giamgia != 0"></div>
         </div>
     </div>
 </div>

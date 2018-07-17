@@ -13,7 +13,7 @@
             ganSession: ganSession,
             ganLocal: ganLocal,
             laySession: laySession,
-            laySession: layLocal,
+            layLocal: layLocal,
             xoaHetSession: xoaHetSession
         };
 

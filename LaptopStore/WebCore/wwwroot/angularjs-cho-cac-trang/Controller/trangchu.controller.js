@@ -145,35 +145,38 @@
         }
 
         function themgiohang(sanpham) {
-            var sanphamtronggiohang = ngStorageService.getSessionStorage('giohang');
+            var sanphamtronggiohang = ngStorageService.laySession('giohang');
 
             if (angular.isUndefined(sanphamtronggiohang)) {
                 sanpham.soluong = 1;
                 sanphamtronggiohang = [sanpham]
                 rootScope.giohang.sanpham.push(sanpham);
+                rootScope.giohang.tongtien = sanpham.gia * sanpham.soluong;
             } else {
-                if (sanphamtronggiohang.length === 0) {
+                if (sanphamtronggiohang.sanpham.length === 0) {
                     sanpham.soluong = 1;
-                    sanphamtronggiohang.push(sanpham);
+                    sanphamtronggiohang.sanpham.push(sanpham);
                     rootScope.giohang.sanpham.push(sanpham);
-                } else {
-                    var truyvan = $filter('filter')(sanphamtronggiohang, { idSanPham: sanpham.id });
+                    rootScope.giohang.tongtien = sanpham.gia * sanpham.soluong;
+               } else {
+                    var truyvan = $filter('filter')(sanphamtronggiohang.sanpham, { id: sanpham.id });
                     if (truyvan && truyvan.length !== 0) {
-                        sanphamtronggiohang.forEach(function (p) {
+                        sanphamtronggiohang.sanpham.forEach(function (p) {
                             if (p.id === sanpham.id) {
                                 p.soluong++;
-                                rootScope.giohang.tongtien += p.tien;
+                                rootScope.giohang.tongtien += p.gia;
                             }
                         });
                     } else {
                         sanpham.soluong = 1;
-                        sanphamtronggiohang.push(sanpham);
+                        sanphamtronggiohang.sanpham.push(sanpham);
                         rootScope.giohang.sanpham.push(sanpham);
+                        rootScope.giohang.tongtien = sanpham.gia * sanpham.soluong;
                     }
                 }
                 
             }
-            ngStorageService.setSessionStorage('giohang', sanphamtronggiohang);
+            ngStorageService.ganSession('giohang', sanphamtronggiohang);
         }
 
         function timkiemsanpham(tukhoa) {

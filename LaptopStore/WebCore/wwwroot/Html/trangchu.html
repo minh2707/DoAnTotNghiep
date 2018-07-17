@@ -45,7 +45,7 @@
             <div dir-paginate="sp in sanpham|itemsPerPage:6" class="col-md-4 col-sm-6 col-xs-12">
                 <div class="product-item">
                     <div class="pi-img-wrapper">
-                        <img style="height:12em;"src="/img/sanpham/{{sp.hinh}}" class="img-responsive" alt="{{sp.ten}}">
+                        <img style="height:12em;" ng-src="/img/sanpham/{{sp.hinh}}" class="img-responsive" alt="{{sp.ten}}">
                         <div>
                             <a fancyboxable="{padding:30}" id="image-{{id}}"  data-ng-href="/img/sanpham/{{sp.hinh}}" class="btn btn-default">Phóng Lớn</a>
                             <a class="btn btn-default" ng-click="mosanphamchitietcuaso(sp)">Mở</a>
