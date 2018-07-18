@@ -96,7 +96,7 @@
                 <div class="top-cart-content-wrapper">
                     <div class="top-cart-content">
                         <ul class="scroller" style="height: 250px;">
-                            <li ng-repeat="sanphamtronggiohang in giohang.sanpham track by $index">
+                            <li ng-repeat="sanphamtronggiohang in giohang.sanpham">
                                 <a class="" href="/#!/sanpham/{{sanphamtronggiohang.id}}"><img ng-src="/img/sanpham/{{sanphamtronggiohang.hinh}}" alt="{{sanphamtronggiohang.ten}}" width="37" height="34"></a>
                                 <span class="cart-content-count">x {{sanphamtronggiohang.soluong}}</span>
                                 <strong><a href="/#!/sanpham/{{sanphamtronggiohang.id}}">{{sanphamtronggiohang.ten}}</a></strong>

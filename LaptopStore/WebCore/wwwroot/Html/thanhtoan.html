@@ -53,14 +53,14 @@
                                     </td>
                                     <td class="goods-page-quantity">
                                         <div class="product-quantity">
-                                            <input id="product-quantity" type="number" min="1" readonly data-ng-value="{{sp.soLuong}}" class="form-control input-sm" ng-model="sp.soLuong" ng-change="updateQuantityOfProduct($index, sp.soLuong)" ng-model-options='{ debounce: 200 }'>
+                                            <input id="product-quantity" type="number" min="1" readonly data-ng-value="{{sp.soluong}}" class="form-control input-sm" ng-model="sp.soluong" ng-change="updateQuantityOfProduct($index, sp.soluong)" ng-model-options='{ debounce: 200 }'>
                                         </div>
                                     </td>
                                     <td class="goods-page-price">
                                         <strong>{{sp.gia | currency:"VND" : 0}}</strong>
                                     </td>
                                     <td class="goods-page-total">
-                                        <strong>{{(sp.soLuong * sp.gia) | currency:"VND" : 0}}</strong>
+                                        <strong>{{(sp.soluong * sp.gia) | currency:"VND" : 0}}</strong>
                                     </td>
                                 </tr>
                             </table>

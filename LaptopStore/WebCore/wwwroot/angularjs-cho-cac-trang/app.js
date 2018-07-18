@@ -61,6 +61,10 @@
 
             if (!angular.isUndefined(giatrimoi) || giatrimoi.length !== 0 || giatrimoi !== null) {
 
+                if (giatrimoi.soluong != giatricu.soluong) {
+                    giatricu.soluong = giatrimoi.soluong
+                }
+
                 giatrimoi.forEach(function (sanpham) {
                     tongtien += (sanpham.gia * sanpham.soluong);
                 });

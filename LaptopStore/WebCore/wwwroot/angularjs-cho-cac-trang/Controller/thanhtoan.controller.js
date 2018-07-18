@@ -15,6 +15,18 @@
 
         vm.thanhtoan = thanhtoan;
 
+        khoitao();
+
+        function khoitao() {
+            const nguoidungdadangnhap = NgStorageService.layLocal('taikhoan');
+            if (angular.isUndefined(nguoidungdadangnhap) || !nguoidungdadangnhap.id || nguoidungdadangnhap.id == null) {
+                window.location.href = "/";
+                window.location.replace();
+            } else {
+                vm.kh = nguoidungdadangnhap;
+            }
+        }
+
         function thanhtoan(sp, khachhang) {
             var taoKhachHang = function () {
                 var khachhangdetao = {
