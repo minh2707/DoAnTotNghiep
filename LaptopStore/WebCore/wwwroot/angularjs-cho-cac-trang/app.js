@@ -9,7 +9,8 @@
         'angularUtils.directives.dirPagination',
         'fancyboxplus',
         'rzModule',
-        'ngStorage'
+        'ngStorage',
+        'ngMaterial'
 
         // Custom modules 
 

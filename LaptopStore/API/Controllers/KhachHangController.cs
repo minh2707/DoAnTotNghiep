@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using API.Models;
 
-namespace WebAPI.Controllers
+namespace API.Controllers
 {
     [Produces("application/json")]
     [Route("api/")]

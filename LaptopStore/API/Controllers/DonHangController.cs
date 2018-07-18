@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace WebAPI.Controllers
+namespace API.Controllers
 {
     [Produces("application/json")]
     public class OrdersController : Controller

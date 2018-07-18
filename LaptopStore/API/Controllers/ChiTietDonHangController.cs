@@ -11,7 +11,7 @@ using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-namespace WebAPI.Controllers
+namespace API.Controllers
 {
     [Produces("application/json")]
     [Route("api")]

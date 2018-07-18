@@ -7,7 +7,8 @@
         'toastr',
         'ui.bootstrap',
         'ngStorage',
-        'ngFileUpload'
+        'ngFileUpload',
+        'ngMaterial'
 
         // Custom modules 
 

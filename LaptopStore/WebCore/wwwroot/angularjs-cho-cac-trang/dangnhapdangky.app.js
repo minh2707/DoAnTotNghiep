@@ -6,6 +6,7 @@
         'ngRoute',
         'toastr',
         'ngStorage',
+        'ngMaterial'
 
         // Custom modules 
 
