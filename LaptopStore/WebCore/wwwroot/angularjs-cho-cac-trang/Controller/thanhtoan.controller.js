@@ -46,17 +46,17 @@
                             NgayDat: new Date(),
                         };
 
-                        TrangChuService.taodonhang(hoadon)
+                        TrangChuService.taohoadon(hoadon)
                             .then(function (kq) {
                                 var mangCacViecCanHoanThanh = [];
                                 for (var i = 0; i < sp.length; i++) {
                                     var ctdh = {
-                                        IddonHang: kq.id,
+                                        IdDonHang: kq.id,
                                         GiamGia: sp[i].giamGia,
-                                        IdsanPham: sp[i].idSanPham,
-                                        SoLuong: sp[i].soLuong,
-                                        DonGia: sp[i].donGia,
-                                        Id: null
+                                        IdSanPham: sp[i].id,
+                                        SoLuong: sp[i].soluong,
+                                        DonGia: sp[i].gia,
+                                        Id: Math.floor((Math.random() * 9999999999) + 1)
                                     }
 
                                     mangCacViecCanHoanThanh.push(TrangChuService.taochitietdonhang(ctdh));
@@ -70,7 +70,7 @@
                                                 sanpham: []
                                             };
 
-                                            $location.path('/');
+                                            $location.path('/thanhtoanthanhcong');
                                             $location.replace();
                                         })
                                         .catch(function (err) {

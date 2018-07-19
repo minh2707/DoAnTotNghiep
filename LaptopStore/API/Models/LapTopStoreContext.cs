@@ -35,14 +35,18 @@ namespace API.Models
 
         public LapTopStoreContext()
         {
-            Database.EnsureCreated();
+            if (Database.EnsureCreated()) {
+                
+            } else {
+                
+            }
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=MINH;Initial Catalog=LapTopStore;Integrated Security=True");
+                optionsBuilder.UseSqlServer(@"Data Source=localhost\SQLEXPRESS;Initial Catalog=LapTopStore;Integrated Security=True");
             }
         }
 

@@ -14,7 +14,8 @@
             ganLocal: ganLocal,
             laySession: laySession,
             layLocal: layLocal,
-            xoaHetSession: xoaHetSession
+            xoaHetSession: xoaHetSession,
+            xoaHetLocal: xoaHetLocal
         };
 
         return service;
@@ -52,6 +53,10 @@
         }
 
         function xoaHetSession() {
+            $sessionStorage.$reset();
+        }
+
+        function xoaHetLocal() {
             $localStorage.$reset();
         }
     }

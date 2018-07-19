@@ -1,41 +1,39 @@
 ﻿    <div class="container">
-        <!-- BEGIN SIDEBAR & CONTENT -->
         <div class="row margin-bottom-40">
-            <!-- BEGIN CONTENT -->
             <div class="col-md-12 col-sm-12">
-                <h1>Shopping cart</h1>
-                <div class="goods-page" ng-if="carts.products.length > 0">
+                <h1>Giỏ Hàng</h1>
+                <div class="goods-page" ng-if="giohang.sanpham.length > 0">
                     <div class="goods-data clearfix">
                         <div class="table-wrapper-responsive">
                             <table summary="Shopping cart">
                                 <tr>
-                                    <th class="goods-page-image">Image</th>
-                                    <th class="goods-page-description">Description</th>
-                                    <th class="goods-page-quantity">Quantity</th>
-                                    <th class="goods-page-price">Unit price</th>
-                                    <th class="goods-page-total" colspan="2">Total</th>
+                                    <th class="goods-page-image">Hình</th>
+                                    <th class="goods-page-description">Mô Tả</th>
+                                    <th class="goods-page-quantity">Sô Lượng</th>
+                                    <th class="goods-page-price">Đơn Giá</th>
+                                    <th class="goods-page-total" colspan="2">Tổng Tiền</th>
                                 </tr>
-                                <tr ng-repeat="product in carts.products track by $index">
+                                <tr ng-repeat="sanpham in giohang.sanpham track by $index">
                                     <td class="goods-page-image">
-                                        <a href="javascript:;"><img src="/img/products/{{product.image}}" alt="{{product.name}}-img"></a>
+                                        <a href="javascript:;"><img ng-src="/img/sanpham/{{sanpham.hinh}}" alt="{{sanpham.ten}}-img"></a>
                                     </td>
                                     <td class="goods-page-description">
-                                        <h3><a href="javascript:;">{{product.name}}</a></h3>
-                                        <a href="/#!/products/{{product.productId}}"><em>More info is here</em></a>
+                                        <h3><a href="javascript:;">{{sanpham.ten}}</a></h3>
+                                        <a href="/#!/sanpham/{{sanpham.id}}"><em>Bấm vào để biết thêm chi tiết</em></a>
                                     </td>
                                     <td class="goods-page-quantity">
                                         <div class="product-quantity">
-                                            <input id="product-quantity" type="number" min="1" value="{{product.quantity}}" class="form-control input-sm" ng-model="product.quantity" ng-change="updateQuantityOfProduct($index, product.quantity)" ng-model-options='{ debounce: 200 }'>
+                                            <input id="product-quantity" type="number" min="1" ng-value="{{sanpham.soluong}}" class="form-control input-sm" ng-model="sanpham.soluong" ng-change="capnhatSoLuongSanPham($index, sanpham.soluong)" ng-model-options='{ debounce: 200 }'>
                                         </div>
                                     </td>
                                     <td class="goods-page-price">
-                                        <strong>{{product.price | currency:"VND" : 0}}</strong>
+                                        <strong>{{sanpham.gia | currency:"VND" : 0}}</strong>
                                     </td>
                                     <td class="goods-page-total">
-                                        <strong>{{(product.quantity * product.price) | currency:"VND" : 0}}</strong>
+                                        <strong>{{(sanpham.soluong * sanpham.gia) | currency:"VND" : 0}}</strong>
                                     </td>
                                     <td class="del-goods-col">
-                                        <a class="del-goods" href="javascript:;" ng-click="removeProductFromCart(product)">&nbsp;</a>
+                                        <a class="del-goods" href="javascript:;" ng-click="xoasanphamtronggiohang(sanpham)">&nbsp;</a>
                                     </td>
                                 </tr>
                                 
@@ -44,21 +42,19 @@
                         <div class="shopping-total">
                             <ul>
                                 <li class="shopping-total-price">
-                                    <em>Total</em>
-                                    <strong class="price">{{carts.total | currency:"VND" : 0}}</strong>
+                                    <em>Tổng Tiền</em>
+                                    <strong class="price">{{giohang.tongtien | currency:"VND" : 0}}</strong>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <button class="btn btn-default" type="submit" ng-click="redirectToHome();">Continue shopping <i class="fa fa-shopping-cart"></i></button>
-                    <a class="btn btn-primary" href="/#!/checkout">Checkout <i class="fa fa-check"></i></a>
+                    <button class="btn btn-default" type="submit" ng-click="chuyenDenTrangchu();">Tiếp Tục Mua Sắm <i class="fa fa-shopping-cart"></i></button>
+                    <a class="btn btn-primary" href="/#!/thanhtoan">Thanh Toán <i class="fa fa-check"></i></a>
                 </div>
-                <div ng-if="carts.products.length <= 0">
-                    <p>Your shopping cart is empty!</p>
+                <div ng-if="giohang.sanpham.length <= 0">
+                    <p>Bạn chưa có sản phẩm nào trong giỏ hàng!</p>
                 </div>
             </div>
-            <!-- END CONTENT -->
         </div>
-        <!-- END SIDEBAR & CONTENT -->
        
     </div>

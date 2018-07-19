@@ -78,7 +78,7 @@
                 $http.defaults.headers.common.Authorization = 'Bearer ' + rvm.taikhoan.token;
             }
         } else {
-            $window.location.href = '/TaiKhoan/DangNhap';
+            $window.location.href = '/TaiKhoan/#!/dangnhap';
         }
 
         function dangxuat() {
@@ -88,7 +88,7 @@
 
                     $localStorage.$reset();
 
-                    $window.location.href = '/TaiKhoan/DangNhap';
+                    $window.location.href = '/TaiKhoan/#!/dangnhap';
                 })
                 .catch(function (err) {
                     console.log(err);

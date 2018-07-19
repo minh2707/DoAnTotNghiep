@@ -17,12 +17,17 @@
     <div class="col-md-9 col-sm-7">
         <div class="row list-view-sorting clearfix">
             <div class="search-box col-md-8 col-sm-12">
-                    <div class="input-group">
-                        <input type="text" placeholder="Tìm kiếm" class="form-control" data-ng-model="tukhoa" data-ng-change="timkiemsanpham(tukhoa)">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit" data-ng-click="timkiemsanpham(tukhoa)">Tìm Kiếm</button>
-                        </span>
-                    </div>
+                    <md-content>
+                        <div class="input-group">
+                            <md-input-container class="md-block">
+                                <label>Tìm kiếm</label>
+                                <input type="text" placeholder="" class="form-control" data-ng-model="tukhoa" data-ng-change="timkiemsanpham(tukhoa)">
+                            </md-input-container>
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit" data-ng-click="timkiemsanpham(tukhoa)">Tìm Kiếm</button>
+                            </span>
+                        </div>
+                    </md-content>
             </div>
 
             <!--<div class="col-md-4 col-sm-12">

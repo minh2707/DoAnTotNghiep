@@ -37,12 +37,16 @@
                 templateUrl: 'Html/thanhtoan.html',
                 controller: 'ThanhToanController'
             })
+            .when('/thanhtoanthanhcong', {
+                templateUrl: 'Html/thanhtoanthanhcong.html',
+                controller: ''
+            })
             .otherwise({
                 redirectTo: '/'
             });
     }]);
 
-    app.run(['NgStorageService', '$rootScope', '$http', function (ngStorageService, $rootScope, $http) {
+    app.run(['NgStorageService', '$rootScope', '$http', '$window', function (ngStorageService, $rootScope, $http, $window) {
         $rootScope.taikhoan = ngStorageService.layLocal('taikhoan');
         console.log($rootScope.taikhoan);
         $rootScope.giohang = {};
@@ -82,13 +86,13 @@
             var sanphamtronggiohang = ngStorageService.laySession('giohang');
             var stt = null;
 
-            sanphamtronggiohang.forEach(function (p, i) {
+            sanphamtronggiohang.sanpham.forEach(function (p, i) {
                 if (p.id === sanpham.id) {
                     stt = i;
                 }
             });
 
-            sanphamtronggiohang.splice(stt, 1);
+            sanphamtronggiohang.sanpham.splice(stt, 1);
             $rootScope.giohang.sanpham.splice(stt, 1);
             ngStorageService.ganSession('giohang', sanphamtronggiohang);
         }
@@ -99,7 +103,9 @@
                     $rootScope.taikhoan = null;
 
                     ngStorageService.xoaHetSession();
-                    $window.location.href = '/TaiKhoan/DangNhap';
+                    ngStorageService.xoaHetLocal();
+                    $window.location.href = '/TaiKhoan/#!/dangnhap';
+                    $window.location.replace();
                 })
                 .catch(function (err) {
                     console.log(err);

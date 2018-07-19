@@ -14,5 +14,20 @@
 
     ]);
 
+    app.config(['$routeProvider', function ($routeProvider) {
+        $routeProvider
+            .when('/dangky', {
+                templateUrl: '../Html/dangky.html',
+                controller: 'DangKyController'
+            })
+            .when('/dangnhap', {
+                templateUrl: '../Html/dangnhap.html',
+                controller: 'DangNhapController'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+    }]);
+
     
 })();

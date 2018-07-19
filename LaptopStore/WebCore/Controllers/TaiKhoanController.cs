@@ -9,13 +9,7 @@ namespace WebCore.Controllers
     public class TaiKhoanController : Controller
     {
         [HttpGet]
-        public IActionResult DangNhap()
-        {
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult DangKy()
+        public IActionResult Index()
         {
             return View();
         }

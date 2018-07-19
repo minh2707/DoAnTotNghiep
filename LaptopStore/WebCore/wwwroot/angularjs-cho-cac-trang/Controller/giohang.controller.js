@@ -3,31 +3,32 @@
 
     angular
         .module('laptopStoreApp')
-        .controller('CartController', CartController);
+        .controller('GioHangController', GioHangController);
 
-    CartController.$inject = ['$location', 'NgStorageService', '$rootScope', '$filter','$scope'];
+        GioHangController.$inject = ['$location', 'NgStorageService', '$rootScope', '$filter','$scope'];
 
-    function CartController($location, ngStorageService, $rootScope, $filter, $scope) {
+    function GioHangController($location, ngStorageService, $rootScope, $filter, $scope) {
         /* jshint validthis:true */
         var vm = $scope;
         var rootScope = $rootScope;
-        vm.redirectToHome = redirectToHome;
-        vm.updateQuantityOfProduct = updateQuantityOfProduct;
+        vm.chuyenDenTrangchu = chuyenDenTrangchu;
+        vm.capnhatSoLuongSanPham = capnhatSoLuongSanPham;
 
 
-        activate();
+        khoitao();
 
-        function activate() { }
+        function khoitao() { }
 
-        function redirectToHome() {
+        function chuyenDenTrangchu() {
             $location.path('/');
             $location.replace();
         }
 
-        function updateQuantityOfProduct(indexOfProduct, quantity) {
-            var getCartSession = ngStorageService.getSessionStorage('carts');
-            getCartSession[indexOfProduct].quantity = quantity;
-            ngStorageService.setSessionStorage('carts', getCartSession);
+        function capnhatSoLuongSanPham(sanphamso, sl) {
+            var giohanglayduoc = ngStorageService.laySession('giohang');
+            giohanglayduoc.sanpham[sanphamso].soluong = sl;
+            $rootScope.giohang = giohanglayduoc;
+            ngStorageService.ganSession('giohang', giohanglayduoc);
         }
     }
 })();

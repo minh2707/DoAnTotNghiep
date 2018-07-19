@@ -19,6 +19,7 @@
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css"><!--- fonts for slider on the index page -->
+    <link rel="stylesheet" href="~/css/Roboto.css">
     <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/assets/pages/css/animate.css" rel="stylesheet">
@@ -35,32 +36,17 @@
     <link href="~/lib/angular-material/angular-material.min.css" rel="stylesheet"/>
     
 </head>
-<!-- Head END -->
-<!-- Body BEGIN -->
 <body class="ecommerce" ng-app="laptopStoreApp">
    
-    <!-- END BEGIN STYLE CUSTOMIZER -->
-    <!-- BEGIN TOP BAR -->
     <div class="pre-header">
         <div class="container">
             <div class="row">
-                <!-- BEGIN TOP BAR LEFT PART -->
                 <div class="col-md-6 col-sm-6 additional-shop-info">
-                    @*<ul class="list-unstyled list-inline">
-                        <li><i class="fa fa-phone"></i><span>(+84)28 3123 4910</span></li>
-                        <!-- BEGIN LANGS -->
-                        <li class="langs-block">
-                            <a href="javascript:void(0);" class="current">English </a>
-                        </li>
-                        <!-- END LANGS -->
-                    </ul>*@
                 </div>
-                <!-- END TOP BAR LEFT PART -->
-                <!-- BEGIN TOP BAR MENU -->
                 <div class="col-md-6 col-sm-6 additional-nav">
                     <ul class="list-unstyled list-inline pull-right">
-                        <li data-ng-if="!taikhoan.email"><a href="/TaiKhoan/DangKy">Đăng Ký</a></li>
-                        <li data-ng-if="!taikhoan.email"><a href="/TaiKhoan/DangNhap">Đăng Nhập</a></li>
+                        <li data-ng-if="!taikhoan.email"><a href="/TaiKhoan/#!/dangky">Đăng Ký</a></li>
+                        <li data-ng-if="!taikhoan.email"><a href="/TaiKhoan/#!/dangnhap">Đăng Nhập</a></li>
                         <li class="dropdown" data-ng-if="taikhoan.email">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
                                 <i class="fa fa-user fa-fw"></i>{{taikhoan.email}} <i class="fa fa-caret-down"></i>
@@ -71,21 +57,16 @@
                                     <a href="javascript:;" data-ng-click="dangxuat()"><i class="fa fa-sign-out fa-fw"></i> Đăng Xuất</a>
                                 </li>
                             </ul>
-                            <!-- /.dropdown-user -->
                         </li>
                     </ul>
                 </div>
-                <!-- END TOP BAR MENU -->
             </div>
         </div>
     </div>
-    <!-- END TOP BAR -->
-    <!-- BEGIN HEADER -->
     <div class="header">
         <div class="container">
             <a class="site-logo" href="/"><img style="width:51px;height:57px" src="~/img/sanpham/shop_laptop_web-256.png" alt="vidu"></a>
             <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
-            <!-- BEGIN CART -->
             <div class="top-cart-block">
                 <div class="top-cart-info">
                     <a href="/#!/giohang" class="top-cart-info-count" data-ng-bind="(giohang.sanpham.length) + ' items'"></a>
@@ -135,7 +116,6 @@
                     </li>
                 </ul>
             </div>
-            <!-- END NAVIGATION -->
         </div>
     </div>
 
@@ -156,17 +136,14 @@
                     </div>
                 </div>
 
-                <!-- Second slide -->
                 <div class="item carousel-item-five">
                     <div class="container"></div>
                 </div>
 
-                <!-- Third slide -->
                 <div class="item carousel-item-six">
                     <div class="container"></div>
                 </div>
 
-                <!-- Fourth slide -->
                 <div class="item carousel-item-seven">
                     <div class="center-block">
                         <div class="center-block-wrap">
@@ -176,7 +153,6 @@
                 </div>
             </div>
 
-            <!-- Controls -->
             <a class="left carousel-control carousel-control-shop" href="#carousel-example-generic" role="button" data-slide="prev">
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
             </a>
@@ -185,13 +161,11 @@
             </a>
         </div>
     </div>
-    <!-- END SLIDER -->
 
     <div class="main">
         @RenderBody();
     </div>
 
-        <!-- BEGIN BRANDS -->
         <div class="brands">
             <div class="container">
                 <div class="owl-carousel owl-carousel6-brands">
@@ -210,8 +184,6 @@
                 </div>
             </div>
         </div>
-        <!-- END BRANDS -->
-        <!-- BEGIN STEPS -->
         <div class="steps-block steps-block-red">
             <div class="container">
                 <div class="row">
@@ -254,8 +226,6 @@
                         2017 © LaptopStore. <br />
                         ALL Rights Reserved.
                     </div>
-                    <!-- END COPYRIGHT -->
-                    <!-- BEGIN PAYMENTS -->
                     <div class="col-md-4 col-sm-4">
                         <ul class="list-unstyled list-inline pull-right">
                             <li><img src="~/assets/corporate/img/payments/western-union.jpg" alt="vidu" title="vidu"></li>
@@ -265,7 +235,6 @@
                             <li><img src="~/assets/corporate/img/payments/visa.jpg" alt="vidu" title="vidu"></li>
                         </ul>
                     </div>
-                    <!-- BEGIN POWERED -->
                     <div class="col-md-4 col-sm-4 text-right">
                         <p class="powered">Powered by: <a href="http://www.google.com/">Ngọc Minh</a></p>
                     </div>
@@ -273,20 +242,13 @@
             </div>
         </div>
         
-        <!-- Load javascripts at bottom, this will reduce page load time -->
-        <!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
-        <!--[if lt IE 9]>
-        <script src="assets/plugins/respond.min.js"></script>
-        <![endif]-->
         <script src="~/assets/plugins/jquery.min.js" type="text/javascript"></script>
         <script src="~/assets/plugins/jquery-migrate.min.js" type="text/javascript"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="~/assets/corporate/scripts/back-to-top.js" type="text/javascript"></script>
         <script src="~/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
         <script src="~/lib/jquery.easing/js/jquery.easing.min.js" type="text/javascript"></script>
-        <!-- END CORE PLUGINS -->
         
-        <!-- BEGIN PAGE LEVEL JAVASCRIPTS (REQUIRED ONLY FOR CURRENT PAGE) -->
         <script src="~/assets/plugins/owl.carousel/owl.carousel.min.js" type="text/javascript"></script><!-- slider for products -->
         <script src='~/assets/plugins/zoom/jquery.zoom.min.js' type="text/javascript"></script><!-- product zoom -->
         <script src="~/assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script><!-- Quantity -->
@@ -304,8 +266,6 @@
                 Layout.initNavScrolling();
             });
         </script>
-        <!-- END PAGE LEVEL JAVASCRIPTS -->
-        <!-- Angular Libary-->
         <script src="~/lib/angular/angular.min.js" type="text/javascript"></script>
         <script src="~/lib/angular-aria/angular-aria.min.js"></script>
         <script src="~/lib/angular-animate/angular-animate.min.js"></script>
@@ -328,10 +288,8 @@
         <script src="~/angularjs-cho-cac-trang/Services/ngStorage.service.js" type="text/javascript"></script>
         <script src="~/angularjs-cho-cac-trang/Controller/giohang.controller.js" type="text/javascript"></script>
         <script src="~/angularjs-cho-cac-trang/Controller/thanhtoan.controller.js"></script>
-        <!--End-->
         
 
 
 </body>
-<!-- END BODY -->
 </html>

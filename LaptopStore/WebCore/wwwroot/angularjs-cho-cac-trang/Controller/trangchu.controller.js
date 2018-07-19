@@ -176,6 +176,7 @@
                 }
                 
             }
+            rootScope.giohang = angular.copy(sanphamtronggiohang);
             ngStorageService.ganSession('giohang', sanphamtronggiohang);
         }
 

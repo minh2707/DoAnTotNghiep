@@ -12,7 +12,7 @@
         var vm = $scope;
 
         vm.taikhoan = {};
-        vm.nhaplaimatkhausai = false;
+        vm.nhaplaimatkhausai = true;
         vm.matkhausai = false;
 
         vm.sosanhmatkhau = sosanhmatkhau;
@@ -53,11 +53,11 @@
                 TaiKhoanService.dangkytaikhoan(taikhoandungdedangky)
                     .then(function (res) {
                         toastr.success('Đăng Ký Thành Công');
-                        $window.location.href='/TaiKhoan/DangNhap';
-                        //$location.replace();
+                        $window.location.href='/TaiKhoan/#!/dangnhap';
+                        $window.location.replace();
                     })
                     .catch(function (err) {
-                        toastr.error(err.message);
+                        toastr.error('Đăng Ký Thất Bại');
                     })
             }
         }

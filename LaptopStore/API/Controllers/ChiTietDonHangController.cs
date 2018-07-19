@@ -94,18 +94,17 @@ namespace API.Controllers
 
             ChiTietDonHang chitietdonhangdetao = new ChiTietDonHang()
             {
-                IddonHang = chitietdonhang.Id,
+                IddonHang = chitietdonhang.IdDonHang,
                 GiamGia = chitietdonhang.GiamGia,
                 IdsanPham = chitietdonhang.IdSanPham,
                 SoLuong = chitietdonhang.SoLuong,
-                DonGia = chitietdonhang.DonGia,
-
+                DonGia = chitietdonhang.DonGia
             };
 
             ketnoidatabase.ChiTietDonHang.Add(chitietdonhangdetao);
             await ketnoidatabase.SaveChangesAsync();
 
-            return CreatedAtAction("LayChiTietDonHang", new { id = chitietdonhang.Id }, chitietdonhangdetao);
+            return Ok();
         }
         [HttpDelete]
         [Route("XoaChiTietDonHangBangIdDonHang/{iddonhang}")]

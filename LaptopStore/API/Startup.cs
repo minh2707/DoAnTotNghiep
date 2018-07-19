@@ -51,9 +51,9 @@ namespace API
                     .AllowAnyHeader();
             }));
             //Cấu hình đường dẫn kết nói DB
-            var connection = @"Data Source=MINH;Initial Catalog=LapTopStore;Integrated Security=True";
+            var connection = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=LapTopStore;Integrated Security=True";
             //Kết nối DB với đường dẫn
-            services.AddDbContext<LapTopStoreContext>(tuychon => tuychon.UseSqlServer(connection, sqlOptions => sqlOptions.MigrationsAssembly("WebAPI")));
+            services.AddDbContext<LapTopStoreContext>(tuychon => tuychon.UseSqlServer(connection, sqlOptions => sqlOptions.MigrationsAssembly("API")));
 
             /*Thêm các bảng user vào database được hỗ trợ bở ASP.Net*/
             services.AddIdentity<NguoiDungEntity, IdentityRole>()
