@@ -46,7 +46,16 @@
                                 <td>{{hd.moTa}}</td>
                                 <td>{{hd.ngayDat}}</td>
                                 <td>{{hd.ngayGiao}}</td>
-                                <td>{{hd.trangThai}}</td>
+                                <td>
+                                    <md-button class="md-fab md-mini" aria-label="Đã giao hàng thành công" ng-disabled="false" 
+                                    style="background: greenyellow" ng-if="hd.trangThai == true">
+                                        <md-tooltip md-direction="left">Đã giao hàng thành công</md-tooltip>
+                                    </md-button>
+                                    <md-button class="md-fab md-mini" aria-label="Chưa giao hàng" ng-disabled="false" 
+                                    style="background: red" ng-if="hd.trangThai == false">
+                                        <md-tooltip md-direction="left">Chưa giao hàng</md-tooltip>
+                                    </md-button>
+                                </td>
                                 <td><button class="btn btn-danger" ng-click="moCuaSo(hd)">Xóa</button></td>
                             </tr>
                         </tbody>

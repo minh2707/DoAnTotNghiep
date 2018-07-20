@@ -43,15 +43,15 @@
                 controller: 'LoaiSanPhamAdminController'
             })
             .when('/laytatcadonhang', {
-                templateUrl: '/Html/Admin/Order/order.html',
+                templateUrl: '/Html/Admin/DonHang/donhang.html',
                 controller: 'DonHangAdminController'
             })
             .when('/laymotdonhang/:id', {
-                templateUrl: '/Html/Admin/Order/order-detail.html',
+                templateUrl: '/Html/Admin/DonHang/chitietdonhang.html',
                 controller: 'DonHangAdminController'
             })
             .when('/taodonhang', {
-                templateUrl: '/Html/Admin/Order/order-create.html',
+                templateUrl: '/Html/Admin/DonHang/order-create.html',
                 controller: 'DonHangAdminController'
             })
             .otherwise({

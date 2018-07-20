@@ -44,6 +44,7 @@
                             SoLuong: $rootScope.giohang.sanpham.length,
                             NgayGiao: new Date(),
                             NgayDat: new Date(),
+                            TrangThai: false
                         };
 
                         TrangChuService.taohoadon(hoadon)

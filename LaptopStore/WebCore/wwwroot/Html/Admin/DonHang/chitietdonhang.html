@@ -34,7 +34,7 @@
                             <tr ng-repeat="donhang in chitietdonhang">
                                 <td>{{donhang.id}}</td>
                                 <td>{{donhang.giamGia}}</td>
-                                <td><a ng-href="/Admin/#!/products/{{donhang.idsanPham}}">{{donhang.idsanPham}}</a></td>
+                                <td><a ng-href="/TrangChu/Admin/#!/laymotsanpham/{{donhang.idsanPham}}">{{donhang.idsanPham}}</a></td>
                                 <td>{{donhang.soLuong}}</td>
                                 <td>{{donhang.donGia | currency: "VND":0}}</td>
                                 <td><button class="btn btn-danger" ng-click="xoachitietdonhang(donhang.id)">Xóa</button></td>
