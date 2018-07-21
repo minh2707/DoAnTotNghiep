@@ -11,7 +11,7 @@
         'rzModule',
         'ngStorage',
         'ngMaterial',
-        'uiGmapgoogle-maps'
+        'ngMap'
 
         // Custom modules 
 
@@ -19,13 +19,6 @@
 
     ]);
 
-    app.config(['uiGmapGoogleMapApiProvider', function (GoogleMapApiProviders) {
-        GoogleMapApiProviders.configure({
-            vietnam: true,
-            libraries: 'weather,geometry,visualization,places',
-            key: 'AIzaSyCw6GrFRVeqpa_uIb11jyxcu0h863FLFzY'
-        });
-    }])
 
     app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider

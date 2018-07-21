@@ -5,9 +5,9 @@
         .module('laptopStoreApp')
         .controller('ThanhToanController', ThanhToanController);
 
-    ThanhToanController.$inject = ['$location', 'TrangChuService', '$scope', '$rootScope', '$q', 'NgStorageService', '$sessionStorage'];
+    ThanhToanController.$inject = ['$location', 'TrangChuService', '$scope', '$rootScope', '$q', 'NgStorageService', '$sessionStorage', 'NgMap', 'GeoCoder'];
 
-    function ThanhToanController($location, TrangChuService, $scope, $rootScope, $q, NgStorageService, $sessionStorage) {
+    function ThanhToanController($location, TrangChuService, $scope, $rootScope, $q, NgStorageService, $sessionStorage, NgMap, GeoCoder) {
         /* jshint validthis:true */
         var vm = $scope;
 
@@ -15,15 +15,9 @@
 
         vm.thanhtoan = thanhtoan;
 
-        $scope.map = { trungtam: { latitude: 45, longitude: -73 }, phonglon: 8 };
-        $scope.searchbox = {
-            template: 'searchbox.tpl.html',
-                events: {
-                places_changed: function (searchBox) {
-                    console.log(searchBox);
-                }
-            }
-        },
+        vm.placeChanged = placeChanged;
+
+        vm.bando = null;
 
         khoitao();
 
@@ -35,6 +29,23 @@
             } else {
                 vm.kh = nguoidungdadangnhap;
             }
+
+            NgMap.getMap().then(function (bando) {
+                console.log(bando)
+                GeoCoder.geocode({ address: '25D Han Hai Nguyen' }).then(function (result) {
+                    console.log(result);
+                });
+                vm.bando = bando;
+                console.log(bando.getCenter());
+                console.log('markers', bando.markers);
+                console.log('shapes', bando.shapes);
+            });
+        }
+
+        function placeChanged() {
+            vm.place = this.getPlace();
+            console.log('location', vm.place.geometry.location);
+            vm.map.setCenter(vm.place.geometry.location);
         }
 
         function thanhtoan(sp, khachhang) {
