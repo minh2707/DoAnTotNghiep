@@ -24,3 +24,5 @@ LaptopStore/WebCore/node_modules/
 LaptopStore/WebCore/obj/
 
 LaptopStore/WebCore/wwwroot/lib/
+
+LaptopStore/WebCore/wwwroot/lib/*
