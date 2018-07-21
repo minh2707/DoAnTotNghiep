@@ -10,13 +10,22 @@
         'fancyboxplus',
         'rzModule',
         'ngStorage',
-        'ngMaterial'
+        'ngMaterial',
+        'uiGmapgoogle-maps'
 
         // Custom modules 
 
         // 3rd Party Modules
 
     ]);
+
+    app.config(['uiGmapGoogleMapApiProvider', function (GoogleMapApiProviders) {
+        GoogleMapApiProviders.configure({
+            vietnam: true,
+            libraries: 'weather,geometry,visualization,places',
+            key: 'AIzaSyCw6GrFRVeqpa_uIb11jyxcu0h863FLFzY'
+        });
+    }])
 
     app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider

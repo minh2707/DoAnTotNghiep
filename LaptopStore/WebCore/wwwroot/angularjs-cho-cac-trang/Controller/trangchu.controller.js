@@ -154,7 +154,9 @@
                 rootScope.giohang.tongtien = sanpham.gia * sanpham.soluong;
             } else {
                 if (sanphamtronggiohang.sanpham.length === 0) {
-                    sanpham.soluong = 1;
+                    if (sanpham.soluong == null || angular.isUndefined(sanpham.soluong)) {
+                        sanpham.soluong = 1;
+                    }
                     sanphamtronggiohang.sanpham.push(sanpham);
                     rootScope.giohang.sanpham.push(sanpham);
                     rootScope.giohang.tongtien = sanpham.gia * sanpham.soluong;
@@ -163,12 +165,20 @@
                     if (truyvan && truyvan.length !== 0) {
                         sanphamtronggiohang.sanpham.forEach(function (p) {
                             if (p.id === sanpham.id) {
-                                p.soluong++;
-                                rootScope.giohang.tongtien += p.gia;
+                                if (p.soluong != sanpham.soluong) {
+                                    p.soluong = sanpham.soluong;
+                                    rootScope.giohang.tongtien += p.gia * p.soluong;
+                                } else {
+                                    p.soluong++;
+                                    rootScope.giohang.tongtien += p.gia;
+                                }
+                                
                             }
                         });
                     } else {
-                        sanpham.soluong = 1;
+                        if (sanpham.soluong == null || angular.isUndefined(sanpham.soluong)) {
+                            sanpham.soluong = 1;
+                        }
                         sanphamtronggiohang.sanpham.push(sanpham);
                         rootScope.giohang.sanpham.push(sanpham);
                         rootScope.giohang.tongtien = sanpham.gia * sanpham.soluong;

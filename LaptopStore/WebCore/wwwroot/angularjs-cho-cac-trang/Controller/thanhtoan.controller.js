@@ -15,6 +15,16 @@
 
         vm.thanhtoan = thanhtoan;
 
+        $scope.map = { trungtam: { latitude: 45, longitude: -73 }, phonglon: 8 };
+        $scope.searchbox = {
+            template: 'searchbox.tpl.html',
+                events: {
+                places_changed: function (searchBox) {
+                    console.log(searchBox);
+                }
+            }
+        },
+
         khoitao();
 
         function khoitao() {

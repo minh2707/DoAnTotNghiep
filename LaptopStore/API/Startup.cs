@@ -51,7 +51,7 @@ namespace API
                     .AllowAnyHeader();
             }));
             //Cấu hình đường dẫn kết nói DB
-            var connection = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=LapTopStore;Integrated Security=True";
+            var connection = @"Data Source=MINH;Initial Catalog=LapTopStore;Integrated Security=True";
             //Kết nối DB với đường dẫn
             services.AddDbContext<LapTopStoreContext>(tuychon => tuychon.UseSqlServer(connection, sqlOptions => sqlOptions.MigrationsAssembly("API")));
 
