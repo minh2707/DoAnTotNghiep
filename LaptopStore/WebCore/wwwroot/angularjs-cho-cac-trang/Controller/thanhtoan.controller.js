@@ -15,7 +15,7 @@
 
         vm.thanhtoan = thanhtoan;
 
-        vm.placeChanged = placeChanged;
+        vm.chonDiaChi = chonDiaChi;
 
         vm.bando = null;
 
@@ -31,21 +31,13 @@
             }
 
             NgMap.getMap().then(function (bando) {
-                console.log(bando)
-                GeoCoder.geocode({ address: '25D Han Hai Nguyen' }).then(function (result) {
-                    console.log(result);
-                });
                 vm.bando = bando;
-                console.log(bando.getCenter());
-                console.log('markers', bando.markers);
-                console.log('shapes', bando.shapes);
             });
         }
 
-        function placeChanged() {
-            vm.place = this.getPlace();
-            console.log('location', vm.place.geometry.location);
-            vm.map.setCenter(vm.place.geometry.location);
+        function chonDiaChi() {
+            vm.diadiem = this.getPlace();
+            vm.map.setCenter(vm.diadiem.geometry.location);
         }
 
         function thanhtoan(sp, khachhang) {

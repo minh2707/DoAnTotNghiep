@@ -4,39 +4,47 @@
         <li><a href="/">Cửa Hàng</a></li>
         <li class="active">Thanh Toán</li>
     </ul>
-    <!-- BEGIN SIDEBAR & CONTENT -->
     <div class="row margin-bottom-40">
-        <!-- BEGIN CONTENT -->
         <div class="col-md-12 col-sm-12">
             <h1>Thanh Toán</h1>
-            <!-- BEGIN CHECKOUT PAGE -->
-            <div id="checkout-content">
-                <div class="panel-body row">
-                    <div class="col-md-6 col-sm-6">
-                        <h3>Thông Tin Của Bạn</h3>
-                        <div class="form-group">
-                            <label for="firstname">Họ Và Tên <span class="require">*</span></label>
-                            <input type="text" id="firstname" class="form-control" ng-model="kh.tenHienThi" required>
+            <md-content layout-padding>
+                <div id="checkout-content">
+                    <div class="panel-body row">
+                        <div class="col-md-6 col-sm-6">
+                            <h3>Thông Tin Của Bạn</h3>
+                            <div class="form-group">
+                                <md-input-container class="md-block" >
+                                    <label for="firstname">Họ Và Tên</label>
+                                    <input type="text" id="firstname" class="form-control" ng-model="kh.tenHienThi" required>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container class="md-block" >
+                                    <label for="email">E-Mail</label>
+                                    <input type="email" id="email" class="form-control" ng-model="kh.email" required>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container class="md-block" md-no-float>
+                                    <label for="address1">Địa Chỉ</label>
+                                    <input type="text" id="address1" class="" ng-model="kh.diachi" required types="['address']"
+                                           places-auto-complete
+                                           size="80"
+                                           component-restrictions="{country:'vn'}"
+                                           on-place-changed="chonDiaChi()"
+                                           placeholder="">
+                                </md-input-container>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="email">E-Mail <span class="require">*</span></label>
-                            <input type="email" id="email" class="form-control" ng-model="kh.email" required>
+                        <div class="col-md-6 col-lg-6">
+                            <ng-map center="41,-87" zoom="11">
+                                <marker position="{{'['+diadiem.geometry.location.lat()+','+diadiem.geometry.location.lng()+']'}}" title="{{diadiem.formatted_address}}"></marker>
+                            </ng-map>
                         </div>
-                        <div class="form-group">
-                            <label for="address1">Địa Chỉ</label>
-                            <input type="text" id="address1" class="form-control" ng-model="kh.diachi" required types="['address']"
-                                             places-auto-complete
-                                             size="80"
-                                             component-restrictions="{country:'vn'}"
-                                             on-place-changed="placeChanged()">
-                        </div>
+                        <hr>
                     </div>
-                    <div class="col-md-6 col-lg-6">
-                        <ng-map center="41,-87" zoom="3"></ng-map>
-                    </div>
-                    <hr>
                 </div>
-            </div>
+            </md-content>
 
             <div id="checkout-content">
                 <div class="panel-body row">
