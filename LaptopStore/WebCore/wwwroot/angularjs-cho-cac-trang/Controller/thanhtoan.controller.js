@@ -41,22 +41,14 @@
         }
 
         function thanhtoan(sp, khachhang) {
-            var taoKhachHang = function () {
-                var khachhangdetao = {
-                    Id: Math.floor((Math.random() * 9999999999) + 1),
-                    HoTen: khachhang.tenHienThi,
-                    Email: khachhang.email,
-                    DiaChi: khachhang.diachi
-                };
 
-                TrangChuService.taokhachhang(khachhangdetao)
-                    .then(function (kq) {
                         var hoadon = {
-                            IdkhachHang: kq.id,
-                            DiaChi: kq.diaChi,
+                            IdkhachHang: khachhang.id,
+                            DiaChi: khachhang.diachi,
                             SoLuong: $rootScope.giohang.sanpham.length,
                             NgayGiao: new Date(),
                             NgayDat: new Date(),
+                            HinhThucThanhToan: khachhang.hinhThucThanhToan,
                             TrangThai: false
                         };
 
@@ -96,13 +88,7 @@
                             .catch(function (err) {
                                 console.log(err);
                             })
-                    })
-                    .catch(function (err) {
-                        console.log(err);
-                    });
-            };
 
-            taoKhachHang();
         }
     }
 })();

@@ -26,8 +26,6 @@ namespace WebAPI.Models
                 var result = await db.Database.EnsureCreatedAsync();
                 if (result)
                 {
-                    
-
                     if (createUser == true)
                     {
                         await TaoTaiKhoanAdmin(scopeServiceProvider);

@@ -43,6 +43,7 @@ CREATE TABLE [DonHang] (
 	[NgayGiao] datetime NOT NULL,
 	[NgayDat] datetime NOT NULL,
 	[MoTa] nvarchar(max) NULL,
+	[HinhThucThanhToan] nvarchar(max) NULL,
 	[TrangThai] bit NOT NULL,
 	CONSTRAINT [PK_DonHang] PRIMARY KEY ([ID]),
 	CONSTRAINT [FK_DonHang_KhachHang_IDKhachHang] FOREIGN KEY ([IDKhachHang]) REFERENCES [KhachHang] ([ID]) ON DELETE CASCADE
@@ -89,12 +90,12 @@ VALUES ('CUS001','Le Thi Xuan', '119/34A Tran Hoan Street District 3 HCMC'),
 		('CUS005',  'Le Viet Khanh', '23B Nguyen Van Nghi Street Go Vap District HCMC')
 GO
 
-INSERT INTO DonHang(IDKhachHang, DiaChi, SoLuong, NgayGiao, NgayDat, MoTa, TrangThai)
-VALUES ('CUS002', '34Bis Nguyen Van Loi Street District 1 HCMC', '2', '03/25/2017', '03/27/2017', '', '1'),
-		('CUS001', '119/34A Tran Hoan Street District 3 HCMC', '3', '04/14/2017', '04/16/2017', '', '0'),
-		('CUS005', '23B Nguyen Van Nghi Street Go Vap District HCMC', '5', '09/25/2017', '09/30/2017', '', '1'),
-		('CUS003', '18/8H Tran Ke Xuong Street Phu Nhuan District HCMC', '10', '10/14/2017', '10/16/2017', '', '1'),
-		('CUS004', '45/9 Le Loi Street District 1 HCMC', '8', '04/01/2017', '04/04/2017', '', '0')
+INSERT INTO DonHang(IDKhachHang, DiaChi, SoLuong, NgayGiao, NgayDat, MoTa, TrangThai, HinhThucThanhToan)
+VALUES ('CUS002', '34Bis Nguyen Van Loi Street District 1 HCMC', '2', '03/25/2017', '03/27/2017', '', '1', 'Tien Mat'),
+		('CUS001', '119/34A Tran Hoan Street District 3 HCMC', '3', '04/14/2017', '04/16/2017', '', '0', 'Tien Mat'),
+		('CUS005', '23B Nguyen Van Nghi Street Go Vap District HCMC', '5', '09/25/2017', '09/30/2017', '', '1', 'Tien Mat'),
+		('CUS003', '18/8H Tran Ke Xuong Street Phu Nhuan District HCMC', '10', '10/14/2017', '10/16/2017', '', '1', 'Tien Mat'),
+		('CUS004', '45/9 Le Loi Street District 1 HCMC', '8', '04/01/2017', '04/04/2017', '', '0', 'Tien Mat')
 GO  
 
 INSERT INTO[ChiTietDonHang] (IDDonHang, IDSanPham, GiamGia, SoLuong, DonGia)

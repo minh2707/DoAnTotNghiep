@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace API.Models
@@ -15,5 +16,6 @@ namespace API.Models
         public string DiaChi { get; set; }
 
         public ICollection<DonHang> DonHang { get; set; }
+        public NguoiDungEntity TaiKhoan { get; set; }
     }
 }

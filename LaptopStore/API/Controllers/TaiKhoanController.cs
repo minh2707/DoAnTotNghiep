@@ -29,9 +29,10 @@ namespace API.Controllers
         private IPasswordHasher<NguoiDungEntity> _makhoaMatKhau;
         private ILogger<TaiKhoanController> _logger;
         private IConfiguration _configurationRoot;
+        private readonly LapTopStoreContext ketnoidatabase;
 
         public TaiKhoanController(UserManager<NguoiDungEntity> quanlyTaiKhoan, SignInManager<NguoiDungEntity> quanlyDangNhap, RoleManager<IdentityRole> quanlyQuyen,
-            IPasswordHasher<NguoiDungEntity> makhoaMatKhau, ILogger<TaiKhoanController> logger, IConfiguration configurationRoot)
+            IPasswordHasher<NguoiDungEntity> makhoaMatKhau, ILogger<TaiKhoanController> logger, IConfiguration configurationRoot, LapTopStoreContext ketnoi)
         {
             _quanlyTaiKhoan = quanlyTaiKhoan;
             _quanlyDangNhap = quanlyDangNhap;
@@ -39,6 +40,7 @@ namespace API.Controllers
             _makhoaMatKhau = makhoaMatKhau;
             _logger = logger;
             _configurationRoot = configurationRoot;
+            ketnoidatabase = ketnoi;
         }
 
         [AllowAnonymous]
@@ -51,18 +53,32 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
 
+            var khachhang = new KhachHang()
+            {
+                Id = Guid.NewGuid().ToString(),
+                HoTen = taikhoandungdedangky.Ho + " " + taikhoandungdedangky.Ten,
+
+            };
+
+            await ketnoidatabase.KhachHang.AddAsync(khachhang);
+            await ketnoidatabase.SaveChangesAsync();
+            var kqTaoKhachHang = ketnoidatabase.KhachHang.Where(p => p.Id == khachhang.Id).SingleOrDefault();
+
             var taikhoan = new NguoiDungEntity()
             {
                 UserName = taikhoandungdedangky.Email,
                 Email = taikhoandungdedangky.Email,
                 Ho = taikhoandungdedangky.Ho,
-                Ten = taikhoandungdedangky.Ten
+                Ten = taikhoandungdedangky.Ten,
+                IdKhachHang = kqTaoKhachHang.Id
             };
             //Tao tai khoan user bang CreateAsync
             var kq = await _quanlyTaiKhoan.CreateAsync(taikhoan, taikhoandungdedangky.MatKhau);
-
+            
             if (kq.Succeeded)
             {
+                
+
                 return Ok(kq);
             }
 
@@ -148,6 +164,7 @@ namespace API.Controllers
                         {
                             email = tk.Email,
                             tenHienThi = tk.TenHienThi,
+                            idKhachHang = tk.IdKhachHang,
                             laAdmin = laAdmin,
                             id = tk.Id,
                             token = new JwtSecurityTokenHandler().WriteToken(jwt),

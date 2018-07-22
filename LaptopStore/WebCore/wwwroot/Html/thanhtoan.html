@@ -13,20 +13,20 @@
                         <div class="col-md-6 col-sm-6">
                             <h3>Thông Tin Của Bạn</h3>
                             <div class="form-group">
-                                <md-input-container class="md-block" >
+                                <md-input-container class="md-block">
                                     <label for="firstname">Họ Và Tên</label>
                                     <input type="text" id="firstname" class="form-control" ng-model="kh.tenHienThi" required>
                                 </md-input-container>
                             </div>
                             <div class="form-group">
-                                <md-input-container class="md-block" >
+                                <md-input-container class="md-block">
                                     <label for="email">E-Mail</label>
                                     <input type="email" id="email" class="form-control" ng-model="kh.email" required>
                                 </md-input-container>
                             </div>
                             <div class="form-group">
                                 <md-input-container class="md-block" md-no-float>
-                                    <label for="address1">Địa Chỉ</label>
+                                    <label for="address1">Địa Chỉ Giao Hàng</label>
                                     <input type="text" id="address1" class="" ng-model="kh.diachi" required types="['address']"
                                            places-auto-complete
                                            size="80"
@@ -34,6 +34,15 @@
                                            on-place-changed="chonDiaChi()"
                                            placeholder="">
                                 </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-radio-group ng-model="kh.hinhThucThanhToan">
+
+                                    <md-radio-button value="tienmat" class="md-primary">Thanh Toán Khi Nhận Hàng</md-radio-button>
+                                    <md-radio-button value="tructuyen"> Thanh Toán Trực Tuyến </md-radio-button>
+
+                                </md-radio-group>
+
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-6">

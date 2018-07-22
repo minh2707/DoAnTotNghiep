@@ -18,6 +18,7 @@ namespace API.Models
         public DateTime NgayDat { get; set; }
         public string MoTa { get; set; }
         public bool TrangThai { get; set; }
+        public string HinhThucThanhToan { get; set; }
 
         public KhachHang IdkhachHangNavigation { get; set; }
         public ICollection<ChiTietDonHang> ChiTietDonHang { get; set; }

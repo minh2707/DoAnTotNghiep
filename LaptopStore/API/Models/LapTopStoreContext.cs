@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace API.Models
 {
-    public class NguoiDungEntity : IdentityUser
+    public partial class NguoiDungEntity : IdentityUser
     {
         public string Ho { get; set; }
         public string Ten { get; set; }
@@ -19,6 +19,10 @@ namespace API.Models
         }
 
         public string DiaChi { get; set; }
+
+        public string IdKhachHang { get; set; }
+
+        public KhachHang KhachHang { get; set; }
 
     }
     public partial class LapTopStoreContext : IdentityDbContext<NguoiDungEntity>
@@ -35,11 +39,7 @@ namespace API.Models
 
         public LapTopStoreContext()
         {
-            if (Database.EnsureCreated()) {
-                
-            } else {
-                
-            }
+            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -76,18 +76,23 @@ namespace API.Models
                     .IsRequired()
                     .HasMaxLength(1000);
 
+                entity.Property(e => e.HinhThucThanhToan)
+                    .IsRequired()
+                    .HasMaxLength(1000);
+
                 entity.Property(e => e.IdkhachHang)
                     .IsRequired()
                     .HasColumnName("IDKhachHang")
                     .HasMaxLength(100);
 
                 entity.Property(e => e.NgayDat).HasColumnType("datetime");
-
+                    
                 entity.Property(e => e.NgayGiao).HasColumnType("datetime");
 
                 entity.HasOne(d => d.IdkhachHangNavigation)
                     .WithMany(p => p.DonHang)
                     .HasForeignKey(d => d.IdkhachHang);
+
             });
 
             modelBuilder.Entity<KhachHang>(entity =>
@@ -98,8 +103,11 @@ namespace API.Models
 
                 entity.Property(e => e.DiaChi).HasMaxLength(1000);
 
-
                 entity.Property(e => e.HoTen).IsRequired();
+
+                entity.HasOne<NguoiDungEntity>(s => s.TaiKhoan)
+                    .WithOne(ad => ad.KhachHang)
+                    .HasForeignKey<NguoiDungEntity>(ad => ad.IdKhachHang);
 
             });
 
