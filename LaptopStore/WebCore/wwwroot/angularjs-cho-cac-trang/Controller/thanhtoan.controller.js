@@ -43,7 +43,7 @@
         function thanhtoan(sp, khachhang) {
 
                         var hoadon = {
-                            IdkhachHang: khachhang.id,
+                            IdkhachHang: khachhang.idKhachHang,
                             DiaChi: khachhang.diachi,
                             SoLuong: $rootScope.giohang.sanpham.length,
                             NgayGiao: new Date(),
