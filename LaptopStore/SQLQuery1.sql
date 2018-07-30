@@ -62,6 +62,18 @@ CREATE TABLE [ChiTietDonHang] (
 	CONSTRAINT [FK_ChiTietDonHang_Product_ProductID] FOREIGN KEY ([IDSanPham]) REFERENCES [SanPham] ([ID]) ON DELETE CASCADE
 );
 GO
+CREATE TABLE [HoaDon] (
+	[Id] int NOT NULL ,
+	[IDDonHang] int NOT NULL,
+	[IDTaiKhoan] int NOT NULL,
+	[TongTien] float NOT NULL,
+	[NgayLap] datetime NOT NULL,
+	[HinhThucThanhToan] nvarchar(50) NOT NULL,
+    CONSTRAINT [PK_ChiTietDonHang] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ChiTietDonHang_DonHang_IDDonHang] FOREIGN KEY ([IDDonHang]) REFERENCES [DonHang] ([ID]) ON DELETE CASCADE,
+	CONSTRAINT [FK_ChiTietDonHang_Product_ProductID] FOREIGN KEY ([IDSanPham]) REFERENCES [SanPham] ([ID]) ON DELETE CASCADE
+);
+GO
 
 INSERT INTO [LoaiSanPham] (Ten, MoTa) 
 VALUES ('DELL','dell'), ('ASUS','asus'), ('SONY','sony'), ('ACER','acer'), ('HP','hp')
