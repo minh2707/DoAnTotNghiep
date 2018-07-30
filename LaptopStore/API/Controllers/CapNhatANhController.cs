@@ -21,7 +21,7 @@ namespace API.Controllers
         {
             long dolon = taptin.Length;
 
-            // full path to file in temp location
+            
             var duongdantaptin = Path.Combine(Directory.GetDirectoryRoot(Directory.GetCurrentDirectory()), "git\\DoAnTotNghiep\\LaptopStore\\WebCore\\wwwroot\\img\\sanpham", taptin.FileName);
 
             if (dolon > 0)
@@ -32,9 +32,7 @@ namespace API.Controllers
                 }
             }
 
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-
+            
             return Ok(new { taptin = taptin, dolon, duongdantaptin });
         }
     }

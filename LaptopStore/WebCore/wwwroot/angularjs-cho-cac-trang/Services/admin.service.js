@@ -259,7 +259,7 @@
         function xoachitietdonhang(id) {
             var deferred = $q.defer();
 
-            $http.delete('http://localhost:49595/api/XoaChiTietDonHang/' + id)
+            $http.delete('http://localhost:49595/api/XoaChiTietDonHangBangIdDonHang/' + id)
                 .then(function (res) {
                     deferred.resolve(res.data);
                 })

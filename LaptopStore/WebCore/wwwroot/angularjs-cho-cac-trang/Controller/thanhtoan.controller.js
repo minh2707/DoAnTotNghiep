@@ -24,7 +24,7 @@
         function khoitao() {
             const nguoidungdadangnhap = NgStorageService.layLocal('taikhoan');
             if (angular.isUndefined(nguoidungdadangnhap) || !nguoidungdadangnhap.id || nguoidungdadangnhap.id == null) {
-                window.location.href = "/";
+                window.location.href = "/TaiKhoan/#!/dangnhap";
                 window.location.replace();
             } else {
                 vm.kh = nguoidungdadangnhap;

@@ -42,7 +42,8 @@
                         }
                     })
                     .catch(function (err) {
-                        toastr.error(err.message);
+
+                        toastr.error(err.data);
                     });
             }
         }

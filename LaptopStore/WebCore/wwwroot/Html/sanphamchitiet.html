@@ -20,7 +20,7 @@
                         <em><span>{{(chitietsanpham.gia + (chitietsanpham.gia * chitietsanpham.giamgia)) | currency:"VND" : 0}}</span></em>
                     </div>
                     <div class="availability">
-                        Availability: <strong>{{chitietsanpham.trangThai}}</strong>
+                        Trạng Thái: <strong>{{chitietsanpham.trangThai}}</strong>
                     </div>
                 </div>
                 <div class="description" ng-bind-html="chitietsanpham.moTa">
@@ -43,7 +43,7 @@
             </div>
             <div>
                 <uib-tabset active="active" class="product-page-content">
-                    <uib-tab index="0" heading="Description">
+                    <uib-tab index="0" heading="Mô Tả">
                         <div ng-bind-html="chitietsanpham.moTa"></div>
                     </uib-tab>
                 </uib-tabset>
@@ -52,4 +52,3 @@
         </div>
     </div>
 </div>
-<!-- END CONTENT -->

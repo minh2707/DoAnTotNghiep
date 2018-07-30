@@ -5,12 +5,12 @@
         // Angular modules 
         'ngRoute',
         'ngSanitize',
-        'ui.bootstrap',
         'angularUtils.directives.dirPagination',
         'fancyboxplus',
         'rzModule',
         'ngStorage',
         'ngMaterial',
+        'ui.bootstrap',
         'ngMap'
 
         // Custom modules 

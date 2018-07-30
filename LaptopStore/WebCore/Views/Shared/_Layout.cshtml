@@ -35,7 +35,7 @@
     <link href="~/lib/angularjs-slider/dist/rzslider.min.css" rel="stylesheet" />
     <link href="~/lib/angular-material/angular-material.min.css" rel="stylesheet" />
 
-    <link href="~/css/customize.css" rel="stylesheet" />
+    <link href="~/css/trang.css" rel="stylesheet" />
 </head>
 <body class="ecommerce" ng-app="laptopStoreApp" map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCw6GrFRVeqpa_uIb11jyxcu0h863FLFzY">
 
@@ -48,17 +48,24 @@
                     <ul class="list-unstyled list-inline pull-right">
                         <li data-ng-if="!taikhoan.email"><a href="/TaiKhoan/#!/dangky">Đăng Ký</a></li>
                         <li data-ng-if="!taikhoan.email"><a href="/TaiKhoan/#!/dangnhap">Đăng Nhập</a></li>
-                        <li class="dropdown" data-ng-if="taikhoan.email">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+                        
+                        <li>
+                            <div class="top-cart-block">
+                                
                                 <i class="fa fa-user fa-fw"></i>{{taikhoan.email}} <i class="fa fa-caret-down"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="javascript:;" data-ng-click="dangxuat()"><i class="fa fa-sign-out fa-fw"></i> Đăng Xuất</a>
-                                </li>
-                            </ul>
+
+                                <div class="top-cart-content-wrapper tuy-chinh-dropdown">
+                                    <div class="top-cart-content">
+                                        <ul class="scroller" style="height: 56px;">
+                                            <li>
+                                                <a href="#" data-ng-click="dangxuat()"><i class="fa fa-sign-out fa-fw"></i> Đăng Xuất</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -167,24 +174,7 @@
         @RenderBody();
     </div>
 
-    <div class="brands">
-        <div class="container">
-            <div class="owl-carousel owl-carousel6-brands">
-                <a href="shop-product-list.html"><img src="~/assets/pages/img/brands/canon.jpg" alt="canon" title="canon"></a>
-                <a href="shop-product-list.html"><img src="~/assets/pages/img/brands/esprit.jpg" alt="esprit" title="esprit"></a>
-                <a href="shop-product-list.html"><img src="~/assets/pages/img/brands/puma.jpg" alt="puma" title="puma"></a>
-                <a href="shop-product-list.html"><img src="~/assets/pages/img/brands/gap.jpg" alt="gap" title="gap"></a>
-                <a href="shop-product-list.html"><img src="~/assets/pages/img/brands/next.jpg" alt="next" title="next"></a>
-                <a href="shop-product-list.html"><img src="~/assets/pages/img/brands/zara.jpg" alt="zara" title="zara"></a>
-                <a href="shop-product-list.html"><img src="~/assets/pages/img/brands/canon.jpg" alt="canon" title="canon"></a>
-                <a href="shop-product-list.html"><img src="~/assets/pages/img/brands/esprit.jpg" alt="esprit" title="esprit"></a>
-                <a href="shop-product-list.html"><img src="~/assets/pages/img/brands/gap.jpg" alt="gap" title="gap"></a>
-                <a href="shop-product-list.html"><img src="~/assets/pages/img/brands/next.jpg" alt="next" title="next"></a>
-                <a href="shop-product-list.html"><img src="~/assets/pages/img/brands/puma.jpg" alt="puma" title="puma"></a>
-                <a href="shop-product-list.html"><img src="~/assets/pages/img/brands/zara.jpg" alt="zara" title="zara"></a>
-            </div>
-        </div>
-    </div>
+
     <div class="steps-block steps-block-red">
         <div class="container">
             <div class="row">
