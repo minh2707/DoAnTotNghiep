@@ -51,7 +51,7 @@ namespace API
                     .AllowAnyHeader();
             }));
             //Cấu hình đường dẫn kết nói DB
-            var connection = @"Data Source=K-PC;Initial Catalog=LapTopStore;Integrated Security=True";
+            var connection = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=LapTopStore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             //Kết nối DB với đường dẫn
             services.AddDbContext<LapTopStoreContext>(tuychon => tuychon.UseSqlServer(connection, sqlOptions => sqlOptions.MigrationsAssembly("API")));
 

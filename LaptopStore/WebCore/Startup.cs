@@ -27,7 +27,8 @@ namespace WebCore
         public void ConfigureServices(IServiceCollection services)
         {
 
-            // Configure Auth
+
+            // Cau Hinh Quyen Cho User
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(
@@ -41,7 +42,6 @@ namespace WebCore
             // Add application services.
             //services.AddTransient<IEmailSender, EmailSender>();
 
-            // Add framework services.
             services.AddMvc();
             // Add Cors
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
@@ -76,21 +76,24 @@ namespace WebCore
             }
 
             app.UseStaticFiles();
+            app.UseDefaultFiles();
 
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "areas",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
+            app.UseMvcWithDefaultRoute();
 
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=TrangChu}/{action=Index}/{id?}");
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "areas",
+            //        template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+            //    );
+
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=TrangChu}/{action=Index}/{id?}");
                 
-            });
+            //});
             // Enable Cors
             app.UseCors("MyPolicy");
         }
