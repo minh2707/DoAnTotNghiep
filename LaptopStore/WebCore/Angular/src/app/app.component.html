@@ -1,21 +1,198 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="pre-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 additional-shop-info">
+      </div>
+      <div class="col-md-6 col-sm-6 additional-nav">
+        <ul class="list-unstyled list-inline pull-right" *ngIf="taikhoan">
+          <li *ngIf="!taikhoan.email"><a href="/TaiKhoan/#!/dangky">Đăng Ký</a></li>
+          <li *ngIf="!taikhoan.email"><a href="/TaiKhoan/#!/dangnhap">Đăng Nhập</a></li>
 
-<router-outlet></router-outlet>
+          <li>
+            <div class="top-cart-block">
+
+              <i class="fa fa-user fa-fw"></i>{{taikhoan.email}} <i class="fa fa-caret-down"></i>
+
+              <div class="top-cart-content-wrapper tuy-chinh-dropdown">
+                <div class="top-cart-content">
+                  <ul class="scroller" style="height: 56px;">
+                    <li>
+                      <a href="#" data-ng-click="dangxuat()"><i class="fa fa-si gn-out fa-fw"></i> Đăng Xuất</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+        <ul class="list-unstyled list-inline pull-right" *ngIf="!taikhoan">
+          <li><a href="/TaiKhoan/#!/dangky">Đăng Ký</a></li>
+          <li><a href="/TaiKhoan/#!/dangnhap">Đăng Nhập</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="header">
+  <div class="container">
+    <a class="site-logo" href="/"><img style="width:51px;height:57px" src="./assets/img/sanpham/shop_laptop_web-256.png" alt="vidu"></a>
+    <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+    <div class="top-cart-block" *ngIf="giohang">
+      <div class="top-cart-info">
+        <a routerLink="giohang" class="top-cart-info-count" [innerHTML]="(giohang.sanpham.length) + ' items'"></a>
+        <a routerLink="giohang" class="top-cart-info-value" [innerHTML]="(giohang.tongtien | currency:'VND')"></a>
+      </div>
+      <i class="fa fa-shopping-cart"></i>
+
+      <div class="top-cart-content-wrapper">
+        <div class="top-cart-content">
+          <ul class="scroller" style="height: 250px;" *ngIf="giohang.sanpham">
+            <li *ngFor="let sanphamtronggiohang of giohang.sanpham">
+              <a class="" routerLink="sanpham/{{sanphamtronggiohang.id}}"><img src="./assets/img/sanpham/{{sanphamtronggiohang.hinh}}" alt="{{sanphamtronggiohang.ten}}" width="37" height="34"></a>
+              <span class="cart-content-count">x {{sanphamtronggiohang.soluong}}</span>
+              <strong><a routerLink="sanpham/{{sanphamtronggiohang.id}}">{{sanphamtronggiohang.ten}}</a></strong>
+              <a (click)="xoasanphamtronggiohang(sanphamtronggiohang)" class="del-goods">&nbsp;</a>
+              <em style="width:37%">{{(sanphamtronggiohang.soluong * sanphamtronggiohang.gia) | currency:"VND"}}</em>
+            </li>
+          </ul>
+          <div class="text-right">
+            <a routerLink="giohang" class="btn btn-default">Xem Giỏ Hàng</a>
+            <a routerLink="thanhtoan" class="btn btn-primary">Thanh Toán</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-navigation">
+      <ul>
+
+        <li><a href="/">Trang Chủ</a></li>
+        <li><a href="/#!/giohang">Trang Giỏ Hàng</a></li>
+
+
+        <li class="menu-search">
+          <span class="sep"></span>
+          <i class="fa fa-search search-btn"></i>
+          <div class="search-box">
+            <form action="#">
+              <div class="input-group">
+                <input type="text" placeholder="Tìm Kiếm" class="form-control">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="submit">Tìm Kiếm</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="page-slider margin-bottom-35 container">
+  <div id="carousel-example-generic" class="carousel slide carousel-slider">
+
+    <ol class="carousel-indicators">
+      <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+    </ol>
+
+    <div class="carousel-inner" role="listbox">
+
+      <div class="item carousel-item-four active">
+        <div class="container">
+        </div>
+      </div>
+
+      <div class="item carousel-item-five">
+        <div class="container"></div>
+      </div>
+
+      <div class="item carousel-item-six">
+        <div class="container"></div>
+      </div>
+
+      <div class="item carousel-item-seven">
+        <div class="center-block">
+          <div class="center-block-wrap">
+            <div class="center-block-body"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a class="left carousel-control carousel-control-shop" href="#carousel-example-generic" role="button" data-slide="prev">
+      <i class="fa fa-angle-left" aria-hidden="true"></i>
+    </a>
+    <a class="right carousel-control carousel-control-shop" href="#carousel-example-generic" role="button" data-slide="next">
+      <i class="fa fa-angle-right" aria-hidden="true"></i>
+    </a>
+  </div>
+</div>
+
+<div class="main container">
+  <router-outlet></router-outlet>  
+</div>
+
+
+<div class="steps-block steps-block-red">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 steps-block-col">
+        <i class="fa fa-truck"></i>
+        <div>
+          <h2>Giao Hàng Miễn Phí</h2>
+          <em>Trong Vòng 3 Ngày</em>
+        </div>
+        <span>&nbsp;</span>
+      </div>
+      <div class="col-md-4 steps-block-col">
+        <i class="fa fa-gift"></i>
+        <div>
+          <h2>Quà Tặng</h2>
+          <em>Cho Tất Cả Khách Hàng</em>
+        </div>
+        <span>&nbsp;</span>
+      </div>
+      <div class="col-md-4 steps-block-col">
+        <i class="fa fa-phone"></i>
+        <div>
+          <h2>0120 716 9605</h2>
+          <em>Hỗ Trợ 1/7</em>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pre-footer">
+  <div class="container">
+
+  </div>
+</div>
+<div class="footer">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-4 col-sm-4 padding-top-10">
+        2017 © LaptopStore. <br />
+        ALL Rights Reserved.
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <ul class="list-unstyled list-inline pull-right">
+          <li><img src="./assets/corporate/img/payments/western-union.jpg" alt="vidu" title="vidu"></li>
+          <li><img src="./assets/corporate/img/payments/american-express.jpg" alt="vidu" title="vidu"></li>
+          <li><img src="./assets/corporate/img/payments/MasterCard.jpg" alt="vidu" title="vidu"></li>
+          <li><img src="./assets/corporate/img/payments/PayPal.jpg" alt="vidu" title="vidu"></li>
+          <li><img src="./assets/corporate/img/payments/visa.jpg" alt="vidu" title="vidu"></li>
+        </ul>
+      </div>
+      <div class="col-md-4 col-sm-4 text-right">
+        <p class="powered">Powered by: <a href="http://www.google.com/">Ngọc Minh</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+

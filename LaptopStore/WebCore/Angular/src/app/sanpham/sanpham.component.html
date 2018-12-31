@@ -1,0 +1,53 @@
+<!-- BEGIN CONTENT -->
+<div class="col-md-12 col-sm-12">
+  <div class="product-page">
+      <div class="row">
+          <div class="col-md-6 col-sm-6">
+              <div class="product-main-image" *ngIf="chitietsanpham.hinh">
+                  <img src="./assets/img/sanpham/{{chitietsanpham.hinh}}" alt="{{chitietsanpham.ten}}-img" class="img-responsive">
+              </div>
+              <div class="product-other-images">
+                  <!--<a href="assets/pages/img/products/model3.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="assets/pages/img/products/model3.jpg"></a>
+                  <a href="assets/pages/img/products/model4.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="assets/pages/img/products/model4.jpg"></a>
+                  <a href="assets/pages/img/products/model5.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="assets/pages/img/products/model5.jpg"></a>-->
+              </div>
+          </div>
+          <div class="col-md-6 col-sm-6">
+              <h1>{{chitietsanpham.ten}}</h1>
+              <div class="price-availability-block clearfix">
+                  <div class="price">
+                      <strong style="font-size: 160%" class="input-sm">{{chitietsanpham.gia | currency:"VND"}}</strong>
+                      <em><span>{{(chitietsanpham.gia + (chitietsanpham.gia * chitietsanpham.giamgia)) | currency:"VND"}}</span></em>
+                  </div>
+                  <div class="availability">
+                      Trạng Thái: <strong *ngIf="chitietsanpham.trangThai == true">Còn Hàng</strong> <strong *ngIf="chitietsanpham.trangThai == false">Hết Hàng</strong>
+                  </div>
+              </div>
+              <div class="description" [innerHTML]="chitietsanpham.moTa">
+                  
+              </div>
+            <div class="product-page-cart">
+                <mat-form-field class="product-quantity">
+                    <input id="product-quantity" matInput placeholder="" type="number" value="{{chitietsanpham.soluong}}"
+                        min="1" class="" [(ngModel)]="chitietsanpham.soluong">
+                </mat-form-field>
+                <button class="btn btn-primary" type="submit" (click)="themvaogiohang(chitietsanpham)">Thêm Vào Giỏ Hàng</button>
+            </div>
+              
+              <ul class="social-icons">
+                  <li><a class="facebook" data-original-title="facebook" href="javascript:;"></a></li>
+                  <li><a class="twitter" data-original-title="twitter" href="javascript:;"></a></li>
+                  <li><a class="googleplus" data-original-title="googleplus" href="javascript:;"></a></li>
+                  <li><a class="evernote" data-original-title="evernote" href="javascript:;"></a></li>
+                  <li><a class="tumblr" data-original-title="tumblr" href="javascript:;"></a></li>
+              </ul>
+          </div>
+          <div>
+              <mat-tab-group>
+                  <mat-tab label="Mô Tả"> <div [innerHTML]="chitietsanpham.moTa"></div></mat-tab>
+              </mat-tab-group>
+          </div>
+          <div class="sticker sticker-sale" *ngIf="chitietsanpham.giamgia != 0"></div>
+      </div>
+  </div>
+</div>

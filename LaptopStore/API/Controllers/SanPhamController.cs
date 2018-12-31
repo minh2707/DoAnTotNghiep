@@ -36,13 +36,15 @@ namespace API.Controllers
                 tatcasanpham = tatcasanpham.Where(m => m.Idloai == sp.IdLoai);
             }
 
-            if (sp.GiaTu != 0)
-            {
-                tatcasanpham = tatcasanpham.Where(m => m.Gia >= sp.GiaTu && m.Gia <= sp.GiaDen);
-            }
-            else
-            {
-                tatcasanpham = tatcasanpham.Where(m => m.Gia >= sp.GiaTu);
+            if (sp.GiaDen || sp.GiaTu) {
+                if (sp.GiaDen != 0)
+                {
+                    tatcasanpham = tatcasanpham.Where(m => m.Gia >= sp.GiaTu && m.Gia <= sp.GiaDen);
+                }
+                else
+                {
+                    tatcasanpham = tatcasanpham.Where(m => m.Gia >= sp.GiaTu);
+                }
             }
 
             if (sp.GiamGia != 0)

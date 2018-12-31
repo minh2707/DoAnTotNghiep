@@ -1,0 +1,112 @@
+﻿<div class="container">
+    <ul class="breadcrumb">
+        <li><a href="/">Trang Chủ</a></li>
+        <li><a href="/">Cửa Hàng</a></li>
+        <li class="active">Thanh Toán</li>
+    </ul>
+    <div class="row margin-bottom-40">
+        <div class="col-md-12 col-sm-12">
+            <h1>Thanh Toán</h1>
+            <md-content layout-padding>
+                <div id="checkout-content">
+                    <div class="panel-body row">
+                        <div class="col-md-6 col-sm-6">
+                            <h3>Thông Tin Của Bạn</h3>
+                            <div class="form-group">
+                                <md-input-container class="md-block">
+                                    <label for="firstname">Họ Và Tên</label>
+                                    <input type="text" id="firstname" class="form-control" ng-model="kh.tenHienThi" required>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container class="md-block">
+                                    <label for="email">E-Mail</label>
+                                    <input type="email" id="email" class="form-control" ng-model="kh.email" required>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container class="md-block" md-no-float>
+                                    <label for="address1">Địa Chỉ Giao Hàng</label>
+                                    <input type="text" id="address1" class="" ng-model="kh.diachi" required types="['address']"
+                                           places-auto-complete
+                                           size="80"
+                                           component-restrictions="{country:'vn'}"
+                                           on-place-changed="chonDiaChi()"
+                                           placeholder="">
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-radio-group ng-model="kh.hinhThucThanhToan">
+
+                                    <md-radio-button value="tienmat" class="md-primary">Thanh Toán Khi Nhận Hàng</md-radio-button>
+                                    <md-radio-button value="tructuyen"> Thanh Toán Trực Tuyến </md-radio-button>
+
+                                </md-radio-group>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6">
+                            <ng-map center="41,-87" zoom="15">
+                                <marker position="{{'['+diadiem.geometry.location.lat()+','+diadiem.geometry.location.lng()+']'}}" title="{{diadiem.formatted_address}}"></marker>
+                            </ng-map>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </md-content>
+
+            <div id="checkout-content">
+                <div class="panel-body row">
+                    <div class="col-md-12 clearfix">
+                        <div class="table-wrapper-responsive">
+                            <table style="width:100%">
+                                <tr>
+                                    <th class="goods-page-image">Hình</th>
+                                    <th class="goods-page-description">Mô Tả</th>
+                                    <th class="goods-page-quantity">Số Lượng</th>
+                                    <th class="goods-page-price">Đơn Giá</th>
+                                    <th class="goods-page-total" colspan="2">Tổng Tiền</th>
+                                </tr>
+                                <tr ng-repeat="sp in giohang.sanpham track by $index">
+                                    <td class="goods-page-image">
+                                        <a href="/#!/sanphamchitiet/{{sp.id}}"><img ng-src="/img/sanpham/{{sp.hinh}}" alt="{{sp.ten}}-img"></a>
+                                    </td>
+                                    <td class="goods-page-description">
+                                        <h3><a href="/#!/sanphamchitiet/{{sp.id}}">{{sp.ten}}</a></h3>
+                                        <a href="/#!/sanphamchitiet/{{sp.id}}"><em>Biết Thêm Chi Tiết Tại Đây</em></a>
+                                    </td>
+                                    <td class="goods-page-quantity">
+                                        <div class="product-quantity">
+                                            <input id="product-quantity" type="number" min="1" readonly data-ng-value="{{sp.soluong}}" class="form-control input-sm" ng-model="sp.soluong" ng-change="updateQuantityOfProduct($index, sp.soluong)" ng-model-options='{ debounce: 200 }'>
+                                        </div>
+                                    </td>
+                                    <td class="goods-page-price">
+                                        <strong>{{sp.gia | currency:"VND" : 0}}</strong>
+                                    </td>
+                                    <td class="goods-page-total">
+                                        <strong>{{(sp.soluong * sp.gia) | currency:"VND" : 0}}</strong>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="checkout-total-block" style="">
+                            <ul>
+                                <li class="checkout-total-price">
+                                    <em>Tổng Tiền</em>
+                                    <strong class="price">{{giohang.tongtien | currency:"VND" : 0}}</strong>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                        <button class="btn btn-primary pull-right" type="submit" id="button-confirm" ng-click="thanhtoan(giohang.sanpham, kh)">Thanh Toán</button>
+                        <a href="/#!/cart" class="btn btn-default pull-right margin-right-20">Hủy Bỏ</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- END CHECKOUT PAGE -->
+        </div>
+        <!-- END CONTENT -->
+    </div>
+    <!-- END SIDEBAR & CONTENT -->
+</div>

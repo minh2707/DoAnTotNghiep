@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+/* @import url('./assets/css/Roboto.css');
+@import url('./assets/pages/css/animate.css');
+@import url('./assets/pages/css/components.css');
+@import url('./assets/pages/css/slider.css');
+@import url('./assets/pages/css/style-shop.css');
+@import url('./assets/corporate/css/style.css');
+@import url('./assets/corporate/css/style-responsive.css');
+@import url('./assets/corporate/css/themes/red.css');
+@import url('./assets/plugins/owl.carousel/assets/owl.carousel.css'); */
+@import url('../node_modules/font-awesome/css/font-awesome.min.css');
+@import url('../node_modules/bootstrap/dist/css/bootstrap.min.css');
+@import url('./assets/corporate/css/custom.css');
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
